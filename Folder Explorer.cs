@@ -14,12 +14,27 @@ namespace Explorer_Tools
         public string InitialDirectory { get; }
         public Folder_Explorer(string? Start)
         {
+            bool first = true;
+            this.SetTopLevel(false);
             if(Start is null) { InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); } else { InitialDirectory = Start; }
             InitializeComponent();
             foreach (string Folder in Directory.GetDirectories(InitialDirectory))
             {
-                ContentPanel.Controls.Add(new FolderEntry(Folder));
+                FolderEntry FEntry = new FolderEntry(Folder);
+                if (!first) tableLayoutPanel2.RowCount += 1;
+                else
+                {
+                    first = false;
+                    tableLayoutPanel2.RowStyles[tableLayoutPanel2.RowCount-1].SizeType = SizeType.Absolute;
+                    tableLayoutPanel2.RowStyles[tableLayoutPanel2.RowCount-1].Height = FEntry.Height;
+                }
+                
+                
+                tableLayoutPanel2.Controls.Add(FEntry);
+                FEntry.Dock = DockStyle.Fill;
+                FEntry.Show();
             }
+            lb_FolderName.Text = InitialDirectory.Split('\\')[InitialDirectory.Split('\\').Length - 1];
         }
     }
 }

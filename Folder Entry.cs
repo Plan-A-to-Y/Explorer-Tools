@@ -15,6 +15,7 @@ namespace Explorer_Tools
         public string FolderPath { get; }
         public FolderEntry()
         {
+            this.SetTopLevel(false);
             FolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             InitializeComponent();
         }
@@ -26,6 +27,17 @@ namespace Explorer_Tools
         }
 
         private void btn_SelectFolder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FolderEntry_Load(object sender, EventArgs e)
+        {
+            this.Name = FolderPath.Split('\\')[FolderPath.Split('\\').Length - 2];
+            btn_SelectFolder.Text = FolderPath.Split('\\')[FolderPath.Split('\\').Length-1];
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
