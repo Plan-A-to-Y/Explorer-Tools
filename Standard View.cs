@@ -14,6 +14,8 @@ namespace Explorer_Tools
     public partial class Form1 : Form
     {
         public List<string> ImageTypes = new List<string>{".bmp",".png",".jpg",".jpeg" };
+        public List<string> TextTypes = new List<string> { ".txt" };
+        public List<string> DocTypes = new List<string> { ".docx" };
         public Form1()
         {
             InitializeComponent();
@@ -27,6 +29,22 @@ namespace Explorer_Tools
                 if(ImageTypes.Contains("."+file.Split('.')[file.Split('.').Length - 1]))
                 {
                     Image_Entry iEntry = new Image_Entry(file);
+                    tableLayoutPanel1.Controls.Add(iEntry);
+                    iEntry.Dock = DockStyle.Fill;
+                    iEntry.Show();
+                    continue;
+                }
+                if (TextTypes.Contains("." + file.Split('.')[file.Split('.').Length - 1]))
+                {
+                    Text_Entry iEntry = new Text_Entry(file);
+                    tableLayoutPanel1.Controls.Add(iEntry);
+                    iEntry.Dock = DockStyle.Fill;
+                    iEntry.Show();
+                    continue;
+                }
+                if (DocTypes.Contains("." + file.Split('.')[file.Split('.').Length - 1]))
+                {
+                    Doc_Entry iEntry = new Doc_Entry(file);
                     tableLayoutPanel1.Controls.Add(iEntry);
                     iEntry.Dock = DockStyle.Fill;
                     iEntry.Show();
