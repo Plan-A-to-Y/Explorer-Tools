@@ -120,6 +120,7 @@ namespace Explorer_Tools
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.tableLayoutPanel1);
+            this.MaximumSize = new System.Drawing.Size(200, 200);
             this.Name = "Text_Entry";
             this.Size = new System.Drawing.Size(200, 200);
             this.Load += new System.EventHandler(this.TextEntry_Load);

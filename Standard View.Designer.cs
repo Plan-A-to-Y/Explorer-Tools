@@ -1,7 +1,7 @@
 ﻿
 namespace Explorer_Tools
 {
-    partial class Form1
+    partial class form_StandardView
     {
         /// <summary>
         ///  Required designer variable.
@@ -30,7 +30,7 @@ namespace Explorer_Tools
         private void InitializeComponent()
         {
             this.sc_Main = new System.Windows.Forms.SplitContainer();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel_folderContents = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.sc_Main)).BeginInit();
             this.sc_Main.Panel2.SuspendLayout();
             this.sc_Main.SuspendLayout();
@@ -49,42 +49,44 @@ namespace Explorer_Tools
             // 
             // sc_Main.Panel2
             // 
-            this.sc_Main.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.sc_Main.Size = new System.Drawing.Size(921, 390);
+            this.sc_Main.Panel2.Controls.Add(this.panel_folderContents);
+            this.sc_Main.Size = new System.Drawing.Size(916, 390);
             this.sc_Main.SplitterDistance = 300;
             this.sc_Main.TabIndex = 1;
             // 
-            // tableLayoutPanel1
+            // panel_folderContents
             // 
-            this.tableLayoutPanel1.AutoScroll = true;
-            this.tableLayoutPanel1.AutoScrollMargin = new System.Drawing.Size(3, 3);
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 217F));
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 390F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(617, 390);
-            this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
-            this.tableLayoutPanel1.Resize += new System.EventHandler(this.tableLayoutPanel1_SizeChanged);
+            this.panel_folderContents.AutoScroll = true;
+            this.panel_folderContents.AutoScrollMargin = new System.Drawing.Size(3, 3);
+            this.panel_folderContents.AutoSize = true;
+            this.panel_folderContents.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel_folderContents.ColumnCount = 3;
+            this.panel_folderContents.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.panel_folderContents.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.panel_folderContents.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.panel_folderContents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_folderContents.Location = new System.Drawing.Point(0, 0);
+            this.panel_folderContents.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_folderContents.MinimumSize = new System.Drawing.Size(200, 0);
+            this.panel_folderContents.Name = "panel_folderContents";
+            this.panel_folderContents.RowCount = 1;
+            this.panel_folderContents.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 390F));
+            this.panel_folderContents.Size = new System.Drawing.Size(612, 390);
+            this.panel_folderContents.TabIndex = 0;
+            this.panel_folderContents.SizeChanged += new System.EventHandler(this.folderContents_SizeChanged);
+            this.panel_folderContents.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
-            // Form1
+            // form_StandardView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(921, 390);
+            this.ClientSize = new System.Drawing.Size(916, 390);
             this.Controls.Add(this.sc_Main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.IsMdiContainer = true;
-            this.Name = "Form1";
+            this.Name = "form_StandardView";
             this.Text = "Form1";
+            this.ResizeEnd += new System.EventHandler(this.folderContents_SizeChanged);
             this.sc_Main.Panel2.ResumeLayout(false);
             this.sc_Main.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sc_Main)).EndInit();
@@ -96,7 +98,7 @@ namespace Explorer_Tools
         #endregion
 
         private System.Windows.Forms.SplitContainer sc_Main;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel panel_folderContents;
     }
 }
 

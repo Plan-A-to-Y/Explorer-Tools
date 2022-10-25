@@ -17,7 +17,9 @@ namespace Explorer_Tools
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Metadata.FileMetadata = new List<md_File>();
+            Metadata.FolderMetadata = new List<md_Folder>();
+            Application.Run(new form_StandardView());
         }
     }
 }

@@ -82,13 +82,15 @@ namespace Explorer_Tools
             this.rtb_Content.TabIndex = 2;
             this.rtb_Content.Text = "";
             // 
-            // Doc_Entr
+            // Doc_Entry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "Doc_Entr";
+            this.MaximumSize = new System.Drawing.Size(200, 200);
+            this.MinimumSize = new System.Drawing.Size(200, 200);
+            this.Name = "Doc_Entry";
             this.Size = new System.Drawing.Size(200, 200);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

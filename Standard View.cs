@@ -8,52 +8,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace Explorer_Tools
 {
-    public partial class Form1 : Form
+    public partial class form_StandardView : Form
     {
-        public List<string> ImageTypes = new List<string>{".bmp",".png",".jpg",".jpeg" };
+        public List<string> ImageTypes = new List<string>{".bmp",".png",".jpg",".jpeg",".gif" };
         public List<string> TextTypes = new List<string> { ".txt" };
         public List<string> DocTypes = new List<string> { ".docx" };
-        public Form1()
+        public TableLayoutPanel BufferPanel;
+        public form_StandardView()
         {
             InitializeComponent();
-            Folder_Explorer FE = new Folder_Explorer(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+            Folder_Explorer FE = new Folder_Explorer(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             sc_Main.Panel1.Controls.Add(FE);
             FE.Dock = DockStyle.Fill;
             FE.Show();
-            tableLayoutPanel1.RowStyles[0].Height = 200;
+            panel_folderContents.RowStyles[0].Height = 200;
             foreach(string file in Directory.GetFiles(FE.InitialDirectory))
             {
-                if(ImageTypes.Contains("."+file.Split('.')[file.Split('.').Length - 1]))
-                {
-                    Image_Entry iEntry = new Image_Entry(file);
-                    tableLayoutPanel1.Controls.Add(iEntry);
-                    iEntry.Dock = DockStyle.Fill;
-                    iEntry.Show();
-                    continue;
-                }
-                if (TextTypes.Contains("." + file.Split('.')[file.Split('.').Length - 1]))
-                {
-                    Text_Entry iEntry = new Text_Entry(file);
-                    tableLayoutPanel1.Controls.Add(iEntry);
-                    iEntry.Dock = DockStyle.Fill;
-                    iEntry.Show();
-                    continue;
-                }
-                if (DocTypes.Contains("." + file.Split('.')[file.Split('.').Length - 1]))
-                {
-                    Doc_Entry iEntry = new Doc_Entry(file);
-                    tableLayoutPanel1.Controls.Add(iEntry);
-                    iEntry.Dock = DockStyle.Fill;
-                    iEntry.Show();
-                    continue;
-                }
-                File_Entry fEntry = new File_Entry(file);
-                tableLayoutPanel1.Controls.Add(fEntry);
-                fEntry.Dock = DockStyle.Fill;
-                fEntry.Show();
+                Control iEntry;
+                string ext = "." + file.Split('.').Last();
+                if      (ImageTypes.Contains(ext)) { iEntry = new Image_Entry(file); }
+                else if (TextTypes.Contains(ext)) { iEntry = new Text_Entry(file); }
+                else if (DocTypes.Contains(ext)) { iEntry = new Doc_Entry(file); }
+                else    { iEntry = new File_Entry(file); }
+                panel_folderContents.Controls.Add(iEntry);
+                iEntry.Dock = DockStyle.Fill;
+                iEntry.Show();
             }
         }
 
@@ -62,8 +45,28 @@ namespace Explorer_Tools
 
         }
 
-        private void tableLayoutPanel1_SizeChanged(object sender, EventArgs e)
+        private async void folderContents_SizeChanged(object sender, EventArgs e)
         {
+            panel_folderContents.SuspendLayout();
+            await RebuildGraph();
+            panel_folderContents.ResumeLayout();
+        }
+
+        private async Task RebuildGraph()
+        {
+            await Task.Run(() =>
+            {
+                while((panel_folderContents.Controls.Count / panel_folderContents.ColumnCount) > panel_folderContents.RowCount+1)
+                {
+                    panel_folderContents.RowCount++;
+                }
+                while ((panel_folderContents.Controls.Count / panel_folderContents.ColumnCount) < panel_folderContents.RowCount + 1)
+                {
+                    panel_folderContents.RowCount--;
+                }
+            }
+            );
+            return;
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Explorer_Tools
@@ -27,6 +29,22 @@ namespace Explorer_Tools
         {
             FolderPath = folderPath;
             if(displayName.Length > 1) { DisplayName = displayName; } else { DisplayName = FolderPath.Split('\\')[FolderPath.Split('\\').Length - 1]; }
+            int i = 0;
+            while((from folder in Metadata.FolderMetadata where folder.FolderId == i select folder).Count() > 0)
+            {
+                i++;
+            }
+            FolderId = i;
+            IconPath = ".\\Icons\\Default.png";
+        }
+
+        public void SetIcon(string iconPath)
+        {
+            if(File.Exists(iconPath))
+            {
+                File.Replace(iconPath, $".\\Icons\\{FolderId}", null);
+            }
+            IconPath = iconPath;
         }
     }
 

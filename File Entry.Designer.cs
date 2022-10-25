@@ -107,6 +107,7 @@ namespace Explorer_Tools
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
+            this.MaximumSize = new System.Drawing.Size(200, 200);
             this.Name = "File_Entry";
             this.Size = new System.Drawing.Size(200, 200);
             this.Load += new System.EventHandler(this.FileEntry_Load);
