@@ -29,36 +29,36 @@ namespace Explorer_Tools
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel_MainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.lb_FileName = new System.Windows.Forms.Label();
             this.btn_Interact = new System.Windows.Forms.Button();
             this.pb_Icon = new System.Windows.Forms.PictureBox();
             this.rtb_Content = new System.Windows.Forms.RichTextBox();
             this.btn_Save = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.panel_MainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_Icon)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Controls.Add(this.lb_FileName, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btn_Interact, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pb_Icon, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.rtb_Content, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btn_Save, 1, 2);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 200);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.panel_MainLayout.ColumnCount = 3;
+            this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.panel_MainLayout.Controls.Add(this.lb_FileName, 1, 0);
+            this.panel_MainLayout.Controls.Add(this.btn_Interact, 2, 0);
+            this.panel_MainLayout.Controls.Add(this.pb_Icon, 0, 0);
+            this.panel_MainLayout.Controls.Add(this.rtb_Content, 1, 1);
+            this.panel_MainLayout.Controls.Add(this.btn_Save, 1, 2);
+            this.panel_MainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_MainLayout.Location = new System.Drawing.Point(0, 0);
+            this.panel_MainLayout.Name = "tableLayoutPanel1";
+            this.panel_MainLayout.RowCount = 3;
+            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panel_MainLayout.Size = new System.Drawing.Size(200, 200);
+            this.panel_MainLayout.TabIndex = 0;
             // 
             // lb_FileName
             // 
@@ -119,13 +119,13 @@ namespace Explorer_Tools
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.panel_MainLayout);
             this.MaximumSize = new System.Drawing.Size(200, 200);
             this.Name = "Text_Entry";
             this.Size = new System.Drawing.Size(200, 200);
             this.Load += new System.EventHandler(this.TextEntry_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.panel_MainLayout.ResumeLayout(false);
+            this.panel_MainLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_Icon)).EndInit();
             this.ResumeLayout(false);
 
@@ -133,7 +133,7 @@ namespace Explorer_Tools
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel panel_MainLayout;
         private System.Windows.Forms.Label lb_FileName;
         private System.Windows.Forms.Button btn_Interact;
         private System.Windows.Forms.PictureBox pb_Icon;

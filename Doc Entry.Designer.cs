@@ -29,31 +29,29 @@ namespace Explorer_Tools
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel_MainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.tb_Dummy = new System.Windows.Forms.TextBox();
-            this.rtb_Content = new System.Windows.Forms.RichTextBox();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.panel_MainLayout.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // panel_MainLayout
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Controls.Add(this.button1, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tb_Dummy, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.rtb_Content, 1, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 200);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.panel_MainLayout.ColumnCount = 3;
+            this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.panel_MainLayout.Controls.Add(this.button1, 2, 0);
+            this.panel_MainLayout.Controls.Add(this.tb_Dummy, 0, 0);
+            this.panel_MainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_MainLayout.Location = new System.Drawing.Point(0, 0);
+            this.panel_MainLayout.Name = "panel_MainLayout";
+            this.panel_MainLayout.RowCount = 3;
+            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.panel_MainLayout.Size = new System.Drawing.Size(200, 200);
+            this.panel_MainLayout.TabIndex = 0;
             // 
             // button1
             // 
@@ -73,36 +71,26 @@ namespace Explorer_Tools
             this.tb_Dummy.Text = "W";
             this.tb_Dummy.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // rtb_Content
-            // 
-            this.rtb_Content.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtb_Content.Location = new System.Drawing.Point(33, 33);
-            this.rtb_Content.Name = "rtb_Content";
-            this.rtb_Content.Size = new System.Drawing.Size(134, 134);
-            this.rtb_Content.TabIndex = 2;
-            this.rtb_Content.Text = "";
-            // 
             // Doc_Entry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.panel_MainLayout);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximumSize = new System.Drawing.Size(200, 200);
             this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "Doc_Entry";
             this.Size = new System.Drawing.Size(200, 200);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.panel_MainLayout.ResumeLayout(false);
+            this.panel_MainLayout.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel panel_MainLayout;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox tb_Dummy;
-        private System.Windows.Forms.RichTextBox rtb_Content;
     }
 }

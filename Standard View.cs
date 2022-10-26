@@ -14,30 +14,23 @@ namespace Explorer_Tools
 {
     public partial class form_StandardView : Form
     {
-        public List<string> ImageTypes = new List<string>{".bmp",".png",".jpg",".jpeg",".gif" };
-        public List<string> TextTypes = new List<string> { ".txt" };
-        public List<string> DocTypes = new List<string> { ".docx" };
+
         public TableLayoutPanel BufferPanel;
         public form_StandardView()
         {
             InitializeComponent();
+            Metadata.Initialize();
             Folder_Explorer FE = new Folder_Explorer(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             sc_Main.Panel1.Controls.Add(FE);
             FE.Dock = DockStyle.Fill;
             FE.Show();
-            panel_folderContents.RowStyles[0].Height = 200;
-            foreach(string file in Directory.GetFiles(FE.InitialDirectory))
-            {
-                Control iEntry;
-                string ext = "." + file.Split('.').Last();
-                if      (ImageTypes.Contains(ext)) { iEntry = new Image_Entry(file); }
-                else if (TextTypes.Contains(ext)) { iEntry = new Text_Entry(file); }
-                else if (DocTypes.Contains(ext)) { iEntry = new Doc_Entry(file); }
-                else    { iEntry = new File_Entry(file); }
-                panel_folderContents.Controls.Add(iEntry);
-                iEntry.Dock = DockStyle.Fill;
-                iEntry.Show();
-            }
+            Folder_Contents FC = new Folder_Contents();
+            sc_Main.Panel2.Controls.Add(FC);
+            FC.Dock = DockStyle.Fill;
+            FC.Show();
+            FC.DisplayContents(FE.InitialDirectory);
+            Metadata.FileMetadata.Add(new md_File(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Professional Logo.png", "Logo") { ColorOverrides = { new StyleOptions.ColorEntry(Color.Red, StyleOptions.colorSlot.SelectedColor)} } );
+            Metadata.SaveData();
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -45,28 +38,9 @@ namespace Explorer_Tools
 
         }
 
-        private async void folderContents_SizeChanged(object sender, EventArgs e)
+        private void folderContents_SizeChanged(object sender, EventArgs e)
         {
-            panel_folderContents.SuspendLayout();
-            await RebuildGraph();
-            panel_folderContents.ResumeLayout();
-        }
 
-        private async Task RebuildGraph()
-        {
-            await Task.Run(() =>
-            {
-                while((panel_folderContents.Controls.Count / panel_folderContents.ColumnCount) > panel_folderContents.RowCount+1)
-                {
-                    panel_folderContents.RowCount++;
-                }
-                while ((panel_folderContents.Controls.Count / panel_folderContents.ColumnCount) < panel_folderContents.RowCount + 1)
-                {
-                    panel_folderContents.RowCount--;
-                }
-            }
-            );
-            return;
         }
     }
 }

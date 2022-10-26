@@ -29,30 +29,30 @@ namespace Explorer_Tools
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel_MainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.lb_ImageName = new System.Windows.Forms.Label();
             this.lb_ImageProperties = new System.Windows.Forms.Label();
             this.pb_Thumbnail = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.panel_MainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_Thumbnail)).BeginInit();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // panel_MainLayout
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.lb_ImageName, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lb_ImageProperties, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.pb_Thumbnail, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 200);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.panel_MainLayout.ColumnCount = 2;
+            this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.panel_MainLayout.Controls.Add(this.lb_ImageName, 0, 1);
+            this.panel_MainLayout.Controls.Add(this.lb_ImageProperties, 0, 1);
+            this.panel_MainLayout.Controls.Add(this.pb_Thumbnail, 0, 0);
+            this.panel_MainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_MainLayout.Location = new System.Drawing.Point(0, 0);
+            this.panel_MainLayout.Name = "panel_MainLayout";
+            this.panel_MainLayout.RowCount = 2;
+            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel_MainLayout.Size = new System.Drawing.Size(200, 200);
+            this.panel_MainLayout.TabIndex = 0;
             // 
             // lb_ImageName
             // 
@@ -81,7 +81,7 @@ namespace Explorer_Tools
             // 
             // pb_Thumbnail
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.pb_Thumbnail, 2);
+            this.panel_MainLayout.SetColumnSpan(this.pb_Thumbnail, 2);
             this.pb_Thumbnail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pb_Thumbnail.Location = new System.Drawing.Point(10, 0);
             this.pb_Thumbnail.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
@@ -89,19 +89,20 @@ namespace Explorer_Tools
             this.pb_Thumbnail.Size = new System.Drawing.Size(180, 180);
             this.pb_Thumbnail.TabIndex = 1;
             this.pb_Thumbnail.TabStop = false;
+            this.pb_Thumbnail.Click += new System.EventHandler(this.SelectionClick);
             // 
             // Image_Entry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.panel_MainLayout);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximumSize = new System.Drawing.Size(200, 200);
             this.Name = "Image_Entry";
             this.Size = new System.Drawing.Size(200, 200);
             this.Load += new System.EventHandler(this.ImageEntry_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.panel_MainLayout.ResumeLayout(false);
+            this.panel_MainLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_Thumbnail)).EndInit();
             this.ResumeLayout(false);
 
@@ -109,7 +110,7 @@ namespace Explorer_Tools
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel panel_MainLayout;
         private System.Windows.Forms.Label lb_ImageProperties;
         private System.Windows.Forms.PictureBox pb_Thumbnail;
         private System.Windows.Forms.Label lb_ImageName;

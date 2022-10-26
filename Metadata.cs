@@ -4,6 +4,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using static Explorer_Tools.StyleOptions;
 
 namespace Explorer_Tools
 {
@@ -14,9 +16,19 @@ namespace Explorer_Tools
 
         public static void Initialize()
         {
+            FileMetadata = new List<md_File>();
+            FolderMetadata = new List<md_Folder> { new md_Folder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Desktop") { IconPath = ".\\Icons\\DesktopIcon.png" } };
+        }
+        public static void LoadData()
+        {
 
         }
 
+        public static void SaveData()
+        {
+            string toSave = JsonSerializer.Serialize(Metadata.FileMetadata);
+            File.WriteAllText(".\\FileData.FD", toSave);
+        }
     }
 
     public class md_Folder 
@@ -25,6 +37,7 @@ namespace Explorer_Tools
         public string DisplayName { get; set; }
         public string FolderPath { get; set; }
         public int FolderId { get; set; }
+
         public md_Folder(string folderPath, string displayName = "")
         {
             FolderPath = folderPath;
@@ -55,9 +68,16 @@ namespace Explorer_Tools
         public string DisplayName { get; set; }
         public string FilePath { get; set; }
         public int FileId { get; set; }
-
+        public List<ColorEntry> ColorOverrides { get; set; }
+        public IconEntry IconOverride { get; set; }
         public md_File(string filePath, string displayName = "")
         {
+            FileId = 1;
+            while(Metadata.FileMetadata.Find(x => x.FileId == FileId) != null)
+            {
+                FileId++;
+            }
+            ColorOverrides = new List<ColorEntry>();
             FilePath = filePath;
             if (displayName.Length > 1) { DisplayName = displayName; } else { DisplayName = FilePath.Split('\\')[FilePath.Split('\\').Length - 1]; }
         }

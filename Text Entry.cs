@@ -9,20 +9,29 @@ using System.IO;
 
 namespace Explorer_Tools
 {
-    public partial class Text_Entry : UserControl
+    public partial class Text_Entry : UserControl, IFileIcon
     {
-        public string FilePath { get; }
+        public string FilePath { get; set; }
+        public int FileId { get; set; }
+        public bool IsSelected { get; set; }
+        public IDisplayForm Owner { get; set; }
         public Text_Entry()
         {
             InitializeComponent();
         }
-        public Text_Entry(string filePath)
+        public Text_Entry(string filePath, IDisplayForm owner)
         {
+            Owner = owner;
+            if (Metadata.FileMetadata.Find(x => x.FilePath.Equals(FilePath)) != null)
+            {
+                FileId = Metadata.FileMetadata.Find(x => x.FilePath.Equals(FilePath)).FileId;
+            }
             FilePath = filePath;
             InitializeComponent();
         }
         private void TextEntry_Load(object sender, EventArgs e)
         {
+            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.EntryColor);
             lb_FileName.Text = FilePath.Split('\\')[FilePath.Split('\\').Length - 1];
             rtb_Content.Text = File.ReadAllText(FilePath);
             btn_Save.Hide();
@@ -40,6 +49,25 @@ namespace Explorer_Tools
             File.WriteAllText(FilePath, rtb_Content.Text);
             btn_Save.Hide();
             btn_Save.Height = 0;
+        }
+
+        public void SelectionClick(object sender, EventArgs e)
+        {
+            if (((IFileIcon)this).IsSelected) ((IFileIcon)this).Deselected();
+            else ((IFileIcon)this).Selected();
+        }
+
+        public void Selected()
+        {
+            ((IFileIcon)this).IsSelected = true;
+            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.SelectedColor);
+            Owner.SelectFile(this);
+        }
+        public void Deselected()
+        {
+            ((IFileIcon)this).IsSelected = false;
+            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.EntryColor);
+            Owner.DeselectFile(this);
         }
     }
 }

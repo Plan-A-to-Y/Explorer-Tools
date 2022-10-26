@@ -12,11 +12,21 @@ namespace Explorer_Tools
     public partial class Folder_Explorer : Form
     {
         public string InitialDirectory { get; }
-        public Folder_Explorer(string? Start)
+        public Folder_Explorer()
+        {
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            Init();
+        }
+        public Folder_Explorer(string Start)
+        {
+            InitialDirectory = Start;
+            Init();
+        }
+
+        private void Init()
         {
             bool first = true;
             this.SetTopLevel(false);
-            if(Start is null) { InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); } else { InitialDirectory = Start; }
             InitializeComponent();
             foreach (string Folder in Directory.GetDirectories(InitialDirectory))
             {
@@ -25,16 +35,18 @@ namespace Explorer_Tools
                 else
                 {
                     first = false;
-                    tableLayoutPanel2.RowStyles[tableLayoutPanel2.RowCount-1].SizeType = SizeType.Absolute;
-                    tableLayoutPanel2.RowStyles[tableLayoutPanel2.RowCount-1].Height = FEntry.Height;
+                    tableLayoutPanel2.RowStyles[tableLayoutPanel2.RowCount - 1].SizeType = SizeType.Absolute;
+                    tableLayoutPanel2.RowStyles[tableLayoutPanel2.RowCount - 1].Height = FEntry.Height;
                 }
-                
-                
+
+
                 tableLayoutPanel2.Controls.Add(FEntry);
                 FEntry.Dock = DockStyle.Fill;
                 FEntry.Show();
             }
             lb_FolderName.Text = InitialDirectory.Split('\\')[InitialDirectory.Split('\\').Length - 1];
+            md_Folder md = Metadata.FolderMetadata.Find(x => x.FolderPath.Equals(InitialDirectory));
+            if (File.Exists(md.IconPath)) ico_Folder.Image = Image.FromFile(md.IconPath);
         }
     }
 }
