@@ -43,7 +43,15 @@ namespace Explorer_Tools
             this.sc_Main.Location = new System.Drawing.Point(0, 0);
             this.sc_Main.Margin = new System.Windows.Forms.Padding(0);
             this.sc_Main.Name = "sc_Main";
+            // 
+            // sc_Main.Panel1
+            // 
+            this.sc_Main.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
             this.sc_Main.Panel1MinSize = 300;
+            // 
+            // sc_Main.Panel2
+            // 
+            this.sc_Main.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.sc_Main.Size = new System.Drawing.Size(916, 390);
             this.sc_Main.SplitterDistance = 300;
             this.sc_Main.TabIndex = 1;

@@ -63,9 +63,49 @@ namespace Explorer_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DesktopIcon {
+            get {
+                object obj = ResourceManager.GetObject("DesktopIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap FolderTempIcon {
             get {
                 object obj = ResourceManager.GetObject("FolderTempIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ToggleFull_0 {
+            get {
+                object obj = ResourceManager.GetObject("ToggleFull_0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ToggleFull_1 {
+            get {
+                object obj = ResourceManager.GetObject("ToggleFull_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WebTempIcon {
+            get {
+                object obj = ResourceManager.GetObject("WebTempIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
