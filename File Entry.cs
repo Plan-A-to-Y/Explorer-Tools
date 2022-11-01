@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 
 namespace Explorer_Tools
 {
@@ -36,7 +37,7 @@ namespace Explorer_Tools
         {
             if(Metadata.FileMetadata.Find(x => x.FilePath.Equals(FilePath)) != null)
             {
-                FileId = Metadata.FileMetadata.Find(x => x.FilePath.Equals(FilePath)).FileId;
+                FileId = Metadata.FileMetadata.Find( x => x.FilePath.Equals(FilePath)).FileId;
             }
             panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.EntryColor);
             label1.Text = FilePath.Split('\\')[FilePath.Split('\\').Length - 1];

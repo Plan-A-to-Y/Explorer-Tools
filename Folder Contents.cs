@@ -119,7 +119,6 @@ namespace Explorer_Tools
         int YCoord;
         private void tableLayoutPanel2_MouseDown(object sender, MouseEventArgs e)
         {
-            lb_Debug.Text = $"Offset Data: X = {e.X}, Y={e.Y}";
             offset = new Point(e.X, e.Y);
             ResizeActive = true;
         }
@@ -130,7 +129,6 @@ namespace Explorer_Tools
             if (Pos.X < 0 ) { Cell[0] = 0; }
             else if (Pos.X > panel_Content.Width ) { Cell[0] = 2; }
             else { Cell[0] = 1; }
-            lb_Debug.Text = $"{Pos.X} (Width is {panel_Content.Width}) | {Pos.Y} (Height is {panel_Content.Height}) \n E.X = {e.X} E.Y = {e.Y}";
             if (Pos.Y > panel_Content.Height) { Cell[1] = 1; }
             else { Cell[1] = 0; }
             
