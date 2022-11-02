@@ -31,11 +31,14 @@ namespace Explorer_Tools
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.ico_Folder = new System.Windows.Forms.PictureBox();
-            this.lb_FolderName = new System.Windows.Forms.Label();
             this.btn_Close = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_GoUp = new System.Windows.Forms.Button();
+            this.pn_Label = new System.Windows.Forms.Panel();
+            this.lb_FolderName = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ico_Folder)).BeginInit();
+            this.pn_Label.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -45,9 +48,9 @@ namespace Explorer_Tools
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.Controls.Add(this.ico_Folder, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lb_FolderName, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btn_Close, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pn_Label, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -67,17 +70,6 @@ namespace Explorer_Tools
             this.ico_Folder.Size = new System.Drawing.Size(30, 30);
             this.ico_Folder.TabIndex = 2;
             this.ico_Folder.TabStop = false;
-            // 
-            // lb_FolderName
-            // 
-            this.lb_FolderName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_FolderName.Location = new System.Drawing.Point(30, 0);
-            this.lb_FolderName.Margin = new System.Windows.Forms.Padding(0);
-            this.lb_FolderName.Name = "lb_FolderName";
-            this.lb_FolderName.Size = new System.Drawing.Size(240, 30);
-            this.lb_FolderName.TabIndex = 1;
-            this.lb_FolderName.Text = "FOLDER_NAME";
-            this.lb_FolderName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btn_Close
             // 
@@ -101,9 +93,41 @@ namespace Explorer_Tools
             this.tableLayoutPanel2.MaximumSize = new System.Drawing.Size(300, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 414F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 420F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(300, 420);
             this.tableLayoutPanel2.TabIndex = 4;
+            // 
+            // btn_GoUp
+            // 
+            this.btn_GoUp.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_GoUp.Location = new System.Drawing.Point(211, 0);
+            this.btn_GoUp.Name = "btn_GoUp";
+            this.btn_GoUp.Size = new System.Drawing.Size(29, 30);
+            this.btn_GoUp.TabIndex = 0;
+            this.btn_GoUp.Text = "↑";
+            this.btn_GoUp.UseVisualStyleBackColor = true;
+            this.btn_GoUp.Click += new System.EventHandler(this.btn_GoUp_Click);
+            // 
+            // pn_Label
+            // 
+            this.pn_Label.Controls.Add(this.lb_FolderName);
+            this.pn_Label.Controls.Add(this.btn_GoUp);
+            this.pn_Label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pn_Label.Location = new System.Drawing.Point(30, 0);
+            this.pn_Label.Margin = new System.Windows.Forms.Padding(0);
+            this.pn_Label.Name = "pn_Label";
+            this.pn_Label.Size = new System.Drawing.Size(240, 30);
+            this.pn_Label.TabIndex = 5;
+            // 
+            // lb_FolderName
+            // 
+            this.lb_FolderName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_FolderName.Location = new System.Drawing.Point(0, 0);
+            this.lb_FolderName.Name = "lb_FolderName";
+            this.lb_FolderName.Size = new System.Drawing.Size(211, 30);
+            this.lb_FolderName.TabIndex = 1;
+            this.lb_FolderName.Text = "FOLDER NAME HERE";
+            this.lb_FolderName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Folder_Explorer
             // 
@@ -120,6 +144,7 @@ namespace Explorer_Tools
             this.Text = "Folder Explorer";
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ico_Folder)).EndInit();
+            this.pn_Label.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -128,8 +153,10 @@ namespace Explorer_Tools
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.PictureBox ico_Folder;
-        private System.Windows.Forms.Label lb_FolderName;
         private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Panel pn_Label;
+        private System.Windows.Forms.Label lb_FolderName;
+        private System.Windows.Forms.Button btn_GoUp;
     }
 }

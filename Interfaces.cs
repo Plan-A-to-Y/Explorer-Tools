@@ -24,7 +24,8 @@ namespace Explorer_Tools
     {
         public bool IsSelected { get; set; }
         public IDisplayForm Owner { get; set; }
-        public string FilePath { get; set; }
+        public string FolderPath { get; set; }
+        public int FolderId { get; set; }
         public abstract void Selected(); 
         public abstract void Deselected();
     }

@@ -51,6 +51,7 @@ namespace Explorer_Tools
             // 
             // sc_Main.Panel2
             // 
+            this.sc_Main.Panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.sc_Main.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.sc_Main.Size = new System.Drawing.Size(916, 390);
             this.sc_Main.SplitterDistance = 300;
@@ -75,7 +76,7 @@ namespace Explorer_Tools
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer sc_Main;
+        public System.Windows.Forms.SplitContainer sc_Main;
     }
 }
 

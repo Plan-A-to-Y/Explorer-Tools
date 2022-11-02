@@ -11,43 +11,113 @@ namespace Explorer_Tools
 {
     public static class Metadata
     {
+        [Serializable]
+        public class MDFile
+        {
+            public List<md_File> FileMD { get; set; }
+            public List<md_Folder> FolderMD { get; set; }
+        }
+        public static MDFile main;
         public static List<md_File> FileMetadata;
         public static List<md_Folder> FolderMetadata;
-
         public static void Initialize()
         {
-            FileMetadata = new List<md_File>();
-            FolderMetadata = new List<md_Folder> { new md_Folder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Desktop") { IconPath = ".\\Icons\\DesktopIcon.png" } };
+            if (File.Exists(".\\FileData.FD"))
+            {
+                LoadData();
+            }
+            else
+            {
+                FileMetadata = new List<md_File>();
+                FolderMetadata = new List<md_Folder> {
+                new md_Folder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) {
+                    IconPath = ".\\Icons\\DesktopIcon.png",
+                    FolderId = 1,
+                    DisplayName = "My Desktop",
+                    ColorOverrides = new List<ColorEntry>{
+                        new ColorEntry(Color.BlueViolet, colorSlot.BorderColor),
+                        new ColorEntry(Color.DarkBlue, colorSlot.BorderCornerColor)
+                        }
+                    }
+                };
+                main = new MDFile();
+                main.FileMD = FileMetadata;
+                main.FolderMD = FolderMetadata;
+                SaveData();
+            }
         }
+
+        public static md_Folder FindFolderData(string Path)
+        {
+            if(Path==null)
+            {
+                return new md_Folder(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+            }
+            if(FolderMetadata.Exists(x => x.FolderPath.Equals(Path)))
+            {
+                return FolderMetadata.Find(x => x.FolderPath.Equals(Path));
+            }
+            md_Folder md = new md_Folder(Path);
+            FolderMetadata.Add(md);
+            SaveData();
+            return md;
+        }
+
+        public static md_File FindFileData(string Path)
+        {
+            if (FileMetadata.Exists(x => x.FilePath.Equals(Path)))
+            {
+                return FileMetadata.Find(x => x.FilePath.Equals(Path));
+            }
+            md_File md = new md_File(Path);
+            FileMetadata.Add(md);
+            SaveData();
+            return md;
+        }
+
         public static void LoadData()
         {
-
+            main = JsonSerializer.Deserialize<MDFile>(File.ReadAllText(".\\FileData.FD"));
+            FolderMetadata = main.FolderMD;
+            FileMetadata = main.FileMD;
         }
 
         public static void SaveData()
         {
-            string toSave = JsonSerializer.Serialize(Metadata.FileMetadata);
+            string toSave = JsonSerializer.Serialize(main);
             File.WriteAllText(".\\FileData.FD", toSave);
         }
     }
-
+    [Serializable]
     public class md_Folder 
     {
         public string IconPath { get; set; }
         public string DisplayName { get; set; }
         public string FolderPath { get; set; }
         public int FolderId { get; set; }
+        public List<ColorEntry> ColorOverrides { get; set; }
+        public IconEntry IconOverride { get; set; }
+
+        public md_Folder()
+        {
+            FolderPath = "C:\\";
+            IconPath = ".\\Icons\\Default.png";
+        }
 
         public md_Folder(string folderPath, string displayName = "")
         {
             FolderPath = folderPath;
-            if(displayName.Length > 1) { DisplayName = displayName; } else { DisplayName = FolderPath.Split('\\')[FolderPath.Split('\\').Length - 1]; }
-            int i = 0;
-            while((from folder in Metadata.FolderMetadata where folder.FolderId == i select folder).Count() > 0)
+            ColorOverrides = new List<ColorEntry>();
+            if (folderPath == null)
             {
-                i++;
+                return;
             }
-            FolderId = i;
+            if(displayName.Length > 1) { DisplayName = displayName; } else { DisplayName = FolderPath.Split('\\')[FolderPath.Split('\\').Length - 1]; }
+            FolderId = 1;
+            while (Metadata.FileMetadata.Find(x => x.FileId == FolderId) != null)
+            {
+                FolderId++;
+            }
             IconPath = ".\\Icons\\Default.png";
         }
 
@@ -60,7 +130,7 @@ namespace Explorer_Tools
             IconPath = iconPath;
         }
     }
-
+    [Serializable]
     public class md_File
     {
         public fileDisplayType FDT;
@@ -70,6 +140,10 @@ namespace Explorer_Tools
         public int FileId { get; set; }
         public List<ColorEntry> ColorOverrides { get; set; }
         public IconEntry IconOverride { get; set; }
+        public md_File()
+        {
+
+        }
         public md_File(string filePath, string displayName = "")
         {
             FileId = 1;
