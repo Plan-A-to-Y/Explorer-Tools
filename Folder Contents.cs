@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-
+using static Explorer_Tools.StyleOptions;
 namespace Explorer_Tools
 {
-    public partial class Folder_Contents : Form, IDisplayForm, IFolderIcon
+    public partial class Folder_Contents : Form, IDisplayForm, IFolderIcon, StyleWindow
     {
         md_Folder md;
         public IFileIcon SelectedFile;
@@ -22,6 +22,7 @@ namespace Explorer_Tools
         IDisplayForm IFolderIcon.Owner { get; set; }
         public string FolderPath { get; set; }
         public int FolderId { get; set; }
+        List<ColorSlot> StyleWindow.FormColors { get { return Metadata.FindFolderData(FolderPath).FormColors; } set { Metadata.FindFolderData(FolderPath).FormColors = value; } }
 
         bool Moving = false;
         Point offset;
@@ -30,16 +31,6 @@ namespace Explorer_Tools
         {
             InitializeComponent();
             this.TopLevel = false;
-            pn_BottomBorder.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.BorderColor);
-            pn_TopBorder.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.BorderColor);
-            pn_LeftBorder.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.BorderColor);
-            pn_RightBorder.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.BorderColor);
-
-            pn_TopLeft.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.BorderCornerColor);
-            pn_TopRight.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.BorderCornerColor);
-            pn_BottomLeft.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.BorderCornerColor);
-            pn_BottomRight.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.BorderCornerColor);
-
         }
 
         public void DisplayContents(string Path)
@@ -59,7 +50,24 @@ namespace Explorer_Tools
                 iEntry.Show();
             }
             panel_Content.Refresh();
-            label1.Text = md.DisplayName;
+            RefreshVisuals();
+        }
+
+        public void RefreshVisuals()
+        {
+            panel_Header.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.HeaderColor);
+
+            pn_BottomBorder.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderColor);
+            pn_TopBorder.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderColor);
+            pn_LeftBorder.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderColor);
+            pn_RightBorder.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderColor);
+
+            pn_TopLeft.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderCornerColor);
+            pn_TopRight.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderCornerColor);
+            pn_BottomLeft.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderCornerColor);
+            pn_BottomRight.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderCornerColor);
+
+            panel_Content.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.EntryColor);
         }
 
         private void folderContents_SizeChanged(object sender, EventArgs e)
@@ -101,7 +109,7 @@ namespace Explorer_Tools
         {
             Moving = true;
             offset = new Point(e.X, e.Y);
-            panel_Header.BackColor = Color.Red;
+            panel_Header.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.SelectedColor);
         }
 
         private void Folder_Contents_MouseMove(object sender, MouseEventArgs e)
@@ -120,7 +128,7 @@ namespace Explorer_Tools
             if (Moving)
             {
                 Moving = false;
-                panel_Header.BackColor = Control.DefaultBackColor;
+                panel_Header.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.HeaderColor);
             }
         }
 
@@ -239,6 +247,14 @@ namespace Explorer_Tools
         public void Deselected()
         {
             throw new NotImplementedException();
+        }
+
+        private void btn_Edit_Click(object sender, EventArgs e)
+        {
+            EditWindow EW = new EditWindow();
+            EW.EditFolder = true;
+            EW.Setup(md, this);
+            EW.ShowDialog();
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Explorer_Tools
             FC.Dock = DockStyle.Fill;
             FC.Show();
             FC.DisplayContents(FE.InitialDirectory);
-            Metadata.FileMetadata.Add(new md_File(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Professional Logo.png", "Logo") { ColorOverrides = { new StyleOptions.ColorEntry(Color.Red, StyleOptions.colorSlot.SelectedColor)} } );
+            Metadata.FileMetadata.Add(new md_File(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Professional Logo.png", "Logo") { FormColors = { new StyleOptions.ColorSlot(StyleOptions.colorSlot.SelectedColor, "255|0|0|255" ) } } );
             Metadata.SaveData();
         }
 

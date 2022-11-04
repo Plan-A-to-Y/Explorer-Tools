@@ -73,6 +73,16 @@ namespace Explorer_Tools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EditTempIcon {
+            get {
+                object obj = ResourceManager.GetObject("EditTempIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap FolderTempIcon {
             get {
                 object obj = ResourceManager.GetObject("FolderTempIcon", resourceCulture);

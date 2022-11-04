@@ -32,7 +32,7 @@ namespace Explorer_Tools
             {
                 FileId = Metadata.FileMetadata.Find(x => x.FilePath.Equals(FilePath)).FileId;
             }
-            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.EntryColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.EntryColor);
             lb_ImageName.Text = FilePath.Split('\\')[FilePath.Split('\\').Length - 1];
             lb_ImageProperties.Text = $"{Image.FromFile(FilePath).Width}x{Image.FromFile(FilePath).Height} ({new FileInfo(FilePath).Length}b)";
             if (!File.Exists(FilePath)) { return; }
@@ -53,13 +53,13 @@ namespace Explorer_Tools
         public void Selected()
         {
             ((IFileIcon)this).IsSelected = true;
-            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.SelectedColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.SelectedColor);
             Owner.SelectFile(this);
         }
         public void Deselected()
         {
             ((IFileIcon)this).IsSelected = false;
-            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.EntryColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.EntryColor);
             Owner.DeselectFile(this);
         }
     }

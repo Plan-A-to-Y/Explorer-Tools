@@ -31,7 +31,7 @@ namespace Explorer_Tools
         }
         private void TextEntry_Load(object sender, EventArgs e)
         {
-            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.EntryColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.EntryColor);
             lb_FileName.Text = FilePath.Split('\\')[FilePath.Split('\\').Length - 1];
             rtb_Content.Text = File.ReadAllText(FilePath);
             btn_Save.Hide();
@@ -60,13 +60,13 @@ namespace Explorer_Tools
         public void Selected()
         {
             ((IFileIcon)this).IsSelected = true;
-            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.SelectedColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.SelectedColor);
             Owner.SelectFile(this);
         }
         public void Deselected()
         {
             ((IFileIcon)this).IsSelected = false;
-            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.EntryColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.EntryColor);
             Owner.DeselectFile(this);
         }
     }

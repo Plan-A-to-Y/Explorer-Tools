@@ -23,7 +23,7 @@ namespace Explorer_Tools
         public int FileId { get; set; }
         public Doc_Entry()
         {
-            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.EntryColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.EntryColor);
             InitializeComponent();
             WordprocessingDocument WPD = WordprocessingDocument.Open(FilePath, false);
         }
@@ -51,13 +51,13 @@ namespace Explorer_Tools
         public void Selected()
         {
             ((IFileIcon)this).IsSelected = true;
-            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.SelectedColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.SelectedColor);
             Owner.SelectFile(this);
         }
         public void Deselected()
         {
             ((IFileIcon)this).IsSelected = false;
-            panel_MainLayout.BackColor = StyleOptions.GetColor(this, StyleOptions.colorSlot.EntryColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.EntryColor);
             Owner.DeselectFile(this);
         }
     }

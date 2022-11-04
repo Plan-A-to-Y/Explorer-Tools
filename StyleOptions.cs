@@ -3,31 +3,48 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-
+using static Explorer_Tools.StyleOptions;
+using System.IO;
 namespace Explorer_Tools
 {
+    public interface StyleWindow
+    {
+        public void RefreshVisuals();
+        public List<ColorSlot> FormColors { get; set; }
+    }
     public static class StyleOptions
     {
+        [Serializable]
+        public struct ColorSlot
+        {
+            public string DisplayName { get; set; }
+            public colorSlot Slot { get; set; }
+            public string Color { get; set; }
+
+            public ColorSlot(colorSlot slot, string color)
+            {
+                Slot = slot;
+                Color = color;
+                DisplayName = slot.ToString();
+            }
+            public ColorSlot(colorSlot slot)
+            {
+                Slot = slot;
+                Color = "D";
+                DisplayName = slot.ToString();
+            }
+        }
+
         [Serializable]
         public enum colorSlot
         {
             SelectedColor,
             EntryColor,
+            HeaderColor,
             BorderColor,
             BorderCornerColor
         }
-        [Serializable]
-        public struct ColorEntry
-        {
-            public ColorEntry(Color color, colorSlot slot)
-            {
-                if (color.IsEmpty) { OverrideColor = StringFromColor(Color.Red); }
-                OverrideColor = StringFromColor(color);
-                toOverride = slot;
-            }
-            public string OverrideColor { get; set; }
-            public colorSlot toOverride { get; set; }
-        }
+
         [Serializable]
         public struct IconEntry
         {
@@ -35,24 +52,38 @@ namespace Explorer_Tools
             public colorSlot toOverride { get; set; }
         }
 
-        public static List<ColorEntry> DefaultColors = new List<ColorEntry>{
-            new ColorEntry(Color.AliceBlue, colorSlot.SelectedColor),
-            new ColorEntry(Color.White, colorSlot.EntryColor),
-            new ColorEntry(Color.Orange, colorSlot.BorderColor),
-            new ColorEntry(Color.DarkOrange, colorSlot.BorderCornerColor)
+        public static List<ColorSlot> DefaultColors = new List<ColorSlot>{
+            new ColorSlot(colorSlot.SelectedColor, "100|50|100|255"),
+            new ColorSlot(colorSlot.EntryColor, "80|80|80|255"),
+            new ColorSlot(colorSlot.HeaderColor, "100|0|100|255"),
+            new ColorSlot(colorSlot.BorderColor, "20|20|20|255"),
+            new ColorSlot(colorSlot.BorderCornerColor, "255|255|255|255")
             };
 
-        public static Color GetColor(IFileIcon invoker, colorSlot @override)
+
+        public static Color GetColor(string Path, colorSlot @override)
         {
-            md_File md = Metadata.FindFileData(invoker.FilePath);
-            if (md.ColorOverrides.Exists(x => ((uint)x.toOverride) == ((uint)@override))) return ColorFromString(md.ColorOverrides.Find(x => ((uint)x.toOverride) == ((uint)@override)).OverrideColor);
-            else return ColorFromString(DefaultColors.Find(x => x.toOverride == @override).OverrideColor);
+            string colorvalue = "D";
+            if (Directory.Exists(Path)) colorvalue = Metadata.FindFolderData(Path).FormColors.Find(x => x.Slot == @override).Color;
+            else if (File.Exists(Path)) colorvalue = Metadata.FindFileData(Path).FormColors.Find(x => x.Slot == @override).Color;
+
+            if (colorvalue.Equals("D")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
+            else return ColorFromString(colorvalue);
         }
-        public static Color GetColor(IFolderIcon invoker, colorSlot @override)
+
+        public static Color GetColor(md_Folder md, colorSlot @override)
         {
-            md_Folder md = Metadata.FindFolderData(invoker.FolderPath);
-            if (md.ColorOverrides.Exists(x => ((uint)x.toOverride) == ((uint)@override))) return ColorFromString(md.ColorOverrides.Find(x => ((uint)x.toOverride) == ((uint)@override)).OverrideColor);
-            else return ColorFromString(DefaultColors.Find(x => x.toOverride == @override).OverrideColor);
+            string colorvalue = "D";
+            colorvalue = md.FormColors.Find(x => x.Slot == @override).Color;
+            if (colorvalue.Equals("D")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
+            else return ColorFromString(colorvalue);
+        }
+        public static Color GetColor(md_File md, colorSlot @override)
+        {
+            string colorvalue = "D";
+            colorvalue = md.FormColors.Find(x => x.Slot == @override).Color;
+            if (colorvalue.Equals("D")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
+            else return ColorFromString(colorvalue);
         }
 
         public static Color ColorFromString(string input)

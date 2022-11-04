@@ -41,11 +41,11 @@ namespace Explorer_Tools
             this.btn_Minimize = new System.Windows.Forms.Button();
             this.btn_ToggleFull = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.pn_RightBorder = new System.Windows.Forms.Panel();
             this.pn_BottomLeft = new System.Windows.Forms.Panel();
             this.pn_BottomBorder = new System.Windows.Forms.Panel();
             this.color_Dialog = new System.Windows.Forms.ColorDialog();
+            this.btn_Edit = new System.Windows.Forms.Button();
             this.tlp_Main.SuspendLayout();
             this.panel_Content.SuspendLayout();
             this.panel_Header.SuspendLayout();
@@ -180,15 +180,16 @@ namespace Explorer_Tools
             // 
             // panel_Header
             // 
-            this.panel_Header.ColumnCount = 4;
+            this.panel_Header.ColumnCount = 5;
+            this.panel_Header.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.panel_Header.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.panel_Header.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.panel_Header.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.panel_Header.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.panel_Header.Controls.Add(this.btn_Minimize, 1, 0);
-            this.panel_Header.Controls.Add(this.btn_ToggleFull, 2, 0);
-            this.panel_Header.Controls.Add(this.btn_Close, 3, 0);
-            this.panel_Header.Controls.Add(this.label1, 0, 0);
+            this.panel_Header.Controls.Add(this.btn_Minimize, 2, 0);
+            this.panel_Header.Controls.Add(this.btn_ToggleFull, 3, 0);
+            this.panel_Header.Controls.Add(this.btn_Close, 4, 0);
+            this.panel_Header.Controls.Add(this.btn_Edit, 0, 0);
             this.panel_Header.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_Header.Location = new System.Drawing.Point(8, 8);
             this.panel_Header.Margin = new System.Windows.Forms.Padding(0);
@@ -241,15 +242,6 @@ namespace Explorer_Tools
             this.btn_Close.UseVisualStyleBackColor = false;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "label1";
-            // 
             // pn_RightBorder
             // 
             this.pn_RightBorder.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -297,6 +289,20 @@ namespace Explorer_Tools
             // 
             this.color_Dialog.AnyColor = true;
             // 
+            // btn_Edit
+            // 
+            this.btn_Edit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_Edit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Edit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Edit.Image = global::Explorer_Tools.Properties.Resources.EditTempIcon;
+            this.btn_Edit.Location = new System.Drawing.Point(0, 0);
+            this.btn_Edit.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_Edit.Name = "btn_Edit";
+            this.btn_Edit.Size = new System.Drawing.Size(30, 30);
+            this.btn_Edit.TabIndex = 3;
+            this.btn_Edit.UseVisualStyleBackColor = true;
+            this.btn_Edit.Click += new System.EventHandler(this.btn_Edit_Click);
+            // 
             // Folder_Contents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -319,7 +325,6 @@ namespace Explorer_Tools
             this.tlp_Main.PerformLayout();
             this.panel_Content.ResumeLayout(false);
             this.panel_Header.ResumeLayout(false);
-            this.panel_Header.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -341,6 +346,6 @@ namespace Explorer_Tools
         private System.Windows.Forms.Panel pn_TopBorder;
         private System.Windows.Forms.FlowLayoutPanel panel_Content;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_Edit;
     }
 }

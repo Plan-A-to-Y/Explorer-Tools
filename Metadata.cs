@@ -29,17 +29,7 @@ namespace Explorer_Tools
             else
             {
                 FileMetadata = new List<md_File>();
-                FolderMetadata = new List<md_Folder> {
-                new md_Folder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)) {
-                    IconPath = ".\\Icons\\DesktopIcon.png",
-                    FolderId = 1,
-                    DisplayName = "My Desktop",
-                    ColorOverrides = new List<ColorEntry>{
-                        new ColorEntry(Color.BlueViolet, colorSlot.BorderColor),
-                        new ColorEntry(Color.DarkBlue, colorSlot.BorderCornerColor)
-                        }
-                    }
-                };
+                FolderMetadata = new List<md_Folder> { };
                 main = new MDFile();
                 main.FileMD = FileMetadata;
                 main.FolderMD = FolderMetadata;
@@ -75,6 +65,18 @@ namespace Explorer_Tools
             return md;
         }
 
+        public static void UpdateFolderData(md_Folder toUpdate)
+        {
+            FolderMetadata.Remove((from x in FolderMetadata where x.FolderId == toUpdate.FolderId select x).First());
+            FolderMetadata.Add(toUpdate);
+        }
+
+        public static void UpdateFileData(md_File toUpdate)
+        {
+            FileMetadata.Remove((from x in FileMetadata where x.FileId == toUpdate.FileId select x).First());
+            FileMetadata.Add(toUpdate);
+        }
+
         public static void LoadData()
         {
             main = JsonSerializer.Deserialize<MDFile>(File.ReadAllText(".\\FileData.FD"));
@@ -95,7 +97,7 @@ namespace Explorer_Tools
         public string DisplayName { get; set; }
         public string FolderPath { get; set; }
         public int FolderId { get; set; }
-        public List<ColorEntry> ColorOverrides { get; set; }
+        public List<ColorSlot> FormColors { get; set; }
         public IconEntry IconOverride { get; set; }
 
         public md_Folder()
@@ -107,7 +109,13 @@ namespace Explorer_Tools
         public md_Folder(string folderPath, string displayName = "")
         {
             FolderPath = folderPath;
-            ColorOverrides = new List<ColorEntry>();
+            FormColors = new List<ColorSlot> { 
+                new ColorSlot(colorSlot.SelectedColor), 
+                new ColorSlot(colorSlot.EntryColor), 
+                new ColorSlot(colorSlot.HeaderColor),
+                new ColorSlot(colorSlot.BorderColor),
+                new ColorSlot(colorSlot.BorderCornerColor)
+            };
             if (folderPath == null)
             {
                 return;
@@ -138,7 +146,7 @@ namespace Explorer_Tools
         public string DisplayName { get; set; }
         public string FilePath { get; set; }
         public int FileId { get; set; }
-        public List<ColorEntry> ColorOverrides { get; set; }
+        public List<ColorSlot> FormColors { get; set; }
         public IconEntry IconOverride { get; set; }
         public md_File()
         {
@@ -151,9 +159,16 @@ namespace Explorer_Tools
             {
                 FileId++;
             }
-            ColorOverrides = new List<ColorEntry>();
+            FormColors = new List<ColorSlot>();
             FilePath = filePath;
             if (displayName.Length > 1) { DisplayName = displayName; } else { DisplayName = FilePath.Split('\\')[FilePath.Split('\\').Length - 1]; }
+            FormColors = new List<ColorSlot> {
+                new ColorSlot(colorSlot.SelectedColor),
+                new ColorSlot(colorSlot.EntryColor),
+                new ColorSlot(colorSlot.HeaderColor),
+                new ColorSlot(colorSlot.BorderColor),
+                new ColorSlot(colorSlot.BorderCornerColor)
+            };
         }
     }
 
