@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using static Explorer_Tools.StyleOptions;
 using System.IO;
+using System.Windows.Forms;
+
 namespace Explorer_Tools
 {
     public interface StyleWindow
@@ -19,19 +21,39 @@ namespace Explorer_Tools
         {
             public string DisplayName { get; set; }
             public colorSlot Slot { get; set; }
-            public string Color { get; set; }
+            public string Color 
+            { 
+                get {
+                    colorSlot _slot = Slot;
+                    if (_color.Equals("D")) return DefaultColors.Find(x => x.Slot.Equals(_slot)).Color;
+                    else return _color;
+                }
+                set {
+                    _color = value;
+                } 
+            }
+            private string _color;
 
             public ColorSlot(colorSlot slot, string color)
             {
                 Slot = slot;
-                Color = color;
+                _color = color;
                 DisplayName = slot.ToString();
             }
             public ColorSlot(colorSlot slot)
             {
                 Slot = slot;
-                Color = "D";
+                _color = "D";
                 DisplayName = slot.ToString();
+            }
+            public void UpdateColor(string NewColor)
+            {
+                this._color = NewColor;
+            }
+
+            public override bool Equals(object obj)
+            {
+                return this.Slot == ((ColorSlot)obj).Slot;
             }
         }
 

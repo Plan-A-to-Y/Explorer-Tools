@@ -33,9 +33,9 @@ namespace Explorer_Tools
             this.ico_Folder = new System.Windows.Forms.PictureBox();
             this.btn_Close = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.btn_GoUp = new System.Windows.Forms.Button();
             this.pn_Label = new System.Windows.Forms.Panel();
             this.lb_FolderName = new System.Windows.Forms.Label();
+            this.btn_GoUp = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ico_Folder)).BeginInit();
             this.pn_Label.SuspendLayout();
@@ -84,6 +84,7 @@ namespace Explorer_Tools
             // 
             this.tableLayoutPanel2.AutoScroll = true;
             this.tableLayoutPanel2.AutoScrollMargin = new System.Drawing.Size(0, 3);
+            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanel2, 3);
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -93,20 +94,9 @@ namespace Explorer_Tools
             this.tableLayoutPanel2.MaximumSize = new System.Drawing.Size(300, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 420F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.Size = new System.Drawing.Size(300, 420);
             this.tableLayoutPanel2.TabIndex = 4;
-            // 
-            // btn_GoUp
-            // 
-            this.btn_GoUp.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_GoUp.Location = new System.Drawing.Point(211, 0);
-            this.btn_GoUp.Name = "btn_GoUp";
-            this.btn_GoUp.Size = new System.Drawing.Size(29, 30);
-            this.btn_GoUp.TabIndex = 0;
-            this.btn_GoUp.Text = "↑";
-            this.btn_GoUp.UseVisualStyleBackColor = true;
-            this.btn_GoUp.Click += new System.EventHandler(this.btn_GoUp_Click);
             // 
             // pn_Label
             // 
@@ -128,6 +118,17 @@ namespace Explorer_Tools
             this.lb_FolderName.TabIndex = 1;
             this.lb_FolderName.Text = "FOLDER NAME HERE";
             this.lb_FolderName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_GoUp
+            // 
+            this.btn_GoUp.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_GoUp.Location = new System.Drawing.Point(211, 0);
+            this.btn_GoUp.Name = "btn_GoUp";
+            this.btn_GoUp.Size = new System.Drawing.Size(29, 30);
+            this.btn_GoUp.TabIndex = 0;
+            this.btn_GoUp.Text = "↑";
+            this.btn_GoUp.UseVisualStyleBackColor = true;
+            this.btn_GoUp.Click += new System.EventHandler(this.btn_GoUp_Click);
             // 
             // Folder_Explorer
             // 

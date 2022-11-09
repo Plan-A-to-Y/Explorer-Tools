@@ -29,100 +29,113 @@ namespace Explorer_Tools
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FolderEntry));
-            this.btn_SelectFolder = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.s = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_FolderIcon = new System.Windows.Forms.Button();
             this.rtb_FolderInfo = new System.Windows.Forms.RichTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.btn_Options = new System.Windows.Forms.Button();
+            this.btn_Select = new System.Windows.Forms.Button();
+            this.s.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btn_SelectFolder
+            // s
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.btn_SelectFolder, 2);
-            this.btn_SelectFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_SelectFolder.Location = new System.Drawing.Point(0, 0);
-            this.btn_SelectFolder.Margin = new System.Windows.Forms.Padding(0);
-            this.btn_SelectFolder.Name = "btn_SelectFolder";
-            this.btn_SelectFolder.Size = new System.Drawing.Size(240, 30);
-            this.btn_SelectFolder.TabIndex = 0;
-            this.btn_SelectFolder.Text = "button1";
-            this.btn_SelectFolder.UseVisualStyleBackColor = true;
-            this.btn_SelectFolder.Click += new System.EventHandler(this.btn_SelectFolder_Click);
+            this.s.AutoSize = true;
+            this.s.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.s.ColumnCount = 4;
+            this.s.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.s.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.s.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.s.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.s.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.s.Controls.Add(this.btn_FolderIcon, 0, 0);
+            this.s.Controls.Add(this.rtb_FolderInfo, 0, 1);
+            this.s.Controls.Add(this.btn_Options, 1, 0);
+            this.s.Controls.Add(this.btn_Select, 2, 0);
+            this.s.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.s.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.s.Location = new System.Drawing.Point(0, 0);
+            this.s.Name = "s";
+            this.s.RowCount = 2;
+            this.s.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.s.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.s.Size = new System.Drawing.Size(203, 150);
+            this.s.TabIndex = 2;
+            this.s.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
-            // pictureBox1
+            // btn_FolderIcon
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(273, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(24, 24);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Controls.Add(this.btn_SelectFolder, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.rtb_FolderInfo, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(300, 150);
-            this.tableLayoutPanel1.TabIndex = 2;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
+            this.btn_FolderIcon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_FolderIcon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_FolderIcon.Image = global::Explorer_Tools.Properties.Resources.FolderTempIcon;
+            this.btn_FolderIcon.Location = new System.Drawing.Point(0, 0);
+            this.btn_FolderIcon.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_FolderIcon.MinimumSize = new System.Drawing.Size(30, 30);
+            this.btn_FolderIcon.Name = "btn_FolderIcon";
+            this.btn_FolderIcon.Size = new System.Drawing.Size(30, 30);
+            this.btn_FolderIcon.TabIndex = 5;
+            this.btn_FolderIcon.UseVisualStyleBackColor = true;
             // 
             // rtb_FolderInfo
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.rtb_FolderInfo, 4);
+            this.s.SetColumnSpan(this.rtb_FolderInfo, 3);
             this.rtb_FolderInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtb_FolderInfo.Location = new System.Drawing.Point(3, 33);
             this.rtb_FolderInfo.Name = "rtb_FolderInfo";
-            this.tableLayoutPanel1.SetRowSpan(this.rtb_FolderInfo, 2);
-            this.rtb_FolderInfo.Size = new System.Drawing.Size(294, 114);
+            this.rtb_FolderInfo.Size = new System.Drawing.Size(187, 114);
             this.rtb_FolderInfo.TabIndex = 2;
-            this.rtb_FolderInfo.Text = "FOLDER_NAME\nInformation about the folder goes here!\n\nThere\'s nothing here for now" +
-    ".";
+            this.rtb_FolderInfo.Text = "This is a Documents folder";
+            // 
+            // btn_Options
+            // 
+            this.btn_Options.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Options.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Options.Image = global::Explorer_Tools.Properties.Resources.EditTempIcon;
+            this.btn_Options.Location = new System.Drawing.Point(30, 0);
+            this.btn_Options.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_Options.MinimumSize = new System.Drawing.Size(30, 30);
+            this.btn_Options.Name = "btn_Options";
+            this.btn_Options.Size = new System.Drawing.Size(30, 30);
+            this.btn_Options.TabIndex = 3;
+            this.btn_Options.UseVisualStyleBackColor = true;
+            // 
+            // btn_Select
+            // 
+            this.btn_Select.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Select.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Select.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btn_Select.Location = new System.Drawing.Point(60, 0);
+            this.btn_Select.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_Select.Name = "btn_Select";
+            this.btn_Select.Size = new System.Drawing.Size(133, 30);
+            this.btn_Select.TabIndex = 4;
+            this.btn_Select.Text = "button1";
+            this.btn_Select.UseVisualStyleBackColor = true;
+            this.btn_Select.Click += new System.EventHandler(this.btn_Select_Click);
+            this.btn_Select.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btn_Select_MouseClick);
             // 
             // FolderEntry
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.s);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.MaximumSize = new System.Drawing.Size(300, 150);
+            this.MinimumSize = new System.Drawing.Size(120, 30);
             this.Name = "FolderEntry";
-            this.Size = new System.Drawing.Size(300, 150);
+            this.Size = new System.Drawing.Size(203, 150);
             this.Load += new System.EventHandler(this.FolderEntry_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
+            this.s.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn_SelectFolder;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel s;
         private System.Windows.Forms.RichTextBox rtb_FolderInfo;
+        private System.Windows.Forms.Button btn_Options;
+        private System.Windows.Forms.Button btn_Select;
+        private System.Windows.Forms.Button btn_FolderIcon;
     }
 }

@@ -24,10 +24,7 @@ namespace Explorer_Tools
         public string SCString;
         public string prev;
         public md_Folder Init;
-        public string Header;
-        public string Main;
-        public string Border;
-        public string BorderCorner;
+        public ColorSlot Active;
         public EditFolderMeta()
         {
             InitializeComponent();
@@ -37,12 +34,17 @@ namespace Explorer_Tools
             md = meta;
             Init = meta;
             Owner = owner;
+            flp_ColorSlots.Controls.Clear();
+            foreach(StyleOptions.ColorSlot cs in md.FormColors)
+            {
+                RadioButton rb = new RadioButton();
+                rb.Text = cs.DisplayName;
+                rb.Tag = cs.Slot;
+                rb.CheckedChanged += SelectedParamChanged;
+                flp_ColorSlots.Controls.Add(rb);
+            }
 
-            Header = StringFromColor(GetColor(md, colorSlot.HeaderColor));
-            Main = StringFromColor(GetColor(md, colorSlot.EntryColor));
-            Border = StringFromColor(GetColor(md, colorSlot.BorderColor));
-            BorderCorner = StringFromColor(GetColor(md, colorSlot.BorderCornerColor));
-            Owner.Preview.RefreshVisuals();
+            SCString = "0|0|0|255";
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -51,18 +53,23 @@ namespace Explorer_Tools
 
         private void tabs_Main_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabs_Main.SelectedIndex == 1) rb_Header.Checked = true;
+            if (tabs_Main.SelectedIndex == 1) (flp_ColorSlots.Controls[0] as RadioButton).Checked = true;
             MatchColorToFile();
         }
 
         private void SelectedParamChanged(object sender, EventArgs e)
         {
+            foreach (RadioButton r in flp_ColorSlots.Controls)
+            {
+                if(r.Checked) Active = md.FormColors.Find(x => x.DisplayName.Equals(r.Text));
+            }
             MatchColorToFile();   
         }
 
         private void MatchColorToFile()
         {
-            SCString = SelectedColor();
+            SCString = Active.Color;
+            label1.Text = SCString;
             UpdateColor();
         }
 
@@ -72,62 +79,35 @@ namespace Explorer_Tools
             tb_G.Value = int.Parse(SCString.Split("|")[1]);
             tb_B.Value = int.Parse(SCString.Split("|")[2]);
             pn_PreviewColor.BackColor = StyleOptions.ColorFromString(SCString);
+            Active.UpdateColor(SCString);
+            md.FormColors.Remove(Active);
+            md.FormColors.Add(Active);
+            Metadata.UpdateFolderData(md);
         }
 
         private string SelectedColor()
         {
-            if (rb_Header.Checked){ TC = ToColor.Header; return Header; }
-            else if (rb_Main.Checked){ TC = ToColor.Main; return Main; }
-            else if (rb_Border.Checked){ TC = ToColor.Border; return Border; }
-            else if (rb_BorderCorner.Checked) { TC = ToColor.BorderCorner; return BorderCorner; }
-            return "0|0|0|255";
+            return $"{tb_R.Value}|{tb_G.Value}|{tb_B.Value}|255";
         }
 
         private void TB_ValueChanged(object sender, EventArgs e)
         {
-            SCString = $"{tb_R.Value}|{tb_G.Value}|{tb_B.Value}|255";
-            switch (TC)
-            {
-                case ToColor.Header:
-                    Header = SCString;
-                    break;
-                case ToColor.Main:
-                    Main = SCString;
-                    break;
-                case ToColor.Border:
-                    Border = SCString;
-                    break;
-                case ToColor.BorderCorner:
-                    BorderCorner = SCString;
-                    break;
-            }
+            SCString = SelectedColor();
+            label1.Text = SCString;
             UpdateColor();
+            Owner.Preview.RefreshVisuals();
         }
 
         private void btn_Preview_Click(object sender, EventArgs e)
         {
-            List<StyleOptions.ColorSlot> Overrides = md.FormColors;
-            Overrides.RemoveAll(x => x.Slot == StyleOptions.colorSlot.HeaderColor);
-            Overrides.RemoveAll(x => x.Slot == StyleOptions.colorSlot.EntryColor);
-            Overrides.RemoveAll(x => x.Slot == StyleOptions.colorSlot.BorderColor);
-            Overrides.RemoveAll(x => x.Slot == StyleOptions.colorSlot.BorderCornerColor);
-            Overrides.AddRange(
-                new List<ColorSlot>
-                {
-                    new StyleOptions.ColorSlot(StyleOptions.colorSlot.HeaderColor, Header),
-                    new StyleOptions.ColorSlot(StyleOptions.colorSlot.EntryColor, Main),
-                    new StyleOptions.ColorSlot(StyleOptions.colorSlot.BorderColor, Border),
-                    new StyleOptions.ColorSlot(StyleOptions.colorSlot.BorderCornerColor, BorderCorner),
-                }
-            );
-            md.FormColors = Overrides;
-            Metadata.UpdateFolderData(md);
             Owner.Preview.RefreshVisuals();
         }
 
         private void btn_Apply_Click(object sender, EventArgs e)
         {
+            Metadata.UpdateFolderData(md);
             Metadata.SaveData();
+            Init = md;
         }
 
         private void btn_Revert_Click(object sender, EventArgs e)
@@ -136,21 +116,6 @@ namespace Explorer_Tools
             Setup(Init, Owner);
             MatchColorToFile();
             SCString = $"{tb_R.Value}|{tb_G.Value}|{tb_B.Value}|255";
-            switch (TC)
-            {
-                case ToColor.Header:
-                    Header = SCString;
-                    break;
-                case ToColor.Main:
-                    Main = SCString;
-                    break;
-                case ToColor.Border:
-                    Border = SCString;
-                    break;
-                case ToColor.BorderCorner:
-                    BorderCorner = SCString;
-                    break;
-            }
             Owner.Preview.RefreshVisuals();
         }
     }

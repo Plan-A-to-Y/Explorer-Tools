@@ -35,10 +35,6 @@ namespace Explorer_Tools
             this.tlp_Colors = new System.Windows.Forms.TableLayoutPanel();
             this.lb_G = new System.Windows.Forms.Label();
             this.lb_B = new System.Windows.Forms.Label();
-            this.rb_Main = new System.Windows.Forms.RadioButton();
-            this.rb_BorderCorner = new System.Windows.Forms.RadioButton();
-            this.rb_Border = new System.Windows.Forms.RadioButton();
-            this.rb_Header = new System.Windows.Forms.RadioButton();
             this.tb_R = new System.Windows.Forms.TrackBar();
             this.tb_G = new System.Windows.Forms.TrackBar();
             this.tb_B = new System.Windows.Forms.TrackBar();
@@ -49,6 +45,8 @@ namespace Explorer_Tools
             this.btn_Preview = new System.Windows.Forms.Button();
             this.btn_Apply = new System.Windows.Forms.Button();
             this.btn_Revert = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.flp_ColorSlots = new System.Windows.Forms.FlowLayoutPanel();
             this.tabs_Main.SuspendLayout();
             this.tab_Colors.SuspendLayout();
             this.tlp_Colors.SuspendLayout();
@@ -102,10 +100,6 @@ namespace Explorer_Tools
             this.tlp_Colors.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tlp_Colors.Controls.Add(this.lb_G, 1, 2);
             this.tlp_Colors.Controls.Add(this.lb_B, 1, 3);
-            this.tlp_Colors.Controls.Add(this.rb_Main, 0, 1);
-            this.tlp_Colors.Controls.Add(this.rb_BorderCorner, 0, 3);
-            this.tlp_Colors.Controls.Add(this.rb_Border, 0, 2);
-            this.tlp_Colors.Controls.Add(this.rb_Header, 0, 0);
             this.tlp_Colors.Controls.Add(this.tb_R, 2, 1);
             this.tlp_Colors.Controls.Add(this.tb_G, 2, 2);
             this.tlp_Colors.Controls.Add(this.tb_B, 2, 3);
@@ -113,6 +107,7 @@ namespace Explorer_Tools
             this.tlp_Colors.Controls.Add(this.lb_R, 1, 1);
             this.tlp_Colors.Controls.Add(this.cb_ColorPreset, 2, 0);
             this.tlp_Colors.Controls.Add(this.tableLayoutPanel1, 0, 4);
+            this.tlp_Colors.Controls.Add(this.flp_ColorSlots, 0, 0);
             this.tlp_Colors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlp_Colors.Location = new System.Drawing.Point(0, 0);
             this.tlp_Colors.Margin = new System.Windows.Forms.Padding(0);
@@ -150,70 +145,6 @@ namespace Explorer_Tools
             this.lb_B.TabIndex = 10;
             this.lb_B.Text = "B";
             this.lb_B.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // rb_Main
-            // 
-            this.rb_Main.AutoSize = true;
-            this.rb_Main.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.rb_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rb_Main.FlatAppearance.BorderSize = 0;
-            this.rb_Main.Location = new System.Drawing.Point(10, 30);
-            this.rb_Main.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.rb_Main.Name = "rb_Main";
-            this.rb_Main.Size = new System.Drawing.Size(90, 30);
-            this.rb_Main.TabIndex = 3;
-            this.rb_Main.TabStop = true;
-            this.rb_Main.Text = "Background";
-            this.rb_Main.UseVisualStyleBackColor = false;
-            this.rb_Main.CheckedChanged += new System.EventHandler(this.SelectedParamChanged);
-            // 
-            // rb_BorderCorner
-            // 
-            this.rb_BorderCorner.AutoSize = true;
-            this.rb_BorderCorner.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.rb_BorderCorner.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rb_BorderCorner.FlatAppearance.BorderSize = 0;
-            this.rb_BorderCorner.Location = new System.Drawing.Point(10, 90);
-            this.rb_BorderCorner.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.rb_BorderCorner.Name = "rb_BorderCorner";
-            this.rb_BorderCorner.Size = new System.Drawing.Size(90, 30);
-            this.rb_BorderCorner.TabIndex = 2;
-            this.rb_BorderCorner.TabStop = true;
-            this.rb_BorderCorner.Text = "Corners";
-            this.rb_BorderCorner.UseVisualStyleBackColor = false;
-            this.rb_BorderCorner.CheckedChanged += new System.EventHandler(this.SelectedParamChanged);
-            // 
-            // rb_Border
-            // 
-            this.rb_Border.AutoSize = true;
-            this.rb_Border.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.rb_Border.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rb_Border.FlatAppearance.BorderSize = 0;
-            this.rb_Border.Location = new System.Drawing.Point(10, 60);
-            this.rb_Border.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.rb_Border.Name = "rb_Border";
-            this.rb_Border.Size = new System.Drawing.Size(90, 30);
-            this.rb_Border.TabIndex = 1;
-            this.rb_Border.TabStop = true;
-            this.rb_Border.Text = "Border";
-            this.rb_Border.UseVisualStyleBackColor = false;
-            this.rb_Border.CheckedChanged += new System.EventHandler(this.SelectedParamChanged);
-            // 
-            // rb_Header
-            // 
-            this.rb_Header.AutoSize = true;
-            this.rb_Header.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.rb_Header.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rb_Header.FlatAppearance.BorderSize = 0;
-            this.rb_Header.Location = new System.Drawing.Point(10, 0);
-            this.rb_Header.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.rb_Header.Name = "rb_Header";
-            this.rb_Header.Size = new System.Drawing.Size(90, 30);
-            this.rb_Header.TabIndex = 0;
-            this.rb_Header.TabStop = true;
-            this.rb_Header.Text = "Header";
-            this.rb_Header.UseVisualStyleBackColor = false;
-            this.rb_Header.CheckedChanged += new System.EventHandler(this.SelectedParamChanged);
             // 
             // tb_R
             // 
@@ -301,6 +232,7 @@ namespace Explorer_Tools
             this.tableLayoutPanel1.Controls.Add(this.btn_Preview, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.btn_Apply, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.btn_Revert, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 120);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -343,6 +275,27 @@ namespace Explorer_Tools
             this.btn_Revert.UseVisualStyleBackColor = true;
             this.btn_Revert.Click += new System.EventHandler(this.btn_Revert_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "label1";
+            // 
+            // flp_ColorSlots
+            // 
+            this.flp_ColorSlots.AutoScroll = true;
+            this.flp_ColorSlots.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flp_ColorSlots.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flp_ColorSlots.Location = new System.Drawing.Point(0, 0);
+            this.flp_ColorSlots.Margin = new System.Windows.Forms.Padding(0);
+            this.flp_ColorSlots.Name = "flp_ColorSlots";
+            this.tlp_Colors.SetRowSpan(this.flp_ColorSlots, 4);
+            this.flp_ColorSlots.Size = new System.Drawing.Size(100, 120);
+            this.flp_ColorSlots.TabIndex = 15;
+            // 
             // EditFolderMeta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -359,6 +312,7 @@ namespace Explorer_Tools
             ((System.ComponentModel.ISupportInitialize)(this.tb_G)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tb_B)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -371,10 +325,6 @@ namespace Explorer_Tools
         private System.Windows.Forms.TableLayoutPanel tlp_Colors;
         private System.Windows.Forms.Label lb_G;
         private System.Windows.Forms.Label lb_B;
-        private System.Windows.Forms.RadioButton rb_Main;
-        private System.Windows.Forms.RadioButton rb_BorderCorner;
-        private System.Windows.Forms.RadioButton rb_Border;
-        private System.Windows.Forms.RadioButton rb_Header;
         private System.Windows.Forms.TrackBar tb_R;
         private System.Windows.Forms.TrackBar tb_G;
         private System.Windows.Forms.TrackBar tb_B;
@@ -385,5 +335,7 @@ namespace Explorer_Tools
         private System.Windows.Forms.Button btn_Preview;
         private System.Windows.Forms.Button btn_Apply;
         private System.Windows.Forms.Button btn_Revert;
+        private System.Windows.Forms.FlowLayoutPanel flp_ColorSlots;
+        private System.Windows.Forms.Label label1;
     }
 }

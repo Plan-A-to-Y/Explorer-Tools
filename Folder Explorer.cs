@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Explorer_Tools
 {
-    public partial class Folder_Explorer : Form
+    public partial class Folder_Explorer : Form, IDisplayForm
     {
         public string InitialDirectory { get; set; }
         public Folder_Explorer()
@@ -43,11 +43,10 @@ namespace Explorer_Tools
                 else
                 {
                     first = false;
-                    tableLayoutPanel2.RowStyles[tableLayoutPanel2.RowCount - 1].SizeType = SizeType.Absolute;
-                    tableLayoutPanel2.RowStyles[tableLayoutPanel2.RowCount - 1].Height = FEntry.Height;
+                    tableLayoutPanel2.RowStyles[tableLayoutPanel2.RowCount - 1].SizeType = SizeType.AutoSize;
                 }
-
-
+                FEntry.Owner = this;
+                FEntry.MaximumSize = new Size(tableLayoutPanel2.Width, FEntry.MaximumSize.Height);
                 tableLayoutPanel2.Controls.Add(FEntry);
                 FEntry.Dock = DockStyle.Fill;
                 FEntry.Show();
@@ -71,6 +70,27 @@ namespace Explorer_Tools
         {
             InitialDirectory = Directory.GetParent(InitialDirectory).FullName;
             Populate();
+        }
+
+        public void SelectFile(IFileIcon File)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SelectFolder(IFolderIcon Folder)
+        {
+            InitialDirectory = Folder.FolderPath;
+            Populate();
+        }
+
+        public void DeselectFile(IFileIcon File)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeselectFolder(IFolderIcon Folder)
+        {
+            throw new NotImplementedException();
         }
     }
 }
