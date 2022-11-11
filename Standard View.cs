@@ -26,10 +26,8 @@ namespace Explorer_Tools
             FE.Show();
             Folder_Contents FC = new Folder_Contents();
             sc_Main.Panel2.Controls.Add(FC);
-            FC.Dock = DockStyle.Fill;
             FC.Show();
             FC.DisplayContents(FE.InitialDirectory);
-            Metadata.FileMetadata.Add(new md_File(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Professional Logo.png", "Logo") { FormColors = { new StyleOptions.ColorSlot(StyleOptions.colorSlot.SelectedColor, "255|0|0|255" ) } } );
             Metadata.SaveData();
         }
 

@@ -34,20 +34,19 @@ namespace Explorer_Tools
         private void Populate()
         {
             bool first = true;
-            tableLayoutPanel2.Controls.Clear();
-            tableLayoutPanel2.RowCount = 1;
+            tlp_Content.Controls.Clear();
+            tlp_Content.RowCount = 1;
             foreach (string Folder in Directory.GetDirectories(InitialDirectory))
             {
                 FolderEntry FEntry = new FolderEntry(Folder);
-                if (!first) tableLayoutPanel2.RowCount += 1;
+                if (!first) tlp_Content.RowCount += 1;
                 else
                 {
                     first = false;
-                    tableLayoutPanel2.RowStyles[tableLayoutPanel2.RowCount - 1].SizeType = SizeType.AutoSize;
+                    tlp_Content.RowStyles[tlp_Content.RowCount - 1].SizeType = SizeType.AutoSize;
                 }
                 FEntry.Owner = this;
-                FEntry.MaximumSize = new Size(tableLayoutPanel2.Width, FEntry.MaximumSize.Height);
-                tableLayoutPanel2.Controls.Add(FEntry);
+                tlp_Content.Controls.Add(FEntry);
                 FEntry.Dock = DockStyle.Fill;
                 FEntry.Show();
             }
@@ -91,6 +90,18 @@ namespace Explorer_Tools
         public void DeselectFolder(IFolderIcon Folder)
         {
             throw new NotImplementedException();
+        }
+
+        private void Folder_Explorer_Resize(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void tlp_Content_SizeChanged(object sender, EventArgs e)
+        {
+            if (tlp_Content.VerticalScroll.Visible) { tlp_Content.Padding = new Padding(0, 0, 15, 0); }
+            else { tlp_Content.Padding = new Padding(0, 0, 0, 0); }
+            Refresh();
         }
     }
 }

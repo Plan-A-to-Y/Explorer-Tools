@@ -36,25 +36,26 @@ namespace Explorer_Tools
             // 
             // sc_Main
             // 
+            this.sc_Main.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.sc_Main.Cursor = System.Windows.Forms.Cursors.VSplit;
             this.sc_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sc_Main.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.sc_Main.IsSplitterFixed = true;
             this.sc_Main.Location = new System.Drawing.Point(0, 0);
             this.sc_Main.Margin = new System.Windows.Forms.Padding(0);
             this.sc_Main.Name = "sc_Main";
             // 
             // sc_Main.Panel1
             // 
+            this.sc_Main.Panel1.AutoScroll = true;
             this.sc_Main.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
             this.sc_Main.Panel1MinSize = 300;
             // 
             // sc_Main.Panel2
             // 
+            this.sc_Main.Panel2.AutoScroll = true;
             this.sc_Main.Panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.sc_Main.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.sc_Main.Size = new System.Drawing.Size(916, 390);
-            this.sc_Main.SplitterDistance = 300;
+            this.sc_Main.SplitterDistance = 330;
             this.sc_Main.TabIndex = 1;
             // 
             // form_StandardView

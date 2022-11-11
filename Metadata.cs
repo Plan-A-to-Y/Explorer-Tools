@@ -69,12 +69,14 @@ namespace Explorer_Tools
         {
             FolderMetadata.Remove((from x in FolderMetadata where x.FolderId == toUpdate.FolderId select x).First());
             FolderMetadata.Add(toUpdate);
+            SaveData();
         }
 
         public static void UpdateFileData(md_File toUpdate)
         {
             FileMetadata.Remove((from x in FileMetadata where x.FileId == toUpdate.FileId select x).First());
             FileMetadata.Add(toUpdate);
+            SaveData();
         }
 
         public static void LoadData()
@@ -99,6 +101,9 @@ namespace Explorer_Tools
         public int FolderId { get; set; }
         public List<ColorSlot> FormColors { get; set; }
         public IconEntry IconOverride { get; set; }
+        public string FolderDesc { get; set; }
+        public string FolderDetails { get; set; }
+        public DateTime ScanDate { get; set; }
 
         public md_Folder()
         {

@@ -29,37 +29,73 @@ namespace Explorer_Tools
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tlp_Main = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_GoUp = new System.Windows.Forms.Button();
+            this.tlp_Content = new System.Windows.Forms.TableLayoutPanel();
             this.ico_Folder = new System.Windows.Forms.PictureBox();
             this.btn_Close = new System.Windows.Forms.Button();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pn_Label = new System.Windows.Forms.Panel();
             this.lb_FolderName = new System.Windows.Forms.Label();
-            this.btn_GoUp = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tlp_Main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ico_Folder)).BeginInit();
             this.pn_Label.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // tlp_Main
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Controls.Add(this.ico_Folder, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btn_Close, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.pn_Label, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(300, 450);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.tlp_Main.AutoSize = true;
+            this.tlp_Main.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tlp_Main.ColumnCount = 4;
+            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_Main.Controls.Add(this.btn_GoUp, 2, 0);
+            this.tlp_Main.Controls.Add(this.tlp_Content, 0, 1);
+            this.tlp_Main.Controls.Add(this.ico_Folder, 0, 0);
+            this.tlp_Main.Controls.Add(this.btn_Close, 3, 0);
+            this.tlp_Main.Controls.Add(this.pn_Label, 1, 0);
+            this.tlp_Main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp_Main.Location = new System.Drawing.Point(0, 0);
+            this.tlp_Main.Margin = new System.Windows.Forms.Padding(0);
+            this.tlp_Main.Name = "tlp_Main";
+            this.tlp_Main.RowCount = 2;
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_Main.Size = new System.Drawing.Size(300, 450);
+            this.tlp_Main.TabIndex = 0;
+            // 
+            // btn_GoUp
+            // 
+            this.btn_GoUp.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_GoUp.Location = new System.Drawing.Point(241, 0);
+            this.btn_GoUp.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_GoUp.Name = "btn_GoUp";
+            this.btn_GoUp.Size = new System.Drawing.Size(29, 30);
+            this.btn_GoUp.TabIndex = 7;
+            this.btn_GoUp.Text = "↑";
+            this.btn_GoUp.UseVisualStyleBackColor = true;
+            this.btn_GoUp.Click += new System.EventHandler(this.btn_GoUp_Click);
+            // 
+            // tlp_Content
+            // 
+            this.tlp_Content.AutoScroll = true;
+            this.tlp_Content.AutoSize = true;
+            this.tlp_Content.ColumnCount = 1;
+            this.tlp_Main.SetColumnSpan(this.tlp_Content, 4);
+            this.tlp_Content.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_Content.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 0F));
+            this.tlp_Content.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp_Content.Location = new System.Drawing.Point(0, 30);
+            this.tlp_Content.Margin = new System.Windows.Forms.Padding(0);
+            this.tlp_Content.MinimumSize = new System.Drawing.Size(50, 50);
+            this.tlp_Content.Name = "tlp_Content";
+            this.tlp_Content.Padding = new System.Windows.Forms.Padding(1);
+            this.tlp_Content.RowCount = 1;
+            this.tlp_Content.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_Content.Size = new System.Drawing.Size(300, 420);
+            this.tlp_Content.TabIndex = 6;
+            this.tlp_Content.SizeChanged += new System.EventHandler(this.tlp_Content_SizeChanged);
             // 
             // ico_Folder
             // 
@@ -73,69 +109,45 @@ namespace Explorer_Tools
             // 
             // btn_Close
             // 
-            this.btn_Close.Location = new System.Drawing.Point(273, 3);
+            this.btn_Close.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Close.Location = new System.Drawing.Point(270, 0);
+            this.btn_Close.Margin = new System.Windows.Forms.Padding(0);
             this.btn_Close.Name = "btn_Close";
-            this.btn_Close.Size = new System.Drawing.Size(24, 23);
+            this.btn_Close.Size = new System.Drawing.Size(30, 30);
             this.btn_Close.TabIndex = 3;
             this.btn_Close.Text = "X";
             this.btn_Close.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.AutoScroll = true;
-            this.tableLayoutPanel2.AutoScrollMargin = new System.Drawing.Size(0, 3);
-            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanel2, 3);
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 30);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel2.MaximumSize = new System.Drawing.Size(300, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(300, 420);
-            this.tableLayoutPanel2.TabIndex = 4;
-            // 
             // pn_Label
             // 
             this.pn_Label.Controls.Add(this.lb_FolderName);
-            this.pn_Label.Controls.Add(this.btn_GoUp);
             this.pn_Label.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pn_Label.Location = new System.Drawing.Point(30, 0);
             this.pn_Label.Margin = new System.Windows.Forms.Padding(0);
             this.pn_Label.Name = "pn_Label";
-            this.pn_Label.Size = new System.Drawing.Size(240, 30);
+            this.pn_Label.Size = new System.Drawing.Size(210, 30);
             this.pn_Label.TabIndex = 5;
             // 
             // lb_FolderName
             // 
             this.lb_FolderName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_FolderName.Location = new System.Drawing.Point(0, 0);
+            this.lb_FolderName.Margin = new System.Windows.Forms.Padding(0);
             this.lb_FolderName.Name = "lb_FolderName";
-            this.lb_FolderName.Size = new System.Drawing.Size(211, 30);
+            this.lb_FolderName.Size = new System.Drawing.Size(210, 30);
             this.lb_FolderName.TabIndex = 1;
             this.lb_FolderName.Text = "FOLDER NAME HERE";
             this.lb_FolderName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btn_GoUp
-            // 
-            this.btn_GoUp.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_GoUp.Location = new System.Drawing.Point(211, 0);
-            this.btn_GoUp.Name = "btn_GoUp";
-            this.btn_GoUp.Size = new System.Drawing.Size(29, 30);
-            this.btn_GoUp.TabIndex = 0;
-            this.btn_GoUp.Text = "↑";
-            this.btn_GoUp.UseVisualStyleBackColor = true;
-            this.btn_GoUp.Click += new System.EventHandler(this.btn_GoUp_Click);
             // 
             // Folder_Explorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(300, 450);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.ControlBox = false;
+            this.Controls.Add(this.tlp_Main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -143,21 +155,24 @@ namespace Explorer_Tools
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Folder Explorer";
-            this.tableLayoutPanel1.ResumeLayout(false);
+            this.Resize += new System.EventHandler(this.Folder_Explorer_Resize);
+            this.tlp_Main.ResumeLayout(false);
+            this.tlp_Main.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ico_Folder)).EndInit();
             this.pn_Label.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tlp_Main;
         private System.Windows.Forms.PictureBox ico_Folder;
         private System.Windows.Forms.Button btn_Close;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel pn_Label;
         private System.Windows.Forms.Label lb_FolderName;
+        private System.Windows.Forms.TableLayoutPanel tlp_Content;
         private System.Windows.Forms.Button btn_GoUp;
     }
 }
