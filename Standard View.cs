@@ -22,13 +22,19 @@ namespace Explorer_Tools
             Metadata.Initialize();
             Folder_Explorer FE = new Folder_Explorer(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             sc_Main.Panel1.Controls.Add(FE);
+            FE.StandardView = this;
             FE.Dock = DockStyle.Fill;
             FE.Show();
+            OpenFolderView(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            Metadata.SaveData();
+        }
+
+        public void OpenFolderView(string path)
+        {
             Folder_Contents FC = new Folder_Contents();
             sc_Main.Panel2.Controls.Add(FC);
             FC.Show();
-            FC.DisplayContents(FE.InitialDirectory);
-            Metadata.SaveData();
+            FC.DisplayContents(path);
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)

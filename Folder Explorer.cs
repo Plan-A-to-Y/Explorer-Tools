@@ -12,6 +12,7 @@ namespace Explorer_Tools
     public partial class Folder_Explorer : Form, IDisplayForm
     {
         public string InitialDirectory { get; set; }
+        public form_StandardView StandardView { get; set; }
         public Folder_Explorer()
         {
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);

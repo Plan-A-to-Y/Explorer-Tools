@@ -170,6 +170,7 @@ namespace Explorer_Tools
         private void btn_Select_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) { Owner.SelectFolder(this); }
+            else if (e.Button == MouseButtons.Right) { ((Folder_Explorer)Owner).StandardView.OpenFolderView(FolderPath); }
         }
 
         private void btn_Options_Click(object sender, EventArgs e)

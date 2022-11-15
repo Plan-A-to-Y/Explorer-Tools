@@ -122,6 +122,7 @@ namespace Explorer_Tools
             this.btn_Select.UseVisualStyleBackColor = true;
             this.btn_Select.Click += new System.EventHandler(this.btn_Select_Click);
             this.btn_Select.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btn_Select_MouseClick);
+            this.btn_Select.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btn_Select_MouseClick);
             // 
             // tb_ThumbText
             // 

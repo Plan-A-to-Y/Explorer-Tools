@@ -81,7 +81,8 @@ namespace Explorer_Tools
 
         public static void LoadData()
         {
-            main = JsonSerializer.Deserialize<MDFile>(File.ReadAllText(".\\FileData.FD"));
+            if (File.Exists(".\\FileData.FD")) main = JsonSerializer.Deserialize<MDFile>(File.ReadAllText(".\\FileData.FD"));
+            else { main = new MDFile(); main.FileMD = new List<md_File>(); main.FolderMD = new List<md_Folder>(); }
             FolderMetadata = main.FolderMD;
             FileMetadata = main.FileMD;
         }
