@@ -21,6 +21,7 @@ namespace Explorer_Tools
         public IDisplayForm Owner { get; set; }
         public bool IsSelected { get; set; }
         public int FileId { get; set; }
+        public Metadata.Types FileType { get; set; }
         public Doc_Entry()
         {
             panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.EntryColor);

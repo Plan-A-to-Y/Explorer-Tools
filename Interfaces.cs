@@ -17,6 +17,7 @@ namespace Explorer_Tools
         public IDisplayForm Owner { get; set; }
         public string FilePath { get; set; }
         public int FileId { get; set; }
+        public Metadata.Types FileType { get; set; }
         public abstract void Selected();
         public abstract void Deselected();
     }

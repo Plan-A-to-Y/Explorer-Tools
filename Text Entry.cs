@@ -15,6 +15,7 @@ namespace Explorer_Tools
         public int FileId { get; set; }
         public bool IsSelected { get; set; }
         public IDisplayForm Owner { get; set; }
+        public Metadata.Types FileType { get; set; }
         public Text_Entry()
         {
             InitializeComponent();

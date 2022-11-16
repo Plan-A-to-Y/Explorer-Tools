@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Linq;
+using static Explorer_Tools.Metadata;
 
 namespace Explorer_Tools
 {
@@ -16,7 +17,8 @@ namespace Explorer_Tools
         public IDisplayForm Owner { get; set; }
         public bool IsSelected { get; set; }
         public int FileId { get; set; }
-
+        public bool ShowDetails { get; set; }
+        public Types FileType { get; set; }
         public File_Entry()
         {
             InitializeComponent();
@@ -41,8 +43,10 @@ namespace Explorer_Tools
             }
             panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.EntryColor);
             label1.Text = FilePath.Split('\\')[FilePath.Split('\\').Length - 1];
-            if (!File.Exists(FilePath)){ richTextBox1.Text = "FILE DOESN'T EXIST"; return; }
-            richTextBox1.Text += $"File Extension: {FilePath.Split('.')[FilePath.Split('.').Length-1]}";
+            if (!File.Exists(FilePath)){ rtb_Details.Text = "FILE DOESN'T EXIST"; return; }
+            rtb_Details.Text += $"File Extension: {FilePath.Split('.')[FilePath.Split('.').Length-1]}";
+            if (!ShowDetails) rtb_Details.Hide();
+            FileType = Metadata.GetFileType(FilePath);
         }
         public void Selected()
         {
@@ -61,6 +65,12 @@ namespace Explorer_Tools
         {
             if (((IFileIcon)this).IsSelected) ((IFileIcon)this).Deselected();
             else ((IFileIcon)this).Selected();
+        }
+
+        private void btn_Details_Click(object sender, EventArgs e)
+        {
+            if (!ShowDetails) { rtb_Details.Show(); ShowDetails = true; }
+            else if (ShowDetails) { rtb_Details.Hide(); ShowDetails = false; }
         }
     }
 }

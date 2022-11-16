@@ -11,6 +11,30 @@ namespace Explorer_Tools
 {
     public static class Metadata
     {
+        public enum Types
+        {
+            File,
+            Folder,
+            Image,
+            Text,
+            Doc,
+            URL
+        }
+        public enum FilterTypes
+        {
+            Type,
+            Extension,
+            Tag,
+            None
+        }
+
+        public enum SortTypes
+        {
+            Name,
+            Size,
+            DateModified,
+            Tag
+        }
         [Serializable]
         public class MDFile
         {
@@ -79,6 +103,17 @@ namespace Explorer_Tools
             SaveData();
         }
 
+        public static Types GetFileType(string path)
+        {
+            List<string> ImageTypes = new List<string> { ".bmp", ".png", ".jpg", ".jpeg", ".gif" };
+            List<string> TextTypes = new List<string> { ".txt" };
+            List<string> DocTypes = new List<string> { ".docx" };
+            string ext = "." + path.Split('.').Last();
+            if (ImageTypes.Contains(ext)) { return Types.Image; }
+            else if (TextTypes.Contains(ext)) { return Types.Text; }
+            else if (DocTypes.Contains(ext)) { return Types.Doc; }
+            else { return Types.File; }
+        }
         public static void LoadData()
         {
             if (File.Exists(".\\FileData.FD")) main = JsonSerializer.Deserialize<MDFile>(File.ReadAllText(".\\FileData.FD"));
@@ -120,7 +155,8 @@ namespace Explorer_Tools
                 new ColorSlot(colorSlot.EntryColor), 
                 new ColorSlot(colorSlot.HeaderColor),
                 new ColorSlot(colorSlot.BorderColor),
-                new ColorSlot(colorSlot.BorderCornerColor)
+                new ColorSlot(colorSlot.BorderCornerColor),
+                new ColorSlot(colorSlot.TextColor)
             };
             if (folderPath == null)
             {
@@ -147,7 +183,7 @@ namespace Explorer_Tools
     [Serializable]
     public class md_File
     {
-        public fileDisplayType FDT;
+        public Metadata.Types Type;
         public string IconPath { get; set; }
         public string DisplayName { get; set; }
         public string FilePath { get; set; }
@@ -176,12 +212,5 @@ namespace Explorer_Tools
                 new ColorSlot(colorSlot.BorderCornerColor)
             };
         }
-    }
-
-    public enum fileDisplayType
-    {
-        basic,
-        image,
-        text
     }
 }

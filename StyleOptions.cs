@@ -64,7 +64,8 @@ namespace Explorer_Tools
             EntryColor,
             HeaderColor,
             BorderColor,
-            BorderCornerColor
+            BorderCornerColor,
+            TextColor
         }
 
         [Serializable]
@@ -79,7 +80,8 @@ namespace Explorer_Tools
             new ColorSlot(colorSlot.EntryColor, "80|80|80|255"),
             new ColorSlot(colorSlot.HeaderColor, "100|0|100|255"),
             new ColorSlot(colorSlot.BorderColor, "20|20|20|255"),
-            new ColorSlot(colorSlot.BorderCornerColor, "255|255|255|255")
+            new ColorSlot(colorSlot.BorderCornerColor, "255|255|255|255"),
+            new ColorSlot(colorSlot.TextColor, "0|0|0|255")
             };
 
 

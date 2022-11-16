@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using static Explorer_Tools.Metadata;
 using static Explorer_Tools.StyleOptions;
 namespace Explorer_Tools
 {
@@ -18,19 +19,37 @@ namespace Explorer_Tools
         public List<string> ImageTypes = new List<string> { ".bmp", ".png", ".jpg", ".jpeg", ".gif" };
         public List<string> TextTypes = new List<string> { ".txt" };
         public List<string> DocTypes = new List<string> { ".docx" };
+        public SortTypes Sort = SortTypes.Name;
         public bool IsSelected { get; set; }
         IDisplayForm IFolderIcon.Owner { get; set; }
         public string FolderPath { get; set; }
         public int FolderId { get; set; }
         List<ColorSlot> StyleWindow.FormColors { get { return Metadata.FindFolderData(FolderPath).FormColors; } set { Metadata.FindFolderData(FolderPath).FormColors = value; } }
-
+        public static List<FilterTypes> FilterCriteria = new List<FilterTypes> { FilterTypes.Type, FilterTypes.Extension, FilterTypes.Tag };
         bool Moving = false;
         Point offset;
+
+
 
         public Folder_Contents()
         {
             InitializeComponent();
             this.TopLevel = false;
+
+            SortButton SB_Name = new SortButton(SortTypes.Name, this);
+            SB_Name.Text = "Name";
+            SB_Name.Click += SortBy;
+            tsb_Edit.DropDownItems.Add(SB_Name);
+
+            SortButton SB_Size = new SortButton(SortTypes.Size, this);
+            SB_Size.Text = "Size";
+            SB_Size.Click += SortBy;
+            tsb_Edit.DropDownItems.Add(SB_Size);
+
+            SortButton SB_Date = new SortButton(SortTypes.DateModified, this);
+            SB_Date.Text = "Date Modified";
+            SB_Date.Click += SortBy;
+            tsb_Edit.DropDownItems.Add(SB_Date);
         }
 
         public void DisplayContents(string Path)
@@ -49,25 +68,99 @@ namespace Explorer_Tools
                 panel_Content.Controls.Add(iEntry);
                 iEntry.Show();
             }
+            lb_FolderName.Text = md.DisplayName;
+            pb_FolderIcon.Image = Image.FromFile(md.IconPath);
+            panel_Content.Refresh();
+            tlp_Filters.Hide();
+            cb_FilterType.DataSource = FilterCriteria;
+            cb_FilterType.SelectedIndex = 0;
+            RefreshVisuals();
+        }
+
+        public class SortButton : ToolStripButton
+        {
+            public SortTypes ST = SortTypes.Name;
+            public Folder_Contents fc;
+            public SortButton(SortTypes sortType, Folder_Contents FC)
+            {
+                ST = sortType;
+                fc = FC;
+            }
+        }
+
+        public void SortBy(object sender, EventArgs e)
+        {
+            ((SortButton)sender).fc.DisplayContents(((SortButton)sender).fc.FolderPath, x => true, ((SortButton)sender).ST);
+        }
+
+        public void DisplayContents(string Path, Predicate<md_File> Filter, Metadata.SortTypes order = SortTypes.Name)
+        {
+            md = Metadata.FindFolderData(Path);
+            FolderId = md.FolderId;
+            FolderPath = Path;
+            panel_Content.Controls.Clear();
+            string[] files = Directory.GetFiles(FolderPath);
+            if (order == SortTypes.Name) { files = (from f in files orderby f.First() select f).ToArray<string>(); }
+            else if (order == SortTypes.Size) { files = (from f in files orderby new FileInfo(f).Length descending select f).ToArray<string>(); }
+            else if (order == SortTypes.DateModified) { files = (from f in files orderby new FileInfo(f).LastWriteTime select f).ToArray<string>(); }
+            foreach (string file in files)
+            {
+                if (!Filter(Metadata.FindFileData(file))) continue;
+                Control iEntry;
+                string ext = "." + file.Split('.').Last();
+                if (ImageTypes.Contains(ext)) { iEntry = new Image_Entry(file, this); }
+                else if (TextTypes.Contains(ext)) { iEntry = new Text_Entry(file, this); }
+                else if (DocTypes.Contains(ext)) { iEntry = new Doc_Entry(file, this); }
+                else { iEntry = new File_Entry(file, this); }
+                panel_Content.Controls.Add(iEntry);
+                iEntry.Show();
+            }
             panel_Content.Refresh();
             RefreshVisuals();
         }
 
         public void RefreshVisuals()
         {
-            panel_Header.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.HeaderColor);
+            panel_Header.BackColor = GetColor(md, colorSlot.HeaderColor);
+            ts_FolderTools.BackColor = GetColor(md, colorSlot.HeaderColor);
+            btn_ShowFilters.BackColor = GetColor(md, colorSlot.HeaderColor);
+            tlp_Filters.BackColor = GetColor(md, colorSlot.HeaderColor);
+            btn_ShowTools.BackColor = GetColor(md, colorSlot.HeaderColor);
 
-            pn_BottomBorder.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderColor);
-            pn_TopBorder.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderColor);
-            pn_LeftBorder.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderColor);
-            pn_RightBorder.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderColor);
+            pn_BottomBorder.BackColor = GetColor(md, colorSlot.BorderColor);
+            pn_TopBorder.BackColor = GetColor(md, colorSlot.BorderColor);
+            pn_LeftBorder.BackColor = GetColor(md, colorSlot.BorderColor);
+            pn_RightBorder.BackColor = GetColor(md, colorSlot.BorderColor);
 
-            pn_TopLeft.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderCornerColor);
-            pn_TopRight.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderCornerColor);
-            pn_BottomLeft.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderCornerColor);
-            pn_BottomRight.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.BorderCornerColor);
+            pn_TopLeft.BackColor = GetColor(md, colorSlot.BorderCornerColor);
+            pn_TopRight.BackColor = GetColor(md, colorSlot.BorderCornerColor);
+            pn_BottomLeft.BackColor = GetColor(md, colorSlot.BorderCornerColor);
+            pn_BottomRight.BackColor = GetColor(md, colorSlot.BorderCornerColor);
 
-            panel_Content.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.EntryColor);
+            panel_Content.BackColor = GetColor(md, colorSlot.EntryColor);
+
+            lb_FolderName.ForeColor = GetColor(md, colorSlot.TextColor);
+            tsb_File.ForeColor = GetColor(md, colorSlot.TextColor);
+            tsb_Edit.ForeColor = GetColor(md, colorSlot.TextColor);
+            btn_ShowFilters.ForeColor = GetColor(md, colorSlot.TextColor);
+            btn_ShowTools.ForeColor = GetColor(md, colorSlot.TextColor);
+            ts_FolderTools.Renderer = new MyRenderer();
+            ((MyRenderer)ts_FolderTools.Renderer).SetArrowColor(GetColor(md, colorSlot.TextColor));
+        }
+
+        public class MyRenderer : ToolStripRenderer
+        {
+            public Color ArrowColor = Color.White;
+            public void SetArrowColor(Color newarrowcolor)
+            {
+                ArrowColor = newarrowcolor;
+            }
+            protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e)
+            {
+                e.ArrowColor = ArrowColor;
+                base.OnRenderArrow(e);
+            }
+
         }
 
         private void folderContents_SizeChanged(object sender, EventArgs e)
@@ -83,7 +176,7 @@ namespace Explorer_Tools
 
         public void SelectFolder(IFolderIcon Folder)
         {
-            
+
         }
         public void DeselectFile(IFileIcon fileIco)
         {
@@ -109,12 +202,12 @@ namespace Explorer_Tools
         {
             Moving = true;
             offset = new Point(e.X, e.Y);
-            panel_Header.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.SelectedColor);
+            panel_Header.BackColor = GetColor(md, colorSlot.SelectedColor);
         }
 
         private void Folder_Contents_MouseMove(object sender, MouseEventArgs e)
         {
-            if(Moving)
+            if (Moving)
             {
                 Point newloc = Location;
                 newloc.X += e.X - offset.X;
@@ -128,7 +221,7 @@ namespace Explorer_Tools
             if (Moving)
             {
                 Moving = false;
-                panel_Header.BackColor = StyleOptions.GetColor(md, StyleOptions.colorSlot.HeaderColor);
+                panel_Header.BackColor = GetColor(md, colorSlot.HeaderColor);
             }
         }
 
@@ -151,7 +244,7 @@ namespace Explorer_Tools
 
         private void resize_MouseMove(object sender, MouseEventArgs e)
         {
-            
+
             if ((sender as Panel).Name.Contains("Top")) ResizeTop = true; Cursor.Current = Cursors.SizeNS;
             if ((sender as Panel).Name.Contains("Bottom")) ResizeBottom = true; Cursor.Current = Cursors.SizeNS;
             if ((sender as Panel).Name.Contains("Left")) ResizeLeft = true; Cursor.Current = Cursors.SizeWE;
@@ -170,7 +263,7 @@ namespace Explorer_Tools
                         Location = new Point(Location.X + Movement.X, Location.Y);
                         Width -= Math.Abs(Movement.X);
                     }
-                    else if(Movement.X < 0)
+                    else if (Movement.X < 0)
                     {
                         Location = new Point(Location.X + Movement.X, Location.Y);
                         Width += Math.Abs(Movement.X);
@@ -188,7 +281,7 @@ namespace Explorer_Tools
                 }
                 if (ResizeTop)
                 {
-                    if(Height != MinimumSize.Height) Location = new Point(Location.X, Location.Y + Movement.Y);
+                    if (Height != MinimumSize.Height) Location = new Point(Location.X, Location.Y + Movement.Y);
                     Height -= Movement.Y;
                 }
             }
@@ -255,6 +348,95 @@ namespace Explorer_Tools
             EW.EditFolder = true;
             EW.Setup(md, this);
             EW.ShowDialog();
+        }
+
+        private void pn_BottomBorder_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel_Content_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btn_ShowFilters_Click(object sender, EventArgs e)
+        {
+            tlp_Toolbar.Hide();
+            tlp_Filters.Show();
+        }
+
+        private void btn_ShowTools_Click(object sender, EventArgs e)
+        {
+            tlp_Toolbar.Show();
+            tlp_Filters.Hide();
+        }
+
+
+
+        private void cb_FilterType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            flp_Filters.Controls.Clear();
+            if (cb_FilterType.SelectedItem.Equals(FilterTypes.Type))
+            {
+                List<Types> PresentTypes = new List<Types>();
+                foreach (string f in Directory.GetFiles(FolderPath))
+                {
+                    if (!PresentTypes.Contains(Metadata.GetFileType(f))) { PresentTypes.Add(GetFileType(f)); }
+                }
+                foreach (Types t in PresentTypes)
+                {
+                    FilterButton fb = new FilterButton(this);
+                    fb.t = t;
+                    fb.FilterCriteria = (x => Metadata.GetFileType(x.FilePath).Equals(t));
+                    fb.Text = t.ToString();
+                    flp_Filters.Controls.Add(fb);
+                }
+
+            }
+            else if (cb_FilterType.SelectedItem.Equals(FilterTypes.Extension))
+            {
+                List<string> PresentExtensions = new List<string>();
+                foreach (string f in Directory.GetFiles(FolderPath))
+                {
+                    if(!PresentExtensions.Contains(f.Split(".").Last()))
+                    {
+                        PresentExtensions.Add(f.Split(".").Last());
+                    }
+                }
+                foreach (string t in PresentExtensions)
+                {
+                    FilterButton fb = new FilterButton(this);
+                    fb.FilterCriteria = (x => x.FilePath.Split(".").Last().Equals(t));
+                    fb.Text = t.ToString();
+                    fb.AutoSize = true;
+                    flp_Filters.Controls.Add(fb);
+                }
+            }
+            FilterButton fx = new FilterButton(this);
+            fx.Text = "Show All";
+            fx.FilterCriteria = (x => true);
+            flp_Filters.Controls.Add(fx);
+        }
+        public class FilterButton : Button
+        {
+            public Predicate<md_File> FilterCriteria { get; set; }
+            public Folder_Contents fc { get; set; }
+            public Types t { get; set; }
+            public FilterButton(Folder_Contents _fc)
+            {
+                fc = _fc;
+                Click += _fc.FilterBtnClick;
+                this.BackColor = GetColor(fc.md, colorSlot.EntryColor);
+                this.ForeColor = GetColor(fc.md, colorSlot.TextColor);
+                this.FlatAppearance.BorderColor = GetColor(fc.md, colorSlot.BorderColor);
+                FlatStyle = FlatStyle.Flat;
+            }
+        }
+
+        private void FilterBtnClick(object sender, EventArgs e)
+        {
+            ((FilterButton)sender).fc.DisplayContents(((FilterButton)sender).fc.FolderPath, ((FilterButton)sender).FilterCriteria);
         }
     }
 }

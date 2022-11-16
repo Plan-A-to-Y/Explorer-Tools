@@ -33,41 +33,47 @@ namespace Explorer_Tools
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Interact = new System.Windows.Forms.Button();
             this.pb_Icon = new System.Windows.Forms.PictureBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.btn_Details = new System.Windows.Forms.Button();
+            this.rtb_Details = new System.Windows.Forms.RichTextBox();
             this.panel_MainLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_Icon)).BeginInit();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // panel_MainLayout
             // 
-            this.panel_MainLayout.ColumnCount = 3;
+            this.panel_MainLayout.AutoSize = true;
+            this.panel_MainLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel_MainLayout.ColumnCount = 4;
             this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.panel_MainLayout.Controls.Add(this.label1, 1, 0);
             this.panel_MainLayout.Controls.Add(this.btn_Interact, 2, 0);
             this.panel_MainLayout.Controls.Add(this.pb_Icon, 0, 0);
-            this.panel_MainLayout.Controls.Add(this.richTextBox1, 1, 1);
-            this.panel_MainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_MainLayout.Controls.Add(this.btn_Details, 3, 0);
+            this.panel_MainLayout.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_MainLayout.Location = new System.Drawing.Point(0, 0);
-            this.panel_MainLayout.Name = "tableLayoutPanel1";
-            this.panel_MainLayout.RowCount = 4;
+            this.panel_MainLayout.Name = "panel_MainLayout";
+            this.panel_MainLayout.RowCount = 1;
             this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.panel_MainLayout.Size = new System.Drawing.Size(200, 200);
+            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.panel_MainLayout.Size = new System.Drawing.Size(200, 30);
             this.panel_MainLayout.TabIndex = 0;
             this.panel_MainLayout.Click += new System.EventHandler(this.SelectionClick);
             // 
             // label1
             // 
+            this.label1.AutoEllipsis = true;
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(30, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
+            this.label1.MinimumSize = new System.Drawing.Size(100, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(140, 30);
+            this.label1.Size = new System.Drawing.Size(110, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "FILE_NAME";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -76,8 +82,10 @@ namespace Explorer_Tools
             // btn_Interact
             // 
             this.btn_Interact.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_Interact.Location = new System.Drawing.Point(170, 0);
+            this.btn_Interact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Interact.Location = new System.Drawing.Point(140, 0);
             this.btn_Interact.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_Interact.MinimumSize = new System.Drawing.Size(30, 30);
             this.btn_Interact.Name = "btn_Interact";
             this.btn_Interact.Size = new System.Drawing.Size(30, 30);
             this.btn_Interact.TabIndex = 1;
@@ -89,34 +97,52 @@ namespace Explorer_Tools
             this.pb_Icon.Image = global::Explorer_Tools.Properties.Resources.FolderTempIcon;
             this.pb_Icon.Location = new System.Drawing.Point(0, 0);
             this.pb_Icon.Margin = new System.Windows.Forms.Padding(0);
+            this.pb_Icon.MinimumSize = new System.Drawing.Size(30, 30);
             this.pb_Icon.Name = "pb_Icon";
             this.pb_Icon.Size = new System.Drawing.Size(30, 30);
             this.pb_Icon.TabIndex = 2;
             this.pb_Icon.TabStop = false;
             // 
-            // richTextBox1
+            // btn_Details
             // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(33, 33);
-            this.richTextBox1.Name = "richTextBox1";
-            this.panel_MainLayout.SetRowSpan(this.richTextBox1, 2);
-            this.richTextBox1.Size = new System.Drawing.Size(134, 106);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "";
+            this.btn_Details.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Details.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Details.Location = new System.Drawing.Point(170, 0);
+            this.btn_Details.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_Details.Name = "btn_Details";
+            this.btn_Details.Size = new System.Drawing.Size(30, 30);
+            this.btn_Details.TabIndex = 3;
+            this.btn_Details.Text = "↓";
+            this.btn_Details.UseVisualStyleBackColor = true;
+            this.btn_Details.Click += new System.EventHandler(this.btn_Details_Click);
+            // 
+            // rtb_Details
+            // 
+            this.rtb_Details.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtb_Details.Location = new System.Drawing.Point(0, 30);
+            this.rtb_Details.Margin = new System.Windows.Forms.Padding(0);
+            this.rtb_Details.MinimumSize = new System.Drawing.Size(0, 30);
+            this.rtb_Details.Name = "rtb_Details";
+            this.rtb_Details.Size = new System.Drawing.Size(200, 168);
+            this.rtb_Details.TabIndex = 4;
+            this.rtb_Details.Text = "";
             // 
             // File_Entry
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.rtb_Details);
             this.Controls.Add(this.panel_MainLayout);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximumSize = new System.Drawing.Size(200, 200);
             this.Name = "File_Entry";
-            this.Size = new System.Drawing.Size(200, 200);
+            this.Size = new System.Drawing.Size(200, 198);
             this.Load += new System.EventHandler(this.FileEntry_Load);
             this.panel_MainLayout.ResumeLayout(false);
             this.panel_MainLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_Icon)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -126,6 +152,7 @@ namespace Explorer_Tools
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_Interact;
         private System.Windows.Forms.PictureBox pb_Icon;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button btn_Details;
+        private System.Windows.Forms.RichTextBox rtb_Details;
     }
 }
