@@ -47,7 +47,7 @@ namespace Explorer_Tools
             this.tlp_Main.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tlp_Main.ColumnCount = 4;
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlp_Main.Controls.Add(this.btn_GoUp, 2, 0);
@@ -83,8 +83,7 @@ namespace Explorer_Tools
             this.tlp_Content.AutoSize = true;
             this.tlp_Content.ColumnCount = 1;
             this.tlp_Main.SetColumnSpan(this.tlp_Content, 4);
-            this.tlp_Content.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp_Content.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 0F));
+            this.tlp_Content.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlp_Content.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlp_Content.Location = new System.Drawing.Point(0, 30);
             this.tlp_Content.Margin = new System.Windows.Forms.Padding(0);
@@ -141,16 +140,14 @@ namespace Explorer_Tools
             // 
             // Folder_Explorer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(300, 450);
             this.ControlBox = false;
             this.Controls.Add(this.tlp_Main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "Folder_Explorer";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

@@ -202,6 +202,8 @@ namespace Explorer_Tools
             // 
             // tlp_Filters
             // 
+            this.tlp_Filters.AutoSize = true;
+            this.tlp_Filters.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tlp_Filters.ColumnCount = 3;
             this.tlp_Filters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tlp_Filters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -215,7 +217,7 @@ namespace Explorer_Tools
             this.tlp_Filters.MinimumSize = new System.Drawing.Size(0, 30);
             this.tlp_Filters.Name = "tlp_Filters";
             this.tlp_Filters.RowCount = 1;
-            this.tlp_Filters.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_Filters.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Filters.Size = new System.Drawing.Size(784, 30);
             this.tlp_Filters.TabIndex = 12;
             // 

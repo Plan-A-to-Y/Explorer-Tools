@@ -54,12 +54,10 @@ namespace Explorer_Tools
             this.panel_MainLayout.Controls.Add(this.btn_Details, 3, 0);
             this.panel_MainLayout.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_MainLayout.Location = new System.Drawing.Point(0, 0);
+            this.panel_MainLayout.MinimumSize = new System.Drawing.Size(200, 30);
             this.panel_MainLayout.Name = "panel_MainLayout";
             this.panel_MainLayout.RowCount = 1;
             this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.panel_MainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.panel_MainLayout.Size = new System.Drawing.Size(200, 30);
             this.panel_MainLayout.TabIndex = 0;
             this.panel_MainLayout.Click += new System.EventHandler(this.SelectionClick);
@@ -123,20 +121,21 @@ namespace Explorer_Tools
             this.rtb_Details.Margin = new System.Windows.Forms.Padding(0);
             this.rtb_Details.MinimumSize = new System.Drawing.Size(0, 30);
             this.rtb_Details.Name = "rtb_Details";
-            this.rtb_Details.Size = new System.Drawing.Size(200, 168);
+            this.rtb_Details.Size = new System.Drawing.Size(200, 30);
             this.rtb_Details.TabIndex = 4;
             this.rtb_Details.Text = "";
             // 
             // File_Entry
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.rtb_Details);
             this.Controls.Add(this.panel_MainLayout);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.MaximumSize = new System.Drawing.Size(200, 200);
+            this.MinimumSize = new System.Drawing.Size(200, 30);
             this.Name = "File_Entry";
-            this.Size = new System.Drawing.Size(200, 198);
+            this.Size = new System.Drawing.Size(200, 30);
             this.Load += new System.EventHandler(this.FileEntry_Load);
             this.panel_MainLayout.ResumeLayout(false);
             this.panel_MainLayout.PerformLayout();

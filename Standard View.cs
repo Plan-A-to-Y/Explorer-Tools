@@ -21,7 +21,7 @@ namespace Explorer_Tools
             InitializeComponent();
             Metadata.Initialize();
             Folder_Explorer FE = new Folder_Explorer(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            sc_Main.Panel1.Controls.Add(FE);
+            pn_Sidebar.Controls.Add(FE);
             FE.StandardView = this;
             FE.Dock = DockStyle.Fill;
             FE.Show();
@@ -32,7 +32,7 @@ namespace Explorer_Tools
         public void OpenFolderView(string path)
         {
             Folder_Contents FC = new Folder_Contents();
-            sc_Main.Panel2.Controls.Add(FC);
+            pn_Main.Controls.Add(FC);
             FC.Show();
             FC.DisplayContents(path);
         }

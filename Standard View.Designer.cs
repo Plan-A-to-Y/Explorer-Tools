@@ -29,55 +29,64 @@ namespace Explorer_Tools
         /// </summary>
         private void InitializeComponent()
         {
-            this.sc_Main = new System.Windows.Forms.SplitContainer();
-            ((System.ComponentModel.ISupportInitialize)(this.sc_Main)).BeginInit();
-            this.sc_Main.SuspendLayout();
+            this.pn_Sidebar = new System.Windows.Forms.Panel();
+            this.pn_Main = new System.Windows.Forms.Panel();
+            this.splitter_Main = new System.Windows.Forms.Splitter();
             this.SuspendLayout();
             // 
-            // sc_Main
+            // pn_Sidebar
             // 
-            this.sc_Main.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.sc_Main.Cursor = System.Windows.Forms.Cursors.VSplit;
-            this.sc_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sc_Main.Location = new System.Drawing.Point(0, 0);
-            this.sc_Main.Margin = new System.Windows.Forms.Padding(0);
-            this.sc_Main.Name = "sc_Main";
+            this.pn_Sidebar.AutoSize = true;
+            this.pn_Sidebar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pn_Sidebar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pn_Sidebar.Location = new System.Drawing.Point(0, 0);
+            this.pn_Sidebar.Margin = new System.Windows.Forms.Padding(0);
+            this.pn_Sidebar.MinimumSize = new System.Drawing.Size(100, 0);
+            this.pn_Sidebar.Name = "pn_Sidebar";
+            this.pn_Sidebar.Size = new System.Drawing.Size(100, 390);
+            this.pn_Sidebar.TabIndex = 5;
             // 
-            // sc_Main.Panel1
+            // pn_Main
             // 
-            this.sc_Main.Panel1.AutoScroll = true;
-            this.sc_Main.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.sc_Main.Panel1MinSize = 300;
+            this.pn_Main.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pn_Main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pn_Main.Location = new System.Drawing.Point(100, 0);
+            this.pn_Main.Margin = new System.Windows.Forms.Padding(0);
+            this.pn_Main.Name = "pn_Main";
+            this.pn_Main.Size = new System.Drawing.Size(816, 390);
+            this.pn_Main.TabIndex = 6;
             // 
-            // sc_Main.Panel2
+            // splitter_Main
             // 
-            this.sc_Main.Panel2.AutoScroll = true;
-            this.sc_Main.Panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.sc_Main.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.sc_Main.Size = new System.Drawing.Size(916, 390);
-            this.sc_Main.SplitterDistance = 330;
-            this.sc_Main.TabIndex = 1;
+            this.splitter_Main.Location = new System.Drawing.Point(100, 0);
+            this.splitter_Main.Name = "splitter_Main";
+            this.splitter_Main.Size = new System.Drawing.Size(3, 390);
+            this.splitter_Main.TabIndex = 7;
+            this.splitter_Main.TabStop = false;
             // 
             // form_StandardView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(916, 390);
-            this.Controls.Add(this.sc_Main);
+            this.Controls.Add(this.splitter_Main);
+            this.Controls.Add(this.pn_Main);
+            this.Controls.Add(this.pn_Sidebar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.IsMdiContainer = true;
             this.Name = "form_StandardView";
             this.Text = "Form1";
             this.ResizeEnd += new System.EventHandler(this.folderContents_SizeChanged);
-            ((System.ComponentModel.ISupportInitialize)(this.sc_Main)).EndInit();
-            this.sc_Main.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        public System.Windows.Forms.SplitContainer sc_Main;
+        private System.Windows.Forms.Panel pn_Sidebar;
+        private System.Windows.Forms.Panel pn_Main;
+        private System.Windows.Forms.Splitter splitter_Main;
     }
 }
 

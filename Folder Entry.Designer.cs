@@ -47,7 +47,7 @@ namespace Explorer_Tools
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlp_Main.Controls.Add(this.btn_FolderIcon, 0, 0);
             this.tlp_Main.Controls.Add(this.rtb_FolderInfo, 0, 1);
@@ -63,7 +63,7 @@ namespace Explorer_Tools
             this.tlp_Main.RowCount = 2;
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp_Main.Size = new System.Drawing.Size(333, 150);
+            this.tlp_Main.Size = new System.Drawing.Size(343, 150);
             this.tlp_Main.TabIndex = 2;
             this.tlp_Main.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
@@ -86,7 +86,7 @@ namespace Explorer_Tools
             this.rtb_FolderInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtb_FolderInfo.Location = new System.Drawing.Point(3, 33);
             this.rtb_FolderInfo.Name = "rtb_FolderInfo";
-            this.rtb_FolderInfo.Size = new System.Drawing.Size(327, 114);
+            this.rtb_FolderInfo.Size = new System.Drawing.Size(337, 114);
             this.rtb_FolderInfo.TabIndex = 2;
             this.rtb_FolderInfo.Text = "No Description Available";
             this.rtb_FolderInfo.TextChanged += new System.EventHandler(this.rtb_FolderInfo_TextChanged);
@@ -133,7 +133,7 @@ namespace Explorer_Tools
             this.tb_ThumbText.Multiline = true;
             this.tb_ThumbText.Name = "tb_ThumbText";
             this.tb_ThumbText.ReadOnly = true;
-            this.tb_ThumbText.Size = new System.Drawing.Size(120, 30);
+            this.tb_ThumbText.Size = new System.Drawing.Size(130, 30);
             this.tb_ThumbText.TabIndex = 6;
             this.tb_ThumbText.Text = "NO DATA";
             this.tb_ThumbText.TextChanged += new System.EventHandler(this.tb_ThumbText_TextChanged);
@@ -143,7 +143,7 @@ namespace Explorer_Tools
             this.btn_Expand.BackColor = System.Drawing.Color.White;
             this.btn_Expand.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Expand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Expand.Location = new System.Drawing.Point(303, 0);
+            this.btn_Expand.Location = new System.Drawing.Point(313, 0);
             this.btn_Expand.Margin = new System.Windows.Forms.Padding(0);
             this.btn_Expand.Name = "btn_Expand";
             this.btn_Expand.Size = new System.Drawing.Size(30, 30);
@@ -161,7 +161,7 @@ namespace Explorer_Tools
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MinimumSize = new System.Drawing.Size(0, 30);
             this.Name = "FolderEntry";
-            this.Size = new System.Drawing.Size(333, 150);
+            this.Size = new System.Drawing.Size(343, 150);
             this.Load += new System.EventHandler(this.FolderEntry_Load);
             this.tlp_Main.ResumeLayout(false);
             this.tlp_Main.PerformLayout();

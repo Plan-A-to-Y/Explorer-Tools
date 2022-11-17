@@ -25,6 +25,7 @@ namespace Explorer_Tools
             { 
                 get {
                     colorSlot _slot = Slot;
+                    if (_color is null) { _color = "D"; }
                     if (_color.Equals("D")) return DefaultColors.Find(x => x.Slot.Equals(_slot)).Color;
                     else return _color;
                 }
@@ -81,7 +82,7 @@ namespace Explorer_Tools
             new ColorSlot(colorSlot.HeaderColor, "100|0|100|255"),
             new ColorSlot(colorSlot.BorderColor, "20|20|20|255"),
             new ColorSlot(colorSlot.BorderCornerColor, "255|255|255|255"),
-            new ColorSlot(colorSlot.TextColor, "0|0|0|255")
+            new ColorSlot(colorSlot.TextColor, "255|255|255|255")
             };
 
 

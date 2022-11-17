@@ -209,7 +209,8 @@ namespace Explorer_Tools
                 new ColorSlot(colorSlot.EntryColor),
                 new ColorSlot(colorSlot.HeaderColor),
                 new ColorSlot(colorSlot.BorderColor),
-                new ColorSlot(colorSlot.BorderCornerColor)
+                new ColorSlot(colorSlot.BorderCornerColor),
+                new ColorSlot(colorSlot.TextColor)
             };
         }
     }
