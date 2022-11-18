@@ -35,15 +35,41 @@ namespace Explorer_Tools
             DateModified,
             Tag
         }
+
+        [Serializable]
+        public struct ExtSlot
+        {
+            public string ext { get; set; }
+            public string path { get; set; }
+        }
+        [Serializable]
+        public struct Tag
+        {
+            public override string ToString()
+            {
+                return Name;
+            }
+            public string Name { get; set; }
+            public List<string> Aliases { get; set; }
+            public List<StyleOptions.ColorSlot> Colors { get; set; }
+            public string Icon { get; set; }
+        }
+
         [Serializable]
         public class MDFile
         {
             public List<md_File> FileMD { get; set; }
             public List<md_Folder> FolderMD { get; set; }
+            public List<Tag> TagData { get; set; }
+            public List<string> IconPaths;
+            public List<ExtSlot> ExtIcoPaths;
         }
         public static MDFile main;
         public static List<md_File> FileMetadata;
         public static List<md_Folder> FolderMetadata;
+        public static List<string> Icons;
+        public static List<ExtSlot> ExtIcons;
+        public static List<Tag> Tags;
         public static void Initialize()
         {
             if (File.Exists(".\\FileData.FD"))
@@ -54,9 +80,14 @@ namespace Explorer_Tools
             {
                 FileMetadata = new List<md_File>();
                 FolderMetadata = new List<md_Folder> { };
+                Icons = new List<string> { ".\\Icons\\Default.png" };
+                ExtIcons = new List<ExtSlot>();
                 main = new MDFile();
+                Tags = new List<Tag> { new Tag() { Name = "TEST TAG 1" }, new Tag() { Name = "TEST TAG 2" } };
                 main.FileMD = FileMetadata;
                 main.FolderMD = FolderMetadata;
+                main.ExtIcoPaths = ExtIcons;
+                main.TagData = Tags;
                 SaveData();
             }
         }
@@ -120,6 +151,8 @@ namespace Explorer_Tools
             else { main = new MDFile(); main.FileMD = new List<md_File>(); main.FolderMD = new List<md_Folder>(); }
             FolderMetadata = main.FolderMD;
             FileMetadata = main.FileMD;
+            Icons = main.IconPaths;
+            Tags = main.TagData;
         }
 
         public static void SaveData()
@@ -136,7 +169,7 @@ namespace Explorer_Tools
         public string FolderPath { get; set; }
         public int FolderId { get; set; }
         public List<ColorSlot> FormColors { get; set; }
-        public IconEntry IconOverride { get; set; }
+        public string IconOverride { get; set; }
         public string FolderDesc { get; set; }
         public string FolderDetails { get; set; }
         public DateTime ScanDate { get; set; }
@@ -189,7 +222,7 @@ namespace Explorer_Tools
         public string FilePath { get; set; }
         public int FileId { get; set; }
         public List<ColorSlot> FormColors { get; set; }
-        public IconEntry IconOverride { get; set; }
+        public string IconOverride { get; set; }
         public md_File()
         {
 

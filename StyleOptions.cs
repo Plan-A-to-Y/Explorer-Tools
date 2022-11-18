@@ -56,7 +56,42 @@ namespace Explorer_Tools
             {
                 return this.Slot == ((ColorSlot)obj).Slot;
             }
+            public override int GetHashCode()
+            {
+                return base.GetHashCode();
+            }
         }
+
+        public static Image GetIcon(string icon)
+        {
+            //Path Format
+            //Type 1: "Path:XX/XX/XXXXX/XXXX.png" -- Used for single-override icons
+            //Type 2: "Preset:[x]|[#]" -- [x] = File Extension or identifyer (ex. ".png" ".jpg") [#] = Slot ID (Kept in Metadata.IconSlots)
+            //Type 3: "D:[IcoType]" -- Uses the default icon for the given IcoType
+            try
+            {
+                if (icon.Contains("Path:")) return Image.FromFile(icon.Replace("Path:", ""));
+                else if (icon.Contains("Preset:"))
+                {
+                    return Image.FromFile((from Ex in Metadata.ExtIcons where Ex.ext.Equals(icon.Replace("Preset:", "").Split("|")[0]) select Ex).ToArray()[int.Parse(icon.Split("|")[1])].path);
+                }
+                else if (icon.Split(":").Contains("D"))
+                {
+                    return Image.FromFile((from Ex in Metadata.ExtIcons where Ex.ext.Equals(icon.Split(":")[1]) select Ex).ToArray()[0].path);
+                }
+                else
+                {
+                    return Image.FromFile(Metadata.Icons[0]);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return Image.FromFile(Metadata.Icons[0]);
+            }
+
+        }
+
 
         [Serializable]
         public enum colorSlot
@@ -67,13 +102,6 @@ namespace Explorer_Tools
             BorderColor,
             BorderCornerColor,
             TextColor
-        }
-
-        [Serializable]
-        public struct IconEntry
-        {
-            public string[] IconPath { get; set; }
-            public colorSlot toOverride { get; set; }
         }
 
         public static List<ColorSlot> DefaultColors = new List<ColorSlot>{

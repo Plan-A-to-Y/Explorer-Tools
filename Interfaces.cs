@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace Explorer_Tools
 {
+    public interface IColorPicker
+    {
+        public void UpdateColor(Color newColor);
+    }
     public interface IDisplayForm
     {
         public void SelectFile(IFileIcon File);
