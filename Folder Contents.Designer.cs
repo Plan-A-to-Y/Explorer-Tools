@@ -118,6 +118,7 @@ namespace Explorer_Tools
             // 
             // panel_Content
             // 
+            this.panel_Content.AllowDrop = true;
             this.panel_Content.AutoScroll = true;
             this.panel_Content.AutoScrollMargin = new System.Drawing.Size(5, 5);
             this.panel_Content.AutoSize = true;
@@ -130,6 +131,8 @@ namespace Explorer_Tools
             this.panel_Content.Name = "panel_Content";
             this.panel_Content.Size = new System.Drawing.Size(784, 354);
             this.panel_Content.TabIndex = 10;
+            this.panel_Content.DragDrop += new System.Windows.Forms.DragEventHandler(this.panel_Content_DragDrop);
+            this.panel_Content.DragEnter += new System.Windows.Forms.DragEventHandler(this.panel_Content_DragEnter);
             this.panel_Content.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Content_Paint);
             // 
             // tlp_Toolbar

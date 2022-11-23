@@ -59,14 +59,7 @@ namespace Explorer_Tools
             FolderPath = Path;
             foreach (string file in Directory.GetFiles(FolderPath))
             {
-                Control iEntry;
-                string ext = "." + file.Split('.').Last();
-                if (ImageTypes.Contains(ext)) { iEntry = new Image_Entry(file, this); }
-                else if (TextTypes.Contains(ext)) { iEntry = new Text_Entry(file, this); }
-                else if (DocTypes.Contains(ext)) { iEntry = new Doc_Entry(file, this); }
-                else { iEntry = new File_Entry(file, this); }
-                panel_Content.Controls.Add(iEntry);
-                iEntry.Show();
+                AddEntry(file);
             }
             lb_FolderName.Text = md.DisplayName;
             pb_FolderIcon.Image = Image.FromFile(md.IconPath);
@@ -75,6 +68,29 @@ namespace Explorer_Tools
             cb_FilterType.DataSource = FilterCriteria;
             cb_FilterType.SelectedIndex = 0;
             RefreshVisuals();
+        }
+
+        public void AddEntry(string file)
+        {
+            Control iEntry;
+            string ext = "." + file.Split('.').Last();
+            if (ImageTypes.Contains(ext)) { iEntry = new Image_Entry(file, this); }
+            else if (TextTypes.Contains(ext)) { iEntry = new Text_Entry(file, this); }
+            else if (DocTypes.Contains(ext)) { iEntry = new Doc_Entry(file, this); }
+            else { iEntry = new File_Entry(file, this); }
+            panel_Content.Controls.Add(iEntry);
+            iEntry.MouseMove += ClickAndDrag;
+            iEntry.Show();
+        }
+
+        public void RemoveFile(IFileIcon file)
+        {
+            panel_Content.Controls.Remove((from Control c in panel_Content.Controls where ((File_Entry)c).FilePath.Equals(file.FilePath) select c).First());
+        }
+
+        private void ClickAndDrag(object sender, MouseEventArgs e)
+        {
+
         }
 
         public class SortButton : ToolStripButton
@@ -437,6 +453,25 @@ namespace Explorer_Tools
         private void FilterBtnClick(object sender, EventArgs e)
         {
             ((FilterButton)sender).fc.DisplayContents(((FilterButton)sender).fc.FolderPath, ((FilterButton)sender).FilterCriteria);
+        }
+
+        private void panel_Content_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void panel_Content_DragDrop(object sender, DragEventArgs e)
+        {
+            var rawsource = e.Data.GetData(typeof(File_Entry));
+            File_Entry sourceFE = (File_Entry)rawsource;
+            string source = sourceFE.FilePath;
+            File.Move(source, FolderPath+ "\\" + source.Split("\\").Last());
+            md_File md = FindFileData(source);
+            md.FilePath = FolderPath + "\\" + source.Split("\\").Last();
+            sourceFE.Owner.RemoveFile(sourceFE);
+            UpdateFileData(md);
+            sourceFE.Owner = this;
+            AddEntry(md.FilePath);
         }
     }
 }

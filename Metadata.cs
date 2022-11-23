@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using static Explorer_Tools.StyleOptions;
 
 namespace Explorer_Tools
@@ -63,6 +64,10 @@ namespace Explorer_Tools
             public List<Tag> TagData { get; set; }
             public List<string> IconPaths;
             public List<ExtSlot> ExtIcoPaths;
+            public string DefaultIcon_File;
+            public string DefaultIcon_Folder;
+            public string DefaultIcon_Image;
+            public string DefaultIcon_Text;
         }
         public static MDFile main;
         public static List<md_File> FileMetadata;
@@ -70,6 +75,26 @@ namespace Explorer_Tools
         public static List<string> Icons;
         public static List<ExtSlot> ExtIcons;
         public static List<Tag> Tags;
+        public static string DefaultIcon_File
+        {
+            get { return main.DefaultIcon_File; }
+            set { main.DefaultIcon_File = value; SaveData(); }
+        }
+        public static string DefaultIcon_Folder
+        {
+            get { return main.DefaultIcon_Folder; }
+            set { main.DefaultIcon_Folder = value; SaveData(); }
+        }
+        public static string DefaultIcon_Image
+        {
+            get { return main.DefaultIcon_Image; }
+            set { main.DefaultIcon_Image = value; SaveData(); }
+        }
+        public static string DefaultIcon_Text
+        {
+            get { return main.DefaultIcon_Text; }
+            set { main.DefaultIcon_Text = value; SaveData(); }
+        }
         public static void Initialize()
         {
             if (File.Exists(".\\FileData.FD"))
@@ -77,7 +102,7 @@ namespace Explorer_Tools
                 LoadData();
             }
             else
-            {
+            { 
                 FileMetadata = new List<md_File>();
                 FolderMetadata = new List<md_Folder> { };
                 Icons = new List<string> { ".\\Icons\\Default.png" };
@@ -88,10 +113,13 @@ namespace Explorer_Tools
                 main.FolderMD = FolderMetadata;
                 main.ExtIcoPaths = ExtIcons;
                 main.TagData = Tags;
+                main.DefaultIcon_File = ".\\Icons\\Default.png";
+                main.DefaultIcon_Folder = ".\\Icons\\Default.png";
+                main.DefaultIcon_Image = ".\\Icons\\Default.png";
+                main.DefaultIcon_Text = ".\\Icons\\Default.png";
                 SaveData();
             }
         }
-
         public static md_Folder FindFolderData(string Path)
         {
             if(Path==null)
@@ -155,10 +183,21 @@ namespace Explorer_Tools
             Tags = main.TagData;
         }
 
-        public static void SaveData()
+        static bool isSaving;
+        public async static void SaveData()
         {
-            string toSave = JsonSerializer.Serialize(main);
-            File.WriteAllText(".\\FileData.FD", toSave);
+            if (isSaving) { return; }
+            else
+            {
+                try
+                {
+                    isSaving = true;
+                    string toSave = await Task.Run<string>(() => JsonSerializer.Serialize(main));
+                    File.WriteAllText(".\\FileData.FD", toSave);
+                    isSaving = false;
+                }
+                catch (Exception e) { }
+            }
         }
     }
     [Serializable]
@@ -197,7 +236,7 @@ namespace Explorer_Tools
             }
             if(displayName.Length > 1) { DisplayName = displayName; } else { DisplayName = FolderPath.Split('\\')[FolderPath.Split('\\').Length - 1]; }
             FolderId = 1;
-            while (Metadata.FileMetadata.Find(x => x.FileId == FolderId) != null)
+            while (Metadata.FolderMetadata.Find(x => x.FolderId == FolderId) != null)
             {
                 FolderId++;
             }
@@ -245,6 +284,7 @@ namespace Explorer_Tools
                 new ColorSlot(colorSlot.BorderCornerColor),
                 new ColorSlot(colorSlot.TextColor)
             };
+            IconPath = Metadata.GetFileType(FilePath).ToString();
         }
     }
 }

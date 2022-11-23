@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
+using System.Globalization;
+using System.Collections;
 
 namespace Explorer_Tools
 {
@@ -33,6 +35,10 @@ namespace Explorer_Tools
             Types = Enum.GetNames(typeof(Metadata.Types)).ToList();
             ActiveSet = StyleOptions.DefaultColors;
             UpdatePreview();
+            foreach (DictionaryEntry i in Properties.Resources.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, false, true))
+            {
+                cb_Icons.Items.Add(i.Key);
+            }
         }
 
         public void OpenFolderView(string path)
@@ -116,7 +122,7 @@ namespace Explorer_Tools
                         tlp_AppearanceContext.Show();
                         lb_AppearanceContext.Text = "Category:";
                         cb_CategoryTag.DisplayMember = "";
-                        cb_CategoryTag.DataSource = Types;
+                        cb_CategoryTag.DataSource = Enum.GetValues(typeof(Metadata.Types));
                         cb_CategoryTag.SelectedIndex = 0;
                         break;
                     }
@@ -151,6 +157,28 @@ namespace Explorer_Tools
             pn_ColorText.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.TextColor) select x).First().Color);
         }
 
-
+        private void cb_Icons_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            pb_IconPreview.Image = (Image)Properties.Resources.ResourceManager.GetObject(cb_Icons.SelectedItem.ToString());
+            if(CurrentMode == AppearanceMode.Category)
+            {
+                Metadata.Types type = (Metadata.Types)cb_CategoryTag.SelectedItem;
+                switch(type)
+                {
+                    case Metadata.Types.File:
+                        Metadata.DefaultIcon_File = $".\\Icons\\{cb_Icons.SelectedText}.png";
+                        break;
+                    case Metadata.Types.Folder:
+                        Metadata.DefaultIcon_Folder = $".\\Icons\\{cb_Icons.SelectedText}.png";
+                        break;
+                    case Metadata.Types.Image:
+                        Metadata.DefaultIcon_Image = $".\\Icons\\{cb_Icons.SelectedText}.png";
+                        break;
+                    case Metadata.Types.Text:
+                        Metadata.DefaultIcon_Text = $".\\Icons\\{cb_Icons.SelectedText}.png";
+                        break;
+                }
+            }
+        }
     }
 }

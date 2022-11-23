@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Explorer_Tools
 {
@@ -36,6 +37,7 @@ namespace Explorer_Tools
             FolderPath = folderPath;
             this.SetTopLevel(false);
             Meta = Metadata.FindFolderData(folderPath);
+            FolderId = Meta.FolderId;
             InitializeComponent();
             btn_FolderIcon.Image = Image.FromFile(Meta.IconPath);
             rtb_FolderInfo.Hide();
@@ -47,11 +49,29 @@ namespace Explorer_Tools
             if (Meta.FolderDesc is null) Meta.FolderDesc = "No Data";
             tb_ThumbText.Lines = Meta.FolderDesc.Split("\n");
         }
-        public void GenerateDesc()
+        public static bool isGeneratingDesc = false;
+        public async void GenerateDesc()
         {
+            if (isGeneratingDesc) { MessageBox.Show("Please wait for current scan to finish"); return; }
+            isGeneratingDesc = true;
+            List<md_Folder> updated = await Task.Run(DescTask);
+            foreach(md_Folder md in updated)
+            {
+                Metadata.UpdateFolderData(md);
+            }
+            Metadata.SaveData();
+            RefreshVisuals();
+            isGeneratingDesc = false;
+        }
+        public async Task<List<md_Folder>> DescTask()
+        {
+            List<md_Folder> toReturn = new List<md_Folder>();
             int filecount = 0;
             int dircount = 0;
             double totalsize = 0;
+            int CurrentDirFiles = 0;
+            int CurrentDirSub = 0;
+            double CurrentDirSize = 0;
             Queue<string> toSearch = new Queue<string>();
             toSearch.Enqueue(FolderPath);
             while (toSearch.Count > 0)
@@ -59,17 +79,32 @@ namespace Explorer_Tools
                 string target = toSearch.Dequeue();
                 try
                 {
+                    CurrentDirFiles = 0;
+                    CurrentDirSub = 0;
+                    CurrentDirSize = 0;
                     foreach (string f in Directory.GetFiles(target))
                     {
                         FileInfo fi = new FileInfo(f);
                         filecount++;
+                        CurrentDirFiles++;
                         totalsize += fi.Length;
+                        CurrentDirSize += fi.Length;
                     }
                     foreach (string dir in Directory.GetDirectories(target))
                     {
                         dircount++;
+                        CurrentDirSub++;
                         toSearch.Enqueue(dir);
                     }
+                    md_Folder Md = Metadata.FindFolderData(target);
+                    string currentDirSizeText = "";
+                    if (CurrentDirSize < 1000) { currentDirSizeText = $"{CurrentDirSize}b"; }
+                    else if (CurrentDirSize < 1000000) { currentDirSizeText = $"{(CurrentDirSize / 1000).ToString("##0.00")}kb"; }
+                    else if (CurrentDirSize < 1000000000) { currentDirSizeText = $"{(CurrentDirSize / 1000000).ToString("##0.00")}mb"; }
+                    else if (CurrentDirSize < 1000000000000) { currentDirSizeText = $"{(CurrentDirSize / 1000000000).ToString("##0.00")}gb"; }
+                    Md.FolderDesc = $"Files: {CurrentDirFiles} Folders: {CurrentDirSub}\nTotal Size: {currentDirSizeText}";
+                    Md.ScanDate = DateTime.Now;
+                    toReturn.Add(Md);
                 }
                 catch (Exception e) { }
             }
@@ -80,9 +115,8 @@ namespace Explorer_Tools
             else if (totalsize < 1000000000000) { sizetext = $"{(totalsize / 1000000000).ToString("##0.00")}gb"; }
             Meta.FolderDesc = $"Files: {filecount} Folders: {dircount}\nTotal Size: {sizetext}";
             Meta.ScanDate = DateTime.Now;
-            Metadata.UpdateFolderData(Meta);
-            tt.RemoveAll();
-            RefreshVisuals();
+            toReturn.Add(Meta);
+            return toReturn;
         }
 
         public void ShowDetails()
@@ -110,7 +144,7 @@ namespace Explorer_Tools
         private void FolderEntry_Load(object sender, EventArgs e)
         {
             this.Name = "Folder" + Meta.FolderId;
-            btn_Select.Text = Meta.DisplayName;
+            btn_Select.Text = Meta.DisplayName + " ("+FolderId+")";
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -162,6 +196,7 @@ namespace Explorer_Tools
                 else { tb_ThumbText.BackColor = Color.White; }
             }
             GetDesc();
+            
         }
 
         private void btn_Select_Click(object sender, EventArgs e)

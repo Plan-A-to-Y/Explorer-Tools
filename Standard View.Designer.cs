@@ -40,6 +40,7 @@ namespace Explorer_Tools
             this.tp_Appearance = new System.Windows.Forms.TabPage();
             this.tlp_Appearance = new System.Windows.Forms.TableLayoutPanel();
             this.pn_EditBy = new System.Windows.Forms.Panel();
+            this.rb_Presets = new System.Windows.Forms.RadioButton();
             this.rb_Tag = new System.Windows.Forms.RadioButton();
             this.rb_Category = new System.Windows.Forms.RadioButton();
             this.rb_Defaults = new System.Windows.Forms.RadioButton();
@@ -68,7 +69,6 @@ namespace Explorer_Tools
             this.btn_Apply = new System.Windows.Forms.Button();
             this.cb_Presets = new System.Windows.Forms.ComboBox();
             this.gb_Colors = new System.Windows.Forms.GroupBox();
-            this.rb_Presets = new System.Windows.Forms.RadioButton();
             this.tlp_Main.SuspendLayout();
             this.tabs_Sidebar.SuspendLayout();
             this.tp_Appearance.SuspendLayout();
@@ -233,6 +233,17 @@ namespace Explorer_Tools
             this.pn_EditBy.Size = new System.Drawing.Size(420, 26);
             this.pn_EditBy.TabIndex = 0;
             // 
+            // rb_Presets
+            // 
+            this.rb_Presets.AutoSize = true;
+            this.rb_Presets.Location = new System.Drawing.Point(207, 4);
+            this.rb_Presets.Name = "rb_Presets";
+            this.rb_Presets.Size = new System.Drawing.Size(62, 19);
+            this.rb_Presets.TabIndex = 3;
+            this.rb_Presets.Text = "Presets";
+            this.rb_Presets.UseVisualStyleBackColor = true;
+            this.rb_Presets.CheckedChanged += new System.EventHandler(this.rb_Presets_CheckedChanged);
+            // 
             // rb_Tag
             // 
             this.rb_Tag.AutoSize = true;
@@ -373,6 +384,7 @@ namespace Explorer_Tools
             this.cb_Icons.Name = "cb_Icons";
             this.cb_Icons.Size = new System.Drawing.Size(99, 23);
             this.cb_Icons.TabIndex = 1;
+            this.cb_Icons.SelectionChangeCommitted += new System.EventHandler(this.cb_Icons_SelectionChangeCommitted);
             // 
             // lb_UseExistingIcon
             // 
@@ -591,17 +603,6 @@ namespace Explorer_Tools
             this.gb_Colors.TabIndex = 5;
             this.gb_Colors.TabStop = false;
             this.gb_Colors.Text = "Colors";
-            // 
-            // rb_Presets
-            // 
-            this.rb_Presets.AutoSize = true;
-            this.rb_Presets.Location = new System.Drawing.Point(207, 4);
-            this.rb_Presets.Name = "rb_Presets";
-            this.rb_Presets.Size = new System.Drawing.Size(62, 19);
-            this.rb_Presets.TabIndex = 3;
-            this.rb_Presets.Text = "Presets";
-            this.rb_Presets.UseVisualStyleBackColor = true;
-            this.rb_Presets.CheckedChanged += new System.EventHandler(this.rb_Presets_CheckedChanged);
             // 
             // form_StandardView
             // 

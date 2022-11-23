@@ -15,6 +15,7 @@ namespace Explorer_Tools
         public void SelectFolder(IFolderIcon Folder);
         public void DeselectFile(IFileIcon File);
         public void DeselectFolder(IFolderIcon Folder);
+        public void RemoveFile(IFileIcon File);
     }
     public interface IFileIcon
     {

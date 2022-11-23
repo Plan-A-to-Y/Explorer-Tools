@@ -76,6 +76,7 @@ namespace Explorer_Tools
             this.label1.Text = "FILE_NAME";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.Click += new System.EventHandler(this.SelectionClick);
+            this.label1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ClickAndDrag);
             // 
             // btn_Interact
             // 
@@ -100,6 +101,7 @@ namespace Explorer_Tools
             this.pb_Icon.Size = new System.Drawing.Size(30, 30);
             this.pb_Icon.TabIndex = 2;
             this.pb_Icon.TabStop = false;
+            this.pb_Icon.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ClickAndDrag);
             // 
             // btn_Details
             // 

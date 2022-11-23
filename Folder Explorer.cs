@@ -104,5 +104,10 @@ namespace Explorer_Tools
             else { tlp_Content.Padding = new Padding(0, 0, 0, 0); }
             Refresh();
         }
+
+        public void RemoveFile(IFileIcon File)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -25,8 +25,8 @@ namespace Explorer_Tools
             { 
                 get {
                     colorSlot _slot = Slot;
-                    if (_color is null) { _color = "D"; }
-                    if (_color.Equals("D")) return DefaultColors.Find(x => x.Slot.Equals(_slot)).Color;
+                    if (_color is null) { _color = "§"; }
+                    if (_color.Equals("§")) return DefaultColors.Find(x => x.Slot.Equals(_slot)).Color;
                     else return _color;
                 }
                 set {
@@ -44,7 +44,7 @@ namespace Explorer_Tools
             public ColorSlot(colorSlot slot)
             {
                 Slot = slot;
-                _color = "D";
+                _color = "§";
                 DisplayName = slot.ToString();
             }
             public void UpdateColor(string NewColor)
@@ -70,12 +70,31 @@ namespace Explorer_Tools
             //Type 3: "D:[IcoType]" -- Uses the default icon for the given IcoType
             try
             {
+                if (icon is null) return Image.FromFile(Metadata.Icons[0]);
+
                 if (icon.Contains("Path:")) return Image.FromFile(icon.Replace("Path:", ""));
-                else if (icon.Contains("Preset:"))
+                else if (Enum.TryParse(typeof(Metadata.Types), icon, out var tp))
+                {
+                    switch(tp)
+                    {
+                        case Metadata.Types.File:
+                            return Image.FromFile(Metadata.DefaultIcon_File);
+                        case Metadata.Types.Folder:
+                            return Image.FromFile(Metadata.DefaultIcon_Folder);
+                        case Metadata.Types.Text:
+                            return Image.FromFile(Metadata.DefaultIcon_Text);
+                        case Metadata.Types.Image:
+                            return Image.FromFile(Metadata.DefaultIcon_Image);
+                        default:
+                            break;
+                    }
+                }
+
+                if (icon.Contains("Preset:"))
                 {
                     return Image.FromFile((from Ex in Metadata.ExtIcons where Ex.ext.Equals(icon.Replace("Preset:", "").Split("|")[0]) select Ex).ToArray()[int.Parse(icon.Split("|")[1])].path);
                 }
-                else if (icon.Split(":").Contains("D"))
+                else if (icon.Split(":").Contains("§"))
                 {
                     return Image.FromFile((from Ex in Metadata.ExtIcons where Ex.ext.Equals(icon.Split(":")[1]) select Ex).ToArray()[0].path);
                 }
@@ -116,26 +135,27 @@ namespace Explorer_Tools
 
         public static Color GetColor(string Path, colorSlot @override)
         {
-            string colorvalue = "D";
+            string colorvalue = "§";
             if (Directory.Exists(Path)) colorvalue = Metadata.FindFolderData(Path).FormColors.Find(x => x.Slot == @override).Color;
             else if (File.Exists(Path)) colorvalue = Metadata.FindFileData(Path).FormColors.Find(x => x.Slot == @override).Color;
 
-            if (colorvalue.Equals("D")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
+            if (colorvalue.Equals("§")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
+            //if ()
             else return ColorFromString(colorvalue);
         }
 
         public static Color GetColor(md_Folder md, colorSlot @override)
         {
-            string colorvalue = "D";
+            string colorvalue = "§";
             colorvalue = md.FormColors.Find(x => x.Slot == @override).Color;
-            if (colorvalue.Equals("D")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
+            if (colorvalue.Equals("§")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
             else return ColorFromString(colorvalue);
         }
         public static Color GetColor(md_File md, colorSlot @override)
         {
-            string colorvalue = "D";
+            string colorvalue = "§";
             colorvalue = md.FormColors.Find(x => x.Slot == @override).Color;
-            if (colorvalue.Equals("D")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
+            if (colorvalue.Equals("§")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
             else return ColorFromString(colorvalue);
         }
 

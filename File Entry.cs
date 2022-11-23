@@ -47,6 +47,15 @@ namespace Explorer_Tools
             rtb_Details.Text += $"File Extension: {FilePath.Split('.')[FilePath.Split('.').Length-1]}";
             if (!ShowDetails) rtb_Details.Hide();
             FileType = Metadata.GetFileType(FilePath);
+            pb_Icon.Image = StyleOptions.GetIcon(Metadata.FindFileData(FilePath).IconPath);
+        }
+
+        private void ClickAndDrag(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            { 
+                DoDragDrop(this, DragDropEffects.Move);
+            }
         }
         public void Selected()
         {
