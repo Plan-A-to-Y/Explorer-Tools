@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using static Explorer_Tools.StyleOptions;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using static Explorer_Tools.StyleOptions;
 
 namespace Explorer_Tools
 {
@@ -115,20 +114,20 @@ namespace Explorer_Tools
         [Serializable]
         public enum colorSlot
         {
-            SelectedColor,
-            EntryColor,
-            HeaderColor,
-            BorderColor,
-            BorderCornerColor,
+            Highlight,
+            Background,
+            Primary,
+            Secondary,
+            Tertiary,
             TextColor
         }
 
         public static List<ColorSlot> DefaultColors = new List<ColorSlot>{
-            new ColorSlot(colorSlot.SelectedColor, "100|50|100|255"),
-            new ColorSlot(colorSlot.EntryColor, "80|80|80|255"),
-            new ColorSlot(colorSlot.HeaderColor, "100|0|100|255"),
-            new ColorSlot(colorSlot.BorderColor, "20|20|20|255"),
-            new ColorSlot(colorSlot.BorderCornerColor, "255|255|255|255"),
+            new ColorSlot(colorSlot.Highlight, "100|50|100|255"),
+            new ColorSlot(colorSlot.Background, "80|80|80|255"),
+            new ColorSlot(colorSlot.Primary, "100|0|100|255"),
+            new ColorSlot(colorSlot.Secondary, "20|20|20|255"),
+            new ColorSlot(colorSlot.Tertiary, "255|255|255|255"),
             new ColorSlot(colorSlot.TextColor, "255|255|255|255")
             };
 
@@ -157,6 +156,10 @@ namespace Explorer_Tools
             colorvalue = md.FormColors.Find(x => x.Slot == @override).Color;
             if (colorvalue.Equals("§")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
             else return ColorFromString(colorvalue);
+        }
+        public static Color GetColor(colorSlot @override)
+        {
+            return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
         }
 
         public static Color ColorFromString(string input)

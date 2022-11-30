@@ -14,14 +14,16 @@ using System.Collections;
 
 namespace Explorer_Tools
 {
-    public partial class form_StandardView : Form, IColorPicker
+    public partial class form_StandardView : Form, IColorPicker, IRegisteredColor
     {
         public TableLayoutPanel BufferPanel;
         public md_Folder Meta;
+        bool PreviewEnabled = false;
         public form_StandardView()
         {
             InitializeComponent();
             Metadata.Initialize();
+            Register(new ColorReg(), this);
             Folder_Explorer FE = new Folder_Explorer(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             tp_Explorer.Controls.Add(FE);
             FE.StandardView = this;
@@ -39,6 +41,176 @@ namespace Explorer_Tools
             {
                 cb_Icons.Items.Add(i.Key);
             }
+            tabs_Sidebar.DrawMode = TabDrawMode.OwnerDrawFixed;
+            tabs_Sidebar.DrawItem += AltDrawItem;
+
+            UpdateVisuals();
+            cs_P.lb_Header.Text = "Primary";
+            cs_P.SetValue(StyleOptions.GetColor(StyleOptions.colorSlot.Primary));
+            cs_S.lb_Header.Text = "Secondary";
+            cs_S.SetValue(StyleOptions.GetColor(StyleOptions.colorSlot.Secondary));
+            cs_T.lb_Header.Text = "Tertiary";
+            cs_T.SetValue(StyleOptions.GetColor(StyleOptions.colorSlot.Tertiary));
+            cs_B.lb_Header.Text = "Background";
+            cs_B.SetValue(StyleOptions.GetColor(StyleOptions.colorSlot.Background));
+            cs_F.lb_Header.Text = "Text";
+            cs_F.SetValue(StyleOptions.GetColor(StyleOptions.colorSlot.TextColor));
+
+            cs_P.ValueUpdateEvent += ColorUpdated;
+            cs_S.ValueUpdateEvent += ColorUpdated;
+            cs_T.ValueUpdateEvent += ColorUpdated;
+            cs_B.ValueUpdateEvent += ColorUpdated;
+            cs_F.ValueUpdateEvent += ColorUpdated;
+        }
+
+        private void ColorUpdated(object sender, EventArgs e)
+        {
+            if(((ColorSlider)sender).lb_Header.Text.Equals("Primary"))
+            {
+                pn_ColorP.BackColor = ((ColorSlider)sender).CurrentColor;
+            }
+            if (((ColorSlider)sender).lb_Header.Text.Equals("Secondary"))
+            {
+                pn_ColorS.BackColor = ((ColorSlider)sender).CurrentColor;
+            }
+            if (((ColorSlider)sender).lb_Header.Text.Equals("Tertiary"))
+            {
+                pn_ColorT.BackColor = ((ColorSlider)sender).CurrentColor;
+            }
+            if (((ColorSlider)sender).lb_Header.Text.Equals("Background"))
+            {
+                pn_ColorB.BackColor = ((ColorSlider)sender).CurrentColor;
+            }
+            if (((ColorSlider)sender).lb_Header.Text.Equals("Text"))
+            {
+                pn_ColorF.BackColor = ((ColorSlider)sender).CurrentColor;
+            }
+        }
+
+        public void UpdateVisuals()
+        {
+            List<Control> AllCon = new List<Control>();
+            Queue<Control> ToSearch = new Queue<Control>();
+            foreach(Control c in this.Controls)
+            {
+                AllCon.Add(c);
+                ToSearch.Enqueue(c);
+            }
+            while(ToSearch.Count > 0)
+            {
+                Control Searching = ToSearch.Dequeue();
+                foreach(Control d in Searching.Controls)
+                {
+                    if (!AllCon.Contains(d)) AllCon.Add(d);
+                    ToSearch.Enqueue(d);
+                }
+            }
+
+            foreach(Control c in AllCon)
+            {
+                List<string> slots = new List<string> { "Fore", "Back", "BtnBorder", "TabHeader" };
+                foreach (string slot in slots)
+                {
+                    if (c.Tag is null) continue;
+                    bool Valid = false;
+                    Color col = Color.White;
+                    if (c.Tag.ToString().Contains(slot))
+                    {
+                        switch (c.Tag.ToString())
+                        {
+                            case string a when a.Contains(slot + ":P"):
+                                if (PreviewEnabled) col = pn_ColorP.BackColor;
+                                else col = StyleOptions.GetColor(StyleOptions.colorSlot.Primary);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":S"):
+                                if (PreviewEnabled) col = pn_ColorS.BackColor;
+                                else col = StyleOptions.GetColor(StyleOptions.colorSlot.Secondary);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":T"):
+                                if (PreviewEnabled) col = pn_ColorT.BackColor;
+                                else col = StyleOptions.GetColor(StyleOptions.colorSlot.Tertiary);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":B"):
+                                if (PreviewEnabled) col = pn_ColorB.BackColor;
+                                else col = StyleOptions.GetColor(StyleOptions.colorSlot.Background);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":F"):
+                                if (PreviewEnabled) col = pn_ColorF.BackColor;
+                                else col = StyleOptions.GetColor(StyleOptions.colorSlot.TextColor);
+                                Valid = true;
+                                break;
+
+                        }
+                    }
+                    if (Valid && slot.Equals("Fore")) c.ForeColor = col;
+                    if (Valid && slot.Equals("Back")) c.BackColor = col;
+                    if (Valid && slot.Equals("BtnBorder")) ((Button)c).FlatAppearance.BorderColor = col;
+                }
+                this.Refresh();
+                PreviewEnabled = false;
+            }
+        }
+
+        private void AltDrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            TabControl tc = sender as TabControl;
+            Color col = StyleOptions.GetColor(StyleOptions.colorSlot.Background);
+            if (tc.Tag is null) return;
+            switch (tc.Tag.ToString())
+            {
+                case string a when a.Contains("TabHeader:P"):
+                    if (PreviewEnabled) col = pn_ColorP.BackColor;
+                    else col = StyleOptions.GetColor(StyleOptions.colorSlot.Primary);
+                    break;
+                case string a when a.Contains("TabHeader:S"):
+                    if (PreviewEnabled) col = pn_ColorS.BackColor;
+                    else col = StyleOptions.GetColor(StyleOptions.colorSlot.Secondary);
+                    break;
+                case string a when a.Contains("TabHeader:T"):
+                    if (PreviewEnabled) col = pn_ColorT.BackColor;
+                    else col = StyleOptions.GetColor(StyleOptions.colorSlot.Tertiary);
+                    break;
+                case string a when a.Contains("TabHeader:B"):
+                    if (PreviewEnabled) col = pn_ColorB.BackColor;
+                    else col = StyleOptions.GetColor(StyleOptions.colorSlot.Background);
+                    break;
+                case string a when a.Contains("TabHeader:F"):
+                    if (PreviewEnabled) col = pn_ColorF.BackColor;
+                    else col = StyleOptions.GetColor(StyleOptions.colorSlot.TextColor);
+                    break;
+            }
+            using (Brush br = new SolidBrush(col))
+            {
+                // Color the Tab Header
+                e.Graphics.FillRectangle(br, e.Bounds);
+                // swap our height and width dimensions
+                var rotatedRectangle = new Rectangle(0, 0, e.Bounds.Height, e.Bounds.Width);
+
+                // Rotate
+                e.Graphics.ResetTransform();
+                e.Graphics.RotateTransform(-90);
+
+                // Translate to move the rectangle to the correct position.
+                e.Graphics.TranslateTransform(e.Bounds.Left, e.Bounds.Bottom, System.Drawing.Drawing2D.MatrixOrder.Append);
+
+                // Format String
+                var drawFormat = new System.Drawing.StringFormat();
+                drawFormat.Alignment = StringAlignment.Center;
+                drawFormat.LineAlignment = StringAlignment.Center;
+
+                // Draw Header Text
+                e.Graphics.DrawString(tc.TabPages[e.Index].Text, e.Font, new SolidBrush(StyleOptions.GetColor(StyleOptions.colorSlot.TextColor)), rotatedRectangle, drawFormat);
+            }
+        }
+
+        public void Register(ColorReg colorReg, IRegisteredColor self)
+        {
+
         }
 
         public void OpenFolderView(string path)
@@ -151,10 +323,11 @@ namespace Explorer_Tools
         }
         public void UpdatePreview()
         {
-            pn_ColorHeader.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.HeaderColor) select x).First().Color);
-            pn_ColorConent.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.EntryColor) select x).First().Color);
-            pn_ColorAccent.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.BorderColor) select x).First().Color);
-            pn_ColorText.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.TextColor) select x).First().Color);
+            pn_ColorP.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Primary) select x).First().Color);
+            pn_ColorS.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Secondary) select x).First().Color);
+            pn_ColorT.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Tertiary) select x).First().Color);
+            pn_ColorF.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.TextColor) select x).First().Color);
+            pn_ColorB.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Background) select x).First().Color);
         }
 
         private void cb_Icons_SelectionChangeCommitted(object sender, EventArgs e)
@@ -179,6 +352,12 @@ namespace Explorer_Tools
                         break;
                 }
             }
+        }
+
+        private void cb_Preview_CheckedChanged(object sender, EventArgs e)
+        {
+            PreviewEnabled = cb_Preview.Checked;
+            UpdateVisuals();
         }
     }
 }

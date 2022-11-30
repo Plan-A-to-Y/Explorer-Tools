@@ -41,7 +41,7 @@ namespace Explorer_Tools
             {
                 FileId = Metadata.FileMetadata.Find( x => x.FilePath.Equals(FilePath)).FileId;
             }
-            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.EntryColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.Background);
             label1.Text = FilePath.Split('\\')[FilePath.Split('\\').Length - 1];
             if (!File.Exists(FilePath)){ rtb_Details.Text = "FILE DOESN'T EXIST"; return; }
             rtb_Details.Text += $"File Extension: {FilePath.Split('.')[FilePath.Split('.').Length-1]}";
@@ -60,13 +60,13 @@ namespace Explorer_Tools
         public void Selected()
         {
             ((IFileIcon)this).IsSelected = true;
-            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.SelectedColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.Highlight);
             Owner.SelectFile(this);
         }
         public void Deselected()
         {
             ((IFileIcon)this).IsSelected = false;
-            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.EntryColor);
+            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.Background);
             Owner.DeselectFile(this);
         }
 

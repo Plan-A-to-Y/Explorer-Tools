@@ -137,23 +137,23 @@ namespace Explorer_Tools
 
         public void RefreshVisuals()
         {
-            panel_Header.BackColor = GetColor(md, colorSlot.HeaderColor);
-            ts_FolderTools.BackColor = GetColor(md, colorSlot.HeaderColor);
-            btn_ShowFilters.BackColor = GetColor(md, colorSlot.HeaderColor);
-            tlp_Filters.BackColor = GetColor(md, colorSlot.HeaderColor);
-            btn_ShowTools.BackColor = GetColor(md, colorSlot.HeaderColor);
+            panel_Header.BackColor = GetColor(md, colorSlot.Primary);
+            ts_FolderTools.BackColor = GetColor(md, colorSlot.Primary);
+            btn_ShowFilters.BackColor = GetColor(md, colorSlot.Primary);
+            tlp_Filters.BackColor = GetColor(md, colorSlot.Primary);
+            btn_ShowTools.BackColor = GetColor(md, colorSlot.Primary);
 
-            pn_BottomBorder.BackColor = GetColor(md, colorSlot.BorderColor);
-            pn_TopBorder.BackColor = GetColor(md, colorSlot.BorderColor);
-            pn_LeftBorder.BackColor = GetColor(md, colorSlot.BorderColor);
-            pn_RightBorder.BackColor = GetColor(md, colorSlot.BorderColor);
+            pn_BottomBorder.BackColor = GetColor(md, colorSlot.Secondary);
+            pn_TopBorder.BackColor = GetColor(md, colorSlot.Secondary);
+            pn_LeftBorder.BackColor = GetColor(md, colorSlot.Secondary);
+            pn_RightBorder.BackColor = GetColor(md, colorSlot.Secondary);
 
-            pn_TopLeft.BackColor = GetColor(md, colorSlot.BorderCornerColor);
-            pn_TopRight.BackColor = GetColor(md, colorSlot.BorderCornerColor);
-            pn_BottomLeft.BackColor = GetColor(md, colorSlot.BorderCornerColor);
-            pn_BottomRight.BackColor = GetColor(md, colorSlot.BorderCornerColor);
+            pn_TopLeft.BackColor = GetColor(md, colorSlot.Tertiary);
+            pn_TopRight.BackColor = GetColor(md, colorSlot.Tertiary);
+            pn_BottomLeft.BackColor = GetColor(md, colorSlot.Tertiary);
+            pn_BottomRight.BackColor = GetColor(md, colorSlot.Tertiary);
 
-            panel_Content.BackColor = GetColor(md, colorSlot.EntryColor);
+            panel_Content.BackColor = GetColor(md, colorSlot.Background);
 
             lb_FolderName.ForeColor = GetColor(md, colorSlot.TextColor);
             tsb_File.ForeColor = GetColor(md, colorSlot.TextColor);
@@ -218,7 +218,7 @@ namespace Explorer_Tools
         {
             Moving = true;
             offset = new Point(e.X, e.Y);
-            panel_Header.BackColor = GetColor(md, colorSlot.SelectedColor);
+            panel_Header.BackColor = GetColor(md, colorSlot.Highlight);
         }
 
         private void Folder_Contents_MouseMove(object sender, MouseEventArgs e)
@@ -237,7 +237,7 @@ namespace Explorer_Tools
             if (Moving)
             {
                 Moving = false;
-                panel_Header.BackColor = GetColor(md, colorSlot.HeaderColor);
+                panel_Header.BackColor = GetColor(md, colorSlot.Primary);
             }
         }
 
@@ -443,9 +443,9 @@ namespace Explorer_Tools
             {
                 fc = _fc;
                 Click += _fc.FilterBtnClick;
-                this.BackColor = GetColor(fc.md, colorSlot.EntryColor);
+                this.BackColor = GetColor(fc.md, colorSlot.Background);
                 this.ForeColor = GetColor(fc.md, colorSlot.TextColor);
-                this.FlatAppearance.BorderColor = GetColor(fc.md, colorSlot.BorderColor);
+                this.FlatAppearance.BorderColor = GetColor(fc.md, colorSlot.Secondary);
                 FlatStyle = FlatStyle.Flat;
             }
         }

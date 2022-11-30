@@ -184,10 +184,10 @@ namespace Explorer_Tools
 
         public void RefreshVisuals()
         {
-            btn_Select.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.HeaderColor);
-            BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.EntryColor);
+            btn_Select.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Secondary);
+            BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Background);
             btn_Select.ForeColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.TextColor);
-            btn_Select.FlatAppearance.BorderColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.BorderColor);
+            btn_Select.FlatAppearance.BorderColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Secondary);
             if (!Meta.ScanDate.Equals(DateTime.MinValue)) {
                 if (Directory.GetLastWriteTime(FolderPath).CompareTo(Meta.ScanDate) > 0) {
                     tt.SetToolTip(tb_ThumbText, "Scan outdated as of at least " + (DateTime.Now - Directory.GetLastWriteTime(FolderPath)).ToString(@"d\dh\hm\m") + " ago");

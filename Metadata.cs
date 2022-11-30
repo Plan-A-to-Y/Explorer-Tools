@@ -196,7 +196,7 @@ namespace Explorer_Tools
                     File.WriteAllText(".\\FileData.FD", toSave);
                     isSaving = false;
                 }
-                catch (Exception e) { }
+                catch (Exception e) { return; }
             }
         }
     }
@@ -223,11 +223,11 @@ namespace Explorer_Tools
         {
             FolderPath = folderPath;
             FormColors = new List<ColorSlot> { 
-                new ColorSlot(colorSlot.SelectedColor), 
-                new ColorSlot(colorSlot.EntryColor), 
-                new ColorSlot(colorSlot.HeaderColor),
-                new ColorSlot(colorSlot.BorderColor),
-                new ColorSlot(colorSlot.BorderCornerColor),
+                new ColorSlot(colorSlot.Highlight), 
+                new ColorSlot(colorSlot.Background), 
+                new ColorSlot(colorSlot.Primary),
+                new ColorSlot(colorSlot.Secondary),
+                new ColorSlot(colorSlot.Tertiary),
                 new ColorSlot(colorSlot.TextColor)
             };
             if (folderPath == null)
@@ -277,11 +277,11 @@ namespace Explorer_Tools
             FilePath = filePath;
             if (displayName.Length > 1) { DisplayName = displayName; } else { DisplayName = FilePath.Split('\\')[FilePath.Split('\\').Length - 1]; }
             FormColors = new List<ColorSlot> {
-                new ColorSlot(colorSlot.SelectedColor),
-                new ColorSlot(colorSlot.EntryColor),
-                new ColorSlot(colorSlot.HeaderColor),
-                new ColorSlot(colorSlot.BorderColor),
-                new ColorSlot(colorSlot.BorderCornerColor),
+                new ColorSlot(colorSlot.Highlight),
+                new ColorSlot(colorSlot.Background),
+                new ColorSlot(colorSlot.Primary),
+                new ColorSlot(colorSlot.Secondary),
+                new ColorSlot(colorSlot.Tertiary),
                 new ColorSlot(colorSlot.TextColor)
             };
             IconPath = Metadata.GetFileType(FilePath).ToString();

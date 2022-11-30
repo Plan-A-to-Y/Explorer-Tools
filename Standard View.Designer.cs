@@ -55,20 +55,28 @@ namespace Explorer_Tools
             this.lb_UseExistingIcon = new System.Windows.Forms.Label();
             this.pb_IconPreview = new System.Windows.Forms.PictureBox();
             this.gb_Presets = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.pn_ColorText = new System.Windows.Forms.Panel();
-            this.pn_ColorAccent = new System.Windows.Forms.Panel();
-            this.pn_ColorConent = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.pn_ColorHeader = new System.Windows.Forms.Panel();
-            this.btn_Preview = new System.Windows.Forms.Button();
+            this.tlp_PresetsBox = new System.Windows.Forms.TableLayoutPanel();
+            this.tlp_PresetIcons = new System.Windows.Forms.TableLayoutPanel();
+            this.lb_CL_T = new System.Windows.Forms.Label();
+            this.lb_CL_S = new System.Windows.Forms.Label();
+            this.lb_CL_F = new System.Windows.Forms.Label();
+            this.lb_CL_B = new System.Windows.Forms.Label();
+            this.pn_ColorF = new System.Windows.Forms.Panel();
+            this.pn_ColorB = new System.Windows.Forms.Panel();
+            this.pn_ColorT = new System.Windows.Forms.Panel();
+            this.pn_ColorS = new System.Windows.Forms.Panel();
+            this.pn_ColorP = new System.Windows.Forms.Panel();
+            this.lb_CL_P = new System.Windows.Forms.Label();
             this.btn_Apply = new System.Windows.Forms.Button();
             this.cb_Presets = new System.Windows.Forms.ComboBox();
+            this.cb_Preview = new System.Windows.Forms.CheckBox();
             this.gb_Colors = new System.Windows.Forms.GroupBox();
+            this.tlp_ColorSliders = new System.Windows.Forms.TableLayoutPanel();
+            this.cs_F = new Explorer_Tools.ColorSlider();
+            this.cs_B = new Explorer_Tools.ColorSlider();
+            this.cs_T = new Explorer_Tools.ColorSlider();
+            this.cs_S = new Explorer_Tools.ColorSlider();
+            this.cs_P = new Explorer_Tools.ColorSlider();
             this.tlp_Main.SuspendLayout();
             this.tabs_Sidebar.SuspendLayout();
             this.tp_Appearance.SuspendLayout();
@@ -79,8 +87,10 @@ namespace Explorer_Tools
             this.tlp_Icon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_IconPreview)).BeginInit();
             this.gb_Presets.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.tlp_PresetsBox.SuspendLayout();
+            this.tlp_PresetIcons.SuspendLayout();
+            this.gb_Colors.SuspendLayout();
+            this.tlp_ColorSliders.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlp_Main
@@ -98,7 +108,7 @@ namespace Explorer_Tools
             this.tlp_Main.Name = "tlp_Main";
             this.tlp_Main.RowCount = 1;
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp_Main.Size = new System.Drawing.Size(916, 416);
+            this.tlp_Main.Size = new System.Drawing.Size(886, 833);
             this.tlp_Main.TabIndex = 9;
             // 
             // btn_ShowSidebar
@@ -119,8 +129,9 @@ namespace Explorer_Tools
             this.pn_Main.Location = new System.Drawing.Point(489, 0);
             this.pn_Main.Margin = new System.Windows.Forms.Padding(0);
             this.pn_Main.Name = "pn_Main";
-            this.pn_Main.Size = new System.Drawing.Size(427, 416);
+            this.pn_Main.Size = new System.Drawing.Size(397, 833);
             this.pn_Main.TabIndex = 7;
+            this.pn_Main.Tag = "Back:B";
             // 
             // tabs_Sidebar
             // 
@@ -131,6 +142,7 @@ namespace Explorer_Tools
             this.tabs_Sidebar.Controls.Add(this.tb_Tags);
             this.tabs_Sidebar.Controls.Add(this.tp_Appearance);
             this.tabs_Sidebar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabs_Sidebar.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabs_Sidebar.HotTrack = true;
             this.tabs_Sidebar.ItemSize = new System.Drawing.Size(10, 25);
             this.tabs_Sidebar.Location = new System.Drawing.Point(0, 0);
@@ -139,37 +151,41 @@ namespace Explorer_Tools
             this.tabs_Sidebar.Name = "tabs_Sidebar";
             this.tabs_Sidebar.Padding = new System.Drawing.Point(0, 0);
             this.tabs_Sidebar.SelectedIndex = 0;
-            this.tabs_Sidebar.Size = new System.Drawing.Size(453, 416);
+            this.tabs_Sidebar.Size = new System.Drawing.Size(453, 833);
+            this.tabs_Sidebar.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabs_Sidebar.TabIndex = 8;
+            this.tabs_Sidebar.Tag = "TabHeader:P";
             this.tabs_Sidebar.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabs_Sidebar_Selecting);
             // 
             // tp_PLACEHOLDER
             // 
             this.tp_PLACEHOLDER.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.tp_PLACEHOLDER.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.tp_PLACEHOLDER.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.tp_PLACEHOLDER.Location = new System.Drawing.Point(4, 4);
             this.tp_PLACEHOLDER.Margin = new System.Windows.Forms.Padding(0);
             this.tp_PLACEHOLDER.Name = "tp_PLACEHOLDER";
-            this.tp_PLACEHOLDER.Size = new System.Drawing.Size(420, 408);
+            this.tp_PLACEHOLDER.Size = new System.Drawing.Size(420, 825);
             this.tp_PLACEHOLDER.TabIndex = 2;
             this.tp_PLACEHOLDER.Text = "↓";
             // 
             // tp_Explorer
             // 
+            this.tp_Explorer.BackColor = System.Drawing.Color.Transparent;
+            this.tp_Explorer.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.tp_Explorer.Location = new System.Drawing.Point(4, 4);
             this.tp_Explorer.Margin = new System.Windows.Forms.Padding(2);
             this.tp_Explorer.Name = "tp_Explorer";
-            this.tp_Explorer.Size = new System.Drawing.Size(420, 408);
+            this.tp_Explorer.Size = new System.Drawing.Size(420, 825);
             this.tp_Explorer.TabIndex = 0;
             this.tp_Explorer.Text = "Folder Browser";
-            this.tp_Explorer.UseVisualStyleBackColor = true;
             // 
             // tp_Settings
             // 
             this.tp_Settings.Location = new System.Drawing.Point(4, 4);
             this.tp_Settings.Name = "tp_Settings";
             this.tp_Settings.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_Settings.Size = new System.Drawing.Size(420, 408);
+            this.tp_Settings.Size = new System.Drawing.Size(420, 825);
             this.tp_Settings.TabIndex = 1;
             this.tp_Settings.Text = "Settings";
             this.tp_Settings.UseVisualStyleBackColor = true;
@@ -178,7 +194,7 @@ namespace Explorer_Tools
             // 
             this.tb_Tags.Location = new System.Drawing.Point(4, 4);
             this.tb_Tags.Name = "tb_Tags";
-            this.tb_Tags.Size = new System.Drawing.Size(420, 408);
+            this.tb_Tags.Size = new System.Drawing.Size(420, 825);
             this.tb_Tags.TabIndex = 4;
             this.tb_Tags.Text = "Tags";
             this.tb_Tags.UseVisualStyleBackColor = true;
@@ -188,7 +204,7 @@ namespace Explorer_Tools
             this.tp_Appearance.Controls.Add(this.tlp_Appearance);
             this.tp_Appearance.Location = new System.Drawing.Point(4, 4);
             this.tp_Appearance.Name = "tp_Appearance";
-            this.tp_Appearance.Size = new System.Drawing.Size(420, 408);
+            this.tp_Appearance.Size = new System.Drawing.Size(420, 825);
             this.tp_Appearance.TabIndex = 3;
             this.tp_Appearance.Text = "Appearance";
             this.tp_Appearance.UseVisualStyleBackColor = true;
@@ -196,8 +212,8 @@ namespace Explorer_Tools
             // tlp_Appearance
             // 
             this.tlp_Appearance.ColumnCount = 2;
-            this.tlp_Appearance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlp_Appearance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_Appearance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
+            this.tlp_Appearance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlp_Appearance.Controls.Add(this.pn_EditBy, 0, 1);
             this.tlp_Appearance.Controls.Add(this.lb_Edit, 0, 0);
             this.tlp_Appearance.Controls.Add(this.tlp_AppearanceContext, 0, 2);
@@ -206,6 +222,7 @@ namespace Explorer_Tools
             this.tlp_Appearance.Controls.Add(this.gb_Colors, 1, 3);
             this.tlp_Appearance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlp_Appearance.Location = new System.Drawing.Point(0, 0);
+            this.tlp_Appearance.Margin = new System.Windows.Forms.Padding(0);
             this.tlp_Appearance.Name = "tlp_Appearance";
             this.tlp_Appearance.RowCount = 6;
             this.tlp_Appearance.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -214,8 +231,9 @@ namespace Explorer_Tools
             this.tlp_Appearance.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Appearance.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Appearance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp_Appearance.Size = new System.Drawing.Size(420, 408);
+            this.tlp_Appearance.Size = new System.Drawing.Size(420, 825);
             this.tlp_Appearance.TabIndex = 1;
+            this.tlp_Appearance.Tag = "Back:B";
             // 
             // pn_EditBy
             // 
@@ -240,6 +258,7 @@ namespace Explorer_Tools
             this.rb_Presets.Name = "rb_Presets";
             this.rb_Presets.Size = new System.Drawing.Size(62, 19);
             this.rb_Presets.TabIndex = 3;
+            this.rb_Presets.Tag = "Fore:F";
             this.rb_Presets.Text = "Presets";
             this.rb_Presets.UseVisualStyleBackColor = true;
             this.rb_Presets.CheckedChanged += new System.EventHandler(this.rb_Presets_CheckedChanged);
@@ -251,6 +270,7 @@ namespace Explorer_Tools
             this.rb_Tag.Name = "rb_Tag";
             this.rb_Tag.Size = new System.Drawing.Size(43, 19);
             this.rb_Tag.TabIndex = 2;
+            this.rb_Tag.Tag = "Fore:F";
             this.rb_Tag.Text = "Tag";
             this.rb_Tag.UseVisualStyleBackColor = true;
             this.rb_Tag.CheckedChanged += new System.EventHandler(this.rb_Tag_CheckedChanged);
@@ -262,6 +282,7 @@ namespace Explorer_Tools
             this.rb_Category.Name = "rb_Category";
             this.rb_Category.Size = new System.Drawing.Size(73, 19);
             this.rb_Category.TabIndex = 1;
+            this.rb_Category.Tag = "Fore:F";
             this.rb_Category.Text = "Category";
             this.rb_Category.UseVisualStyleBackColor = true;
             this.rb_Category.CheckedChanged += new System.EventHandler(this.rb_Category_CheckedChanged);
@@ -275,6 +296,7 @@ namespace Explorer_Tools
             this.rb_Defaults.Size = new System.Drawing.Size(68, 19);
             this.rb_Defaults.TabIndex = 0;
             this.rb_Defaults.TabStop = true;
+            this.rb_Defaults.Tag = "Fore:F";
             this.rb_Defaults.Text = "Defaults";
             this.rb_Defaults.UseVisualStyleBackColor = true;
             this.rb_Defaults.CheckedChanged += new System.EventHandler(this.rb_Defaults_CheckedChanged);
@@ -286,8 +308,9 @@ namespace Explorer_Tools
             this.lb_Edit.Location = new System.Drawing.Point(0, 0);
             this.lb_Edit.Margin = new System.Windows.Forms.Padding(0);
             this.lb_Edit.Name = "lb_Edit";
-            this.lb_Edit.Size = new System.Drawing.Size(210, 15);
+            this.lb_Edit.Size = new System.Drawing.Size(170, 15);
             this.lb_Edit.TabIndex = 1;
+            this.lb_Edit.Tag = "Back:B Fore:F";
             this.lb_Edit.Text = "Edit...";
             this.lb_Edit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -319,6 +342,7 @@ namespace Explorer_Tools
             this.lb_AppearanceContext.Name = "lb_AppearanceContext";
             this.lb_AppearanceContext.Size = new System.Drawing.Size(420, 15);
             this.lb_AppearanceContext.TabIndex = 2;
+            this.lb_AppearanceContext.Tag = "Back:B Fore:F";
             this.lb_AppearanceContext.Text = "Category:";
             this.lb_AppearanceContext.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -340,7 +364,7 @@ namespace Explorer_Tools
             this.gb_Icon.Margin = new System.Windows.Forms.Padding(0);
             this.gb_Icon.Name = "gb_Icon";
             this.gb_Icon.Padding = new System.Windows.Forms.Padding(0);
-            this.gb_Icon.Size = new System.Drawing.Size(210, 144);
+            this.gb_Icon.Size = new System.Drawing.Size(170, 144);
             this.gb_Icon.TabIndex = 3;
             this.gb_Icon.TabStop = false;
             this.gb_Icon.Text = "Icon";
@@ -362,17 +386,19 @@ namespace Explorer_Tools
             this.tlp_Icon.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlp_Icon.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Icon.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp_Icon.Size = new System.Drawing.Size(210, 128);
+            this.tlp_Icon.Size = new System.Drawing.Size(170, 128);
             this.tlp_Icon.TabIndex = 0;
             // 
             // btn_BrowseForIcon
             // 
             this.btn_BrowseForIcon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_BrowseForIcon.Location = new System.Drawing.Point(108, 87);
+            this.btn_BrowseForIcon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_BrowseForIcon.Location = new System.Drawing.Point(88, 72);
             this.btn_BrowseForIcon.Name = "btn_BrowseForIcon";
             this.tlp_Icon.SetRowSpan(this.btn_BrowseForIcon, 2);
-            this.btn_BrowseForIcon.Size = new System.Drawing.Size(99, 38);
+            this.btn_BrowseForIcon.Size = new System.Drawing.Size(79, 53);
             this.btn_BrowseForIcon.TabIndex = 0;
+            this.btn_BrowseForIcon.Tag = "Fore:F Back:B BtnBorder:T";
             this.btn_BrowseForIcon.Text = "Browse...";
             this.btn_BrowseForIcon.UseVisualStyleBackColor = true;
             // 
@@ -382,7 +408,7 @@ namespace Explorer_Tools
             this.cb_Icons.FormattingEnabled = true;
             this.cb_Icons.Location = new System.Drawing.Point(3, 102);
             this.cb_Icons.Name = "cb_Icons";
-            this.cb_Icons.Size = new System.Drawing.Size(99, 23);
+            this.cb_Icons.Size = new System.Drawing.Size(79, 23);
             this.cb_Icons.TabIndex = 1;
             this.cb_Icons.SelectionChangeCommitted += new System.EventHandler(this.cb_Icons_SelectionChangeCommitted);
             // 
@@ -390,10 +416,10 @@ namespace Explorer_Tools
             // 
             this.lb_UseExistingIcon.AutoSize = true;
             this.lb_UseExistingIcon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_UseExistingIcon.Location = new System.Drawing.Point(3, 84);
+            this.lb_UseExistingIcon.Location = new System.Drawing.Point(3, 69);
             this.lb_UseExistingIcon.MinimumSize = new System.Drawing.Size(15, 0);
             this.lb_UseExistingIcon.Name = "lb_UseExistingIcon";
-            this.lb_UseExistingIcon.Size = new System.Drawing.Size(99, 15);
+            this.lb_UseExistingIcon.Size = new System.Drawing.Size(79, 30);
             this.lb_UseExistingIcon.TabIndex = 2;
             this.lb_UseExistingIcon.Text = "Existing Icons:";
             // 
@@ -405,7 +431,7 @@ namespace Explorer_Tools
             this.pb_IconPreview.InitialImage = global::Explorer_Tools.Properties.Resources.FolderTempIcon;
             this.pb_IconPreview.Location = new System.Drawing.Point(3, 3);
             this.pb_IconPreview.Name = "pb_IconPreview";
-            this.pb_IconPreview.Size = new System.Drawing.Size(204, 78);
+            this.pb_IconPreview.Size = new System.Drawing.Size(164, 63);
             this.pb_IconPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pb_IconPreview.TabIndex = 3;
             this.pb_IconPreview.TabStop = false;
@@ -413,202 +439,296 @@ namespace Explorer_Tools
             // gb_Presets
             // 
             this.gb_Presets.AutoSize = true;
-            this.gb_Presets.Controls.Add(this.tableLayoutPanel1);
+            this.gb_Presets.Controls.Add(this.tlp_PresetsBox);
             this.gb_Presets.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gb_Presets.Location = new System.Drawing.Point(0, 89);
             this.gb_Presets.Margin = new System.Windows.Forms.Padding(0);
             this.gb_Presets.Name = "gb_Presets";
             this.gb_Presets.Padding = new System.Windows.Forms.Padding(0);
-            this.gb_Presets.Size = new System.Drawing.Size(210, 156);
+            this.gb_Presets.Size = new System.Drawing.Size(170, 156);
             this.gb_Presets.TabIndex = 4;
             this.gb_Presets.TabStop = false;
+            this.gb_Presets.Tag = "Back:B Fore:F";
             this.gb_Presets.Text = "Presets";
             // 
-            // tableLayoutPanel1
+            // tlp_PresetsBox
             // 
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btn_Preview, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btn_Apply, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.cb_Presets, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 16);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(210, 140);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.tlp_PresetsBox.AutoSize = true;
+            this.tlp_PresetsBox.ColumnCount = 2;
+            this.tlp_PresetsBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_PresetsBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_PresetsBox.Controls.Add(this.tlp_PresetIcons, 0, 0);
+            this.tlp_PresetsBox.Controls.Add(this.btn_Apply, 1, 2);
+            this.tlp_PresetsBox.Controls.Add(this.cb_Presets, 0, 1);
+            this.tlp_PresetsBox.Controls.Add(this.cb_Preview, 0, 2);
+            this.tlp_PresetsBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp_PresetsBox.Location = new System.Drawing.Point(0, 16);
+            this.tlp_PresetsBox.Name = "tlp_PresetsBox";
+            this.tlp_PresetsBox.RowCount = 3;
+            this.tlp_PresetsBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_PresetsBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_PresetsBox.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_PresetsBox.Size = new System.Drawing.Size(170, 140);
+            this.tlp_PresetsBox.TabIndex = 0;
             // 
-            // tableLayoutPanel2
+            // tlp_PresetIcons
             // 
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.ColumnCount = 6;
-            this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanel2, 2);
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.pn_ColorText, 4, 1);
-            this.tableLayoutPanel2.Controls.Add(this.pn_ColorAccent, 3, 1);
-            this.tableLayoutPanel2.Controls.Add(this.pn_ColorConent, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.label1, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label2, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 3, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label4, 4, 2);
-            this.tableLayoutPanel2.Controls.Add(this.pn_ColorHeader, 1, 1);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(210, 80);
-            this.tableLayoutPanel2.TabIndex = 3;
+            this.tlp_PresetIcons.AutoSize = true;
+            this.tlp_PresetIcons.ColumnCount = 7;
+            this.tlp_PresetsBox.SetColumnSpan(this.tlp_PresetIcons, 2);
+            this.tlp_PresetIcons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_PresetIcons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_PresetIcons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_PresetIcons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_PresetIcons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_PresetIcons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_PresetIcons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_PresetIcons.Controls.Add(this.lb_CL_T, 2, 2);
+            this.tlp_PresetIcons.Controls.Add(this.lb_CL_S, 2, 2);
+            this.tlp_PresetIcons.Controls.Add(this.lb_CL_F, 2, 2);
+            this.tlp_PresetIcons.Controls.Add(this.lb_CL_B, 2, 2);
+            this.tlp_PresetIcons.Controls.Add(this.pn_ColorF, 5, 1);
+            this.tlp_PresetIcons.Controls.Add(this.pn_ColorB, 4, 1);
+            this.tlp_PresetIcons.Controls.Add(this.pn_ColorT, 3, 1);
+            this.tlp_PresetIcons.Controls.Add(this.pn_ColorS, 2, 1);
+            this.tlp_PresetIcons.Controls.Add(this.pn_ColorP, 1, 1);
+            this.tlp_PresetIcons.Controls.Add(this.lb_CL_P, 1, 2);
+            this.tlp_PresetIcons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp_PresetIcons.Location = new System.Drawing.Point(0, 0);
+            this.tlp_PresetIcons.Margin = new System.Windows.Forms.Padding(0);
+            this.tlp_PresetIcons.Name = "tlp_PresetIcons";
+            this.tlp_PresetIcons.RowCount = 4;
+            this.tlp_PresetIcons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_PresetIcons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tlp_PresetIcons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlp_PresetIcons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_PresetIcons.Size = new System.Drawing.Size(170, 80);
+            this.tlp_PresetIcons.TabIndex = 3;
             // 
-            // pn_ColorText
+            // lb_CL_T
             // 
-            this.pn_ColorText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pn_ColorText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pn_ColorText.Location = new System.Drawing.Point(160, 5);
-            this.pn_ColorText.Margin = new System.Windows.Forms.Padding(5);
-            this.pn_ColorText.Name = "pn_ColorText";
-            this.pn_ColorText.Size = new System.Drawing.Size(40, 40);
-            this.pn_ColorText.TabIndex = 7;
+            this.lb_CL_T.AutoSize = true;
+            this.lb_CL_T.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_CL_T.Location = new System.Drawing.Point(73, 50);
+            this.lb_CL_T.Name = "lb_CL_T";
+            this.lb_CL_T.Size = new System.Drawing.Size(24, 30);
+            this.lb_CL_T.TabIndex = 13;
+            this.lb_CL_T.Text = "T";
+            this.lb_CL_T.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pn_ColorAccent
+            // lb_CL_S
             // 
-            this.pn_ColorAccent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pn_ColorAccent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pn_ColorAccent.Location = new System.Drawing.Point(110, 5);
-            this.pn_ColorAccent.Margin = new System.Windows.Forms.Padding(5);
-            this.pn_ColorAccent.Name = "pn_ColorAccent";
-            this.pn_ColorAccent.Size = new System.Drawing.Size(40, 40);
-            this.pn_ColorAccent.TabIndex = 6;
+            this.lb_CL_S.AutoSize = true;
+            this.lb_CL_S.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_CL_S.Location = new System.Drawing.Point(43, 50);
+            this.lb_CL_S.Name = "lb_CL_S";
+            this.lb_CL_S.Size = new System.Drawing.Size(24, 30);
+            this.lb_CL_S.TabIndex = 12;
+            this.lb_CL_S.Text = "S";
+            this.lb_CL_S.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pn_ColorConent
+            // lb_CL_F
             // 
-            this.pn_ColorConent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pn_ColorConent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pn_ColorConent.Location = new System.Drawing.Point(60, 5);
-            this.pn_ColorConent.Margin = new System.Windows.Forms.Padding(5);
-            this.pn_ColorConent.Name = "pn_ColorConent";
-            this.pn_ColorConent.Size = new System.Drawing.Size(40, 40);
-            this.pn_ColorConent.TabIndex = 5;
+            this.lb_CL_F.AutoSize = true;
+            this.lb_CL_F.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_CL_F.Location = new System.Drawing.Point(133, 50);
+            this.lb_CL_F.Name = "lb_CL_F";
+            this.lb_CL_F.Size = new System.Drawing.Size(24, 30);
+            this.lb_CL_F.TabIndex = 11;
+            this.lb_CL_F.Text = "F";
+            this.lb_CL_F.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // lb_CL_B
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(8, 50);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 30);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Header";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_CL_B.AutoSize = true;
+            this.lb_CL_B.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_CL_B.Location = new System.Drawing.Point(103, 50);
+            this.lb_CL_B.Name = "lb_CL_B";
+            this.lb_CL_B.Size = new System.Drawing.Size(24, 30);
+            this.lb_CL_B.TabIndex = 10;
+            this.lb_CL_B.Text = "B";
+            this.lb_CL_B.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // pn_ColorF
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(58, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 30);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Content";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pn_ColorF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pn_ColorF.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pn_ColorF.Location = new System.Drawing.Point(130, 0);
+            this.pn_ColorF.Margin = new System.Windows.Forms.Padding(0);
+            this.pn_ColorF.Name = "pn_ColorF";
+            this.pn_ColorF.Size = new System.Drawing.Size(30, 50);
+            this.pn_ColorF.TabIndex = 8;
             // 
-            // label3
+            // pn_ColorB
             // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(108, 50);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 30);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Accent";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pn_ColorB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pn_ColorB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pn_ColorB.Location = new System.Drawing.Point(100, 0);
+            this.pn_ColorB.Margin = new System.Windows.Forms.Padding(0);
+            this.pn_ColorB.Name = "pn_ColorB";
+            this.pn_ColorB.Size = new System.Drawing.Size(30, 50);
+            this.pn_ColorB.TabIndex = 7;
             // 
-            // label4
+            // pn_ColorT
             // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(158, 50);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 30);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Text";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pn_ColorT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pn_ColorT.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pn_ColorT.Location = new System.Drawing.Point(70, 0);
+            this.pn_ColorT.Margin = new System.Windows.Forms.Padding(0);
+            this.pn_ColorT.Name = "pn_ColorT";
+            this.pn_ColorT.Size = new System.Drawing.Size(30, 50);
+            this.pn_ColorT.TabIndex = 6;
             // 
-            // pn_ColorHeader
+            // pn_ColorS
             // 
-            this.pn_ColorHeader.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pn_ColorHeader.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pn_ColorHeader.Location = new System.Drawing.Point(10, 5);
-            this.pn_ColorHeader.Margin = new System.Windows.Forms.Padding(5);
-            this.pn_ColorHeader.Name = "pn_ColorHeader";
-            this.pn_ColorHeader.Size = new System.Drawing.Size(40, 40);
-            this.pn_ColorHeader.TabIndex = 4;
+            this.pn_ColorS.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pn_ColorS.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pn_ColorS.Location = new System.Drawing.Point(40, 0);
+            this.pn_ColorS.Margin = new System.Windows.Forms.Padding(0);
+            this.pn_ColorS.Name = "pn_ColorS";
+            this.pn_ColorS.Size = new System.Drawing.Size(30, 50);
+            this.pn_ColorS.TabIndex = 5;
             // 
-            // btn_Preview
+            // pn_ColorP
             // 
-            this.btn_Preview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_Preview.Location = new System.Drawing.Point(3, 113);
-            this.btn_Preview.Name = "btn_Preview";
-            this.btn_Preview.Size = new System.Drawing.Size(99, 24);
-            this.btn_Preview.TabIndex = 0;
-            this.btn_Preview.Text = "Preview";
-            this.btn_Preview.UseVisualStyleBackColor = true;
+            this.pn_ColorP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pn_ColorP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pn_ColorP.Location = new System.Drawing.Point(10, 0);
+            this.pn_ColorP.Margin = new System.Windows.Forms.Padding(0);
+            this.pn_ColorP.Name = "pn_ColorP";
+            this.pn_ColorP.Size = new System.Drawing.Size(30, 50);
+            this.pn_ColorP.TabIndex = 4;
+            // 
+            // lb_CL_P
+            // 
+            this.lb_CL_P.AutoSize = true;
+            this.lb_CL_P.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_CL_P.Location = new System.Drawing.Point(13, 50);
+            this.lb_CL_P.Name = "lb_CL_P";
+            this.lb_CL_P.Size = new System.Drawing.Size(24, 30);
+            this.lb_CL_P.TabIndex = 9;
+            this.lb_CL_P.Text = "P";
+            this.lb_CL_P.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btn_Apply
             // 
             this.btn_Apply.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_Apply.Location = new System.Drawing.Point(108, 113);
+            this.btn_Apply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Apply.Location = new System.Drawing.Point(88, 113);
             this.btn_Apply.Name = "btn_Apply";
-            this.btn_Apply.Size = new System.Drawing.Size(99, 24);
+            this.btn_Apply.Size = new System.Drawing.Size(79, 24);
             this.btn_Apply.TabIndex = 1;
+            this.btn_Apply.Tag = "Fore:F Back:S BtnBorder:T";
             this.btn_Apply.Text = "Apply";
             this.btn_Apply.UseVisualStyleBackColor = true;
             // 
             // cb_Presets
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.cb_Presets, 2);
+            this.tlp_PresetsBox.SetColumnSpan(this.cb_Presets, 2);
             this.cb_Presets.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cb_Presets.FormattingEnabled = true;
             this.cb_Presets.Location = new System.Drawing.Point(3, 83);
             this.cb_Presets.Name = "cb_Presets";
-            this.cb_Presets.Size = new System.Drawing.Size(204, 23);
+            this.cb_Presets.Size = new System.Drawing.Size(164, 23);
             this.cb_Presets.TabIndex = 2;
+            // 
+            // cb_Preview
+            // 
+            this.cb_Preview.AutoSize = true;
+            this.cb_Preview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cb_Preview.Location = new System.Drawing.Point(3, 113);
+            this.cb_Preview.Name = "cb_Preview";
+            this.cb_Preview.Size = new System.Drawing.Size(79, 24);
+            this.cb_Preview.TabIndex = 4;
+            this.cb_Preview.Text = "Preview";
+            this.cb_Preview.UseVisualStyleBackColor = true;
+            this.cb_Preview.CheckedChanged += new System.EventHandler(this.cb_Preview_CheckedChanged);
             // 
             // gb_Colors
             // 
+            this.gb_Colors.Controls.Add(this.tlp_ColorSliders);
             this.gb_Colors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gb_Colors.Location = new System.Drawing.Point(213, 92);
+            this.gb_Colors.Location = new System.Drawing.Point(170, 89);
+            this.gb_Colors.Margin = new System.Windows.Forms.Padding(0);
             this.gb_Colors.Name = "gb_Colors";
-            this.tlp_Appearance.SetRowSpan(this.gb_Colors, 2);
-            this.gb_Colors.Size = new System.Drawing.Size(204, 294);
+            this.gb_Colors.Padding = new System.Windows.Forms.Padding(0);
+            this.tlp_Appearance.SetRowSpan(this.gb_Colors, 3);
+            this.gb_Colors.Size = new System.Drawing.Size(250, 736);
             this.gb_Colors.TabIndex = 5;
             this.gb_Colors.TabStop = false;
+            this.gb_Colors.Tag = "Back:B";
             this.gb_Colors.Text = "Colors";
+            // 
+            // tlp_ColorSliders
+            // 
+            this.tlp_ColorSliders.AutoScroll = true;
+            this.tlp_ColorSliders.ColumnCount = 1;
+            this.tlp_ColorSliders.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_ColorSliders.Controls.Add(this.cs_F, 0, 4);
+            this.tlp_ColorSliders.Controls.Add(this.cs_B, 0, 3);
+            this.tlp_ColorSliders.Controls.Add(this.cs_T, 0, 2);
+            this.tlp_ColorSliders.Controls.Add(this.cs_S, 0, 1);
+            this.tlp_ColorSliders.Controls.Add(this.cs_P, 0, 0);
+            this.tlp_ColorSliders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp_ColorSliders.Location = new System.Drawing.Point(0, 16);
+            this.tlp_ColorSliders.Margin = new System.Windows.Forms.Padding(0);
+            this.tlp_ColorSliders.Name = "tlp_ColorSliders";
+            this.tlp_ColorSliders.RowCount = 6;
+            this.tlp_ColorSliders.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_ColorSliders.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_ColorSliders.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_ColorSliders.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_ColorSliders.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlp_ColorSliders.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_ColorSliders.Size = new System.Drawing.Size(250, 720);
+            this.tlp_ColorSliders.TabIndex = 0;
+            // 
+            // cs_F
+            // 
+            this.cs_F.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cs_F.Location = new System.Drawing.Point(3, 581);
+            this.cs_F.Name = "cs_F";
+            this.cs_F.Size = new System.Drawing.Size(244, 146);
+            this.cs_F.TabIndex = 4;
+            // 
+            // cs_B
+            // 
+            this.cs_B.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cs_B.Location = new System.Drawing.Point(3, 435);
+            this.cs_B.Name = "cs_B";
+            this.cs_B.Size = new System.Drawing.Size(244, 140);
+            this.cs_B.TabIndex = 3;
+            // 
+            // cs_T
+            // 
+            this.cs_T.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cs_T.Location = new System.Drawing.Point(3, 289);
+            this.cs_T.Name = "cs_T";
+            this.cs_T.Size = new System.Drawing.Size(244, 140);
+            this.cs_T.TabIndex = 2;
+            // 
+            // cs_S
+            // 
+            this.cs_S.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cs_S.Location = new System.Drawing.Point(3, 143);
+            this.cs_S.Name = "cs_S";
+            this.cs_S.Size = new System.Drawing.Size(244, 140);
+            this.cs_S.TabIndex = 1;
+            // 
+            // cs_P
+            // 
+            this.cs_P.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cs_P.Location = new System.Drawing.Point(0, 0);
+            this.cs_P.Margin = new System.Windows.Forms.Padding(0);
+            this.cs_P.Name = "cs_P";
+            this.cs_P.Size = new System.Drawing.Size(250, 140);
+            this.cs_P.TabIndex = 0;
             // 
             // form_StandardView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(916, 416);
+            this.ClientSize = new System.Drawing.Size(886, 833);
             this.Controls.Add(this.tlp_Main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.IsMdiContainer = true;
@@ -630,10 +750,12 @@ namespace Explorer_Tools
             ((System.ComponentModel.ISupportInitialize)(this.pb_IconPreview)).EndInit();
             this.gb_Presets.ResumeLayout(false);
             this.gb_Presets.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
+            this.tlp_PresetsBox.ResumeLayout(false);
+            this.tlp_PresetsBox.PerformLayout();
+            this.tlp_PresetIcons.ResumeLayout(false);
+            this.tlp_PresetIcons.PerformLayout();
+            this.gb_Colors.ResumeLayout(false);
+            this.tlp_ColorSliders.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -665,21 +787,29 @@ namespace Explorer_Tools
         private System.Windows.Forms.PictureBox pb_IconPreview;
         private System.Windows.Forms.Label lb_AppearanceContext;
         private System.Windows.Forms.GroupBox gb_Presets;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Panel pn_ColorText;
-        private System.Windows.Forms.Panel pn_ColorAccent;
-        private System.Windows.Forms.Panel pn_ColorConent;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel pn_ColorHeader;
-        private System.Windows.Forms.Button btn_Preview;
+        private System.Windows.Forms.TableLayoutPanel tlp_PresetsBox;
+        private System.Windows.Forms.TableLayoutPanel tlp_PresetIcons;
+        private System.Windows.Forms.Panel pn_ColorB;
+        private System.Windows.Forms.Panel pn_ColorT;
+        private System.Windows.Forms.Panel pn_ColorS;
+        private System.Windows.Forms.Panel pn_ColorP;
         private System.Windows.Forms.Button btn_Apply;
         private System.Windows.Forms.ComboBox cb_Presets;
         private System.Windows.Forms.GroupBox gb_Colors;
         private System.Windows.Forms.RadioButton rb_Presets;
+        private System.Windows.Forms.Panel pn_ColorF;
+        private System.Windows.Forms.Label lb_CL_T;
+        private System.Windows.Forms.Label lb_CL_S;
+        private System.Windows.Forms.Label lb_CL_F;
+        private System.Windows.Forms.Label lb_CL_B;
+        private System.Windows.Forms.Label lb_CL_P;
+        private System.Windows.Forms.TableLayoutPanel tlp_ColorSliders;
+        private ColorSlider cs_P;
+        private ColorSlider cs_F;
+        private ColorSlider cs_B;
+        private ColorSlider cs_T;
+        private ColorSlider cs_S;
+        private System.Windows.Forms.CheckBox cb_Preview;
     }
 }
 
