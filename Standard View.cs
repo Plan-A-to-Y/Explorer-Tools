@@ -11,6 +11,8 @@ using System.IO;
 using System.Threading;
 using System.Globalization;
 using System.Collections;
+using static Explorer_Tools.StyleOptions;
+using static Explorer_Tools.ColorRegistry;
 
 namespace Explorer_Tools
 {
@@ -34,7 +36,7 @@ namespace Explorer_Tools
             tlp_AppearanceContext.Hide();
             tabs_Sidebar.SelectedIndex = 1;
             Types = Enum.GetNames(typeof(Metadata.Types)).ToList();
-            ActiveSet = StyleOptions.DefaultColors;
+            ActiveSet = Metadata.DefaultColors;
             UpdatePreview();
             foreach (DictionaryEntry i in Properties.Resources.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, false, true))
             {
@@ -149,9 +151,10 @@ namespace Explorer_Tools
                     if (Valid && slot.Equals("Back")) c.BackColor = col;
                     if (Valid && slot.Equals("BtnBorder")) ((Button)c).FlatAppearance.BorderColor = col;
                 }
-                this.Refresh();
-                PreviewEnabled = false;
+                
             }
+            Refresh();
+            PreviewEnabled = false;
         }
 
         private void AltDrawItem(object sender, DrawItemEventArgs e)
@@ -198,12 +201,16 @@ namespace Explorer_Tools
                 e.Graphics.TranslateTransform(e.Bounds.Left, e.Bounds.Bottom, System.Drawing.Drawing2D.MatrixOrder.Append);
 
                 // Format String
-                var drawFormat = new System.Drawing.StringFormat();
-                drawFormat.Alignment = StringAlignment.Center;
-                drawFormat.LineAlignment = StringAlignment.Center;
+                var drawFormat = new System.Drawing.StringFormat
+                {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                };
+
 
                 // Draw Header Text
-                e.Graphics.DrawString(tc.TabPages[e.Index].Text, e.Font, new SolidBrush(StyleOptions.GetColor(StyleOptions.colorSlot.TextColor)), rotatedRectangle, drawFormat);
+                if (PreviewEnabled) e.Graphics.DrawString(tc.TabPages[e.Index].Text, e.Font, new SolidBrush(pn_ColorF.BackColor), rotatedRectangle, drawFormat);
+                else e.Graphics.DrawString(tc.TabPages[e.Index].Text, e.Font, new SolidBrush(StyleOptions.GetColor(StyleOptions.colorSlot.TextColor)), rotatedRectangle, drawFormat);
             }
         }
 
@@ -322,11 +329,11 @@ namespace Explorer_Tools
         }
         public void UpdatePreview()
         {
-            pn_ColorP.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Primary) select x).First().Color);
-            pn_ColorS.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Secondary) select x).First().Color);
-            pn_ColorT.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Tertiary) select x).First().Color);
-            pn_ColorF.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.TextColor) select x).First().Color);
-            pn_ColorB.BackColor = StyleOptions.ColorFromString((from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Background) select x).First().Color);
+            pn_ColorP.BackColor = (from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Primary) select x).First().Color;
+            pn_ColorS.BackColor = (from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Secondary) select x).First().Color;
+            pn_ColorT.BackColor = (from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Tertiary) select x).First().Color;
+            pn_ColorF.BackColor = (from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.TextColor) select x).First().Color;
+            pn_ColorB.BackColor = (from x in ActiveSet where x.Slot.Equals(StyleOptions.colorSlot.Background) select x).First().Color;
         }
 
         private void cb_Icons_SelectionChangeCommitted(object sender, EventArgs e)
@@ -356,6 +363,27 @@ namespace Explorer_Tools
         private void cb_Preview_CheckedChanged(object sender, EventArgs e)
         {
             PreviewEnabled = cb_Preview.Checked;
+            UpdateVisuals();
+        }
+
+        private void btn_Apply_Click(object sender, EventArgs e)
+        {
+            if (CurrentMode == AppearanceMode.Defaults)
+            {
+                Metadata.UpdateDefaultColors(pn_ColorP.BackColor, colorSlot.Primary);
+                Metadata.UpdateDefaultColors(pn_ColorS.BackColor, colorSlot.Secondary);
+                Metadata.UpdateDefaultColors(pn_ColorT.BackColor, colorSlot.Tertiary);
+                Metadata.UpdateDefaultColors(pn_ColorB.BackColor, colorSlot.Background);
+                Metadata.UpdateDefaultColors(pn_ColorF.BackColor, colorSlot.TextColor);
+            }
+            Metadata.SaveData();
+            foreach(RCEntry irc in ColorRegistry.RegisteredColors)
+            {
+                if (Owner is null) ColorRegistry.DeadEntries.Add(irc);
+                irc.Owner.UpdateVisuals();
+            }
+            Prune();
+            ActiveSet = Metadata.DefaultColors;
             UpdateVisuals();
         }
     }

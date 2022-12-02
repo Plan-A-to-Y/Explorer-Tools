@@ -20,13 +20,22 @@ namespace Explorer_Tools
         {
             public string DisplayName { get; set; }
             public colorSlot Slot { get; set; }
-            public string Color 
+            public Color Color { get
+                {
+                    colorSlot _slot = Slot;
+                    if (_color.Equals("§")) return ColorFromString(Metadata.DefaultColors.Find(x => x.Slot.Equals(_slot)).ColorString);
+                    else return ColorFromString(_color);
+                } 
+                set
+                {
+                    return;
+                }
+            }
+
+            public string ColorString 
             { 
                 get {
-                    colorSlot _slot = Slot;
-                    if (_color is null) { _color = "§"; }
-                    if (_color.Equals("§")) return DefaultColors.Find(x => x.Slot.Equals(_slot)).Color;
-                    else return _color;
+                    return _color;
                 }
                 set {
                     _color = value;
@@ -122,23 +131,14 @@ namespace Explorer_Tools
             TextColor
         }
 
-        public static List<ColorSlot> DefaultColors = new List<ColorSlot>{
-            new ColorSlot(colorSlot.Highlight, "100|50|100|255"),
-            new ColorSlot(colorSlot.Background, "80|80|80|255"),
-            new ColorSlot(colorSlot.Primary, "100|0|100|255"),
-            new ColorSlot(colorSlot.Secondary, "20|20|20|255"),
-            new ColorSlot(colorSlot.Tertiary, "255|255|255|255"),
-            new ColorSlot(colorSlot.TextColor, "255|255|255|255")
-            };
-
 
         public static Color GetColor(string Path, colorSlot @override)
         {
             string colorvalue = "§";
-            if (Directory.Exists(Path)) colorvalue = Metadata.FindFolderData(Path).FormColors.Find(x => x.Slot == @override).Color;
-            else if (File.Exists(Path)) colorvalue = Metadata.FindFileData(Path).FormColors.Find(x => x.Slot == @override).Color;
+            if (Directory.Exists(Path)) colorvalue = Metadata.FindFolderData(Path).FormColors.Find(x => x.Slot == @override).ColorString;
+            else if (File.Exists(Path)) colorvalue = Metadata.FindFileData(Path).FormColors.Find(x => x.Slot == @override).ColorString;
 
-            if (colorvalue.Equals("§")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
+            if (colorvalue.Equals("§")) return Metadata.DefaultColors.Find(x => x.Slot == @override).Color;
             //if ()
             else return ColorFromString(colorvalue);
         }
@@ -146,20 +146,20 @@ namespace Explorer_Tools
         public static Color GetColor(md_Folder md, colorSlot @override)
         {
             string colorvalue = "§";
-            colorvalue = md.FormColors.Find(x => x.Slot == @override).Color;
-            if (colorvalue.Equals("§")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
+            colorvalue = md.FormColors.Find(x => x.Slot == @override).ColorString;
+            if (colorvalue.Equals("§")) return Metadata.DefaultColors.Find(x => x.Slot == @override).Color;
             else return ColorFromString(colorvalue);
         }
         public static Color GetColor(md_File md, colorSlot @override)
         {
             string colorvalue = "§";
-            colorvalue = md.FormColors.Find(x => x.Slot == @override).Color;
-            if (colorvalue.Equals("§")) return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
+            colorvalue = md.FormColors.Find(x => x.Slot == @override).ColorString;
+            if (colorvalue.Equals("§")) return Metadata.DefaultColors.Find(x => x.Slot == @override).Color;
             else return ColorFromString(colorvalue);
         }
         public static Color GetColor(colorSlot @override)
         {
-            return ColorFromString(DefaultColors.Find(x => x.Slot == @override).Color);
+            return Metadata.DefaultColors.Find(x => x.Slot == @override).Color;
         }
 
         public static Color ColorFromString(string input)

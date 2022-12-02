@@ -68,10 +68,12 @@ namespace Explorer_Tools
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Main.Size = new System.Drawing.Size(276, 140);
             this.tlp_Main.TabIndex = 0;
+            this.tlp_Main.Tag = "Back:B";
             // 
             // btn_Reset
             // 
             this.btn_Reset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Reset.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btn_Reset.Location = new System.Drawing.Point(236, 63);
             this.btn_Reset.Margin = new System.Windows.Forms.Padding(0);
@@ -79,6 +81,7 @@ namespace Explorer_Tools
             this.btn_Reset.Name = "btn_Reset";
             this.btn_Reset.Size = new System.Drawing.Size(40, 77);
             this.btn_Reset.TabIndex = 1;
+            this.btn_Reset.Tag = "Fore:F Back:S BtnBorder:T";
             this.btn_Reset.Text = "Reset";
             this.btn_Reset.UseVisualStyleBackColor = true;
             // 
@@ -112,6 +115,7 @@ namespace Explorer_Tools
             this.tlp_Sliders.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tlp_Sliders.Size = new System.Drawing.Size(236, 125);
             this.tlp_Sliders.TabIndex = 2;
+            this.tlp_Sliders.Tag = "Back:B";
             // 
             // tb_G
             // 
@@ -210,6 +214,7 @@ namespace Explorer_Tools
             this.lb_Header.Name = "lb_Header";
             this.lb_Header.Size = new System.Drawing.Size(270, 15);
             this.lb_Header.TabIndex = 3;
+            this.lb_Header.Tag = "Fore:F Back:T";
             this.lb_Header.Text = "COLORSLIDER LABEL";
             this.lb_Header.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 

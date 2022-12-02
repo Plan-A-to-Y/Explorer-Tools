@@ -68,7 +68,7 @@ namespace Explorer_Tools
 
         private void MatchColorToFile()
         {
-            SCString = Active.Color;
+            SCString = Active.ColorString;
             label1.Text = SCString;
             UpdateColor();
         }

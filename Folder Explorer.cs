@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Explorer_Tools
 {
-    public partial class Folder_Explorer : Form, IDisplayForm
+    public partial class Folder_Explorer : Form, IDisplayForm, IRegisteredColor
     {
         public string InitialDirectory { get; set; }
         public form_StandardView StandardView { get; set; }
@@ -29,7 +29,7 @@ namespace Explorer_Tools
             this.SetTopLevel(false);
             InitializeComponent();
             Populate();
-            
+            ColorRegistry.RegisterColor(new ColorReg(), this);
         }
 
         private void Populate()
@@ -64,6 +64,8 @@ namespace Explorer_Tools
                 }
             }
             catch (NullReferenceException e) { btn_GoUp.Hide(); lb_FolderName.Text = "Root Directory"; }
+            tlp_Content.RowCount++;
+            tlp_Content.RowStyles[tlp_Content.RowStyles.Count - 1].SizeType = SizeType.Percent;
         }
 
         private void btn_GoUp_Click(object sender, EventArgs e)
@@ -108,6 +110,11 @@ namespace Explorer_Tools
         public void RemoveFile(IFileIcon File)
         {
             
+        }
+
+        public void UpdateVisuals()
+        {
+            tlp_Content.BackColor = StyleOptions.GetColor(StyleOptions.colorSlot.Background);
         }
     }
 }

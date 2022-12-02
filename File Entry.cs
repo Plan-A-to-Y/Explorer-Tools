@@ -42,16 +42,16 @@ namespace Explorer_Tools
 
         private void FileEntry_Load(object sender, EventArgs e)
         {
-            if(Metadata.FileMetadata.Find(x => x.FilePath.Equals(FilePath)) != null)
+            if(FileMetadata.Find(x => x.FilePath.Equals(FilePath)) != null)
             {
-                FileId = Metadata.FileMetadata.Find( x => x.FilePath.Equals(FilePath)).FileId;
+                FileId = FileMetadata.Find( x => x.FilePath.Equals(FilePath)).FileId;
             }
             panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.Background);
             lb_FileName.Text = FilePath.Split('\\')[FilePath.Split('\\').Length - 1];
             if (!File.Exists(FilePath)){ rtb_Details.Text = "FILE DOESN'T EXIST"; return; }
             rtb_Details.Text += $"File Extension: {FilePath.Split('.')[FilePath.Split('.').Length-1]}";
             if (!ShowDetails) rtb_Details.Hide();
-            FileType = Metadata.GetFileType(FilePath);
+            FileType = GetFileType(FilePath);
             pb_Icon.Image = StyleOptions.GetIcon(Metadata.FindFileData(FilePath).IconPath);
         }
 

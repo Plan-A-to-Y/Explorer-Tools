@@ -31,6 +31,7 @@ namespace Explorer_Tools
             FolderId = Meta.FolderId;
             InitializeComponent();
             UpdateVisuals();
+            ColorRegistry.RegisterColor(new ColorReg(), this);
         }
         public FolderEntry(string folderPath)
         {
@@ -42,6 +43,7 @@ namespace Explorer_Tools
             btn_FolderIcon.Image = Image.FromFile(Meta.IconPath);
             rtb_FolderInfo.Hide();
             UpdateVisuals();
+            ColorRegistry.RegisterColor(new ColorReg(), this);
         }
 
         public void GetDesc()
@@ -141,10 +143,12 @@ namespace Explorer_Tools
         }
 
 
+        static bool ShowId = false;
         private void FolderEntry_Load(object sender, EventArgs e)
         {
             this.Name = "Folder" + Meta.FolderId;
-            btn_Select.Text = Meta.DisplayName + " ("+FolderId+")";
+            if (ShowId) btn_Select.Text = Meta.DisplayName + " (" + FolderId + ")";
+            else btn_Select.Text = Meta.DisplayName;
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)

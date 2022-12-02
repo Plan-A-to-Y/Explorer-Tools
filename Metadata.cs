@@ -68,6 +68,7 @@ namespace Explorer_Tools
             public string DefaultIcon_Folder { get; set; }
             public string DefaultIcon_Image { get; set; }
             public string DefaultIcon_Text { get; set; }
+            public List<ColorSlot> DefaultCol { get; set; }
     }
         public static MDFile main;
         public static List<md_File> FileMetadata;
@@ -75,6 +76,7 @@ namespace Explorer_Tools
         public static List<string> Icons;
         public static List<ExtSlot> ExtIcons;
         public static List<Tag> Tags;
+        public static List<ColorSlot> DefaultColors;
         public static string DefaultIcon_File
         {
             get { return main.DefaultIcon_File; }
@@ -118,6 +120,15 @@ namespace Explorer_Tools
                 main.DefaultIcon_Image = ".\\Icons\\DefaultFile.png";
                 main.DefaultIcon_Text = ".\\Icons\\DefaultFile.png";
                 main.IconPaths = new List<string> { ".\\Icons\\DefaultFile.png" } ;
+                main.DefaultCol = new List<ColorSlot>{
+                    new ColorSlot(colorSlot.Highlight, "100|50|100|255"),
+                    new ColorSlot(colorSlot.Background, "80|80|80|255"),
+                    new ColorSlot(colorSlot.Primary, "100|0|100|255"),
+                    new ColorSlot(colorSlot.Secondary, "20|20|20|255"),
+                    new ColorSlot(colorSlot.Tertiary, "255|255|255|255"),
+                    new ColorSlot(colorSlot.TextColor, "255|255|255|255")
+                    };
+                DefaultColors = main.DefaultCol;
                 SaveData();
             }
         }
@@ -180,6 +191,14 @@ namespace Explorer_Tools
             FileMetadata = main.FileMD;
             Icons = main.IconPaths;
             Tags = main.TagData;
+            DefaultColors = main.DefaultCol;
+        }
+
+        public static void UpdateDefaultColors(Color newcol, colorSlot @override)
+        {
+            DefaultColors.RemoveAll(x => x.Slot == @override);
+            DefaultColors.Add(new ColorSlot(@override, StringFromColor(newcol)));
+            main.DefaultCol = DefaultColors;
         }
 
         static bool isSaving;

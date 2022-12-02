@@ -110,6 +110,7 @@ namespace Explorer_Tools
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlp_Main.Size = new System.Drawing.Size(886, 833);
             this.tlp_Main.TabIndex = 9;
+            this.tlp_Main.Tag = "Back:B";
             // 
             // btn_ShowSidebar
             // 
@@ -118,6 +119,7 @@ namespace Explorer_Tools
             this.btn_ShowSidebar.Name = "btn_ShowSidebar";
             this.btn_ShowSidebar.Size = new System.Drawing.Size(30, 45);
             this.btn_ShowSidebar.TabIndex = 0;
+            this.btn_ShowSidebar.Tag = "Fore:F Back:P BtnBorder:S";
             this.btn_ShowSidebar.Text = "→";
             this.btn_ShowSidebar.UseVisualStyleBackColor = true;
             this.btn_ShowSidebar.Click += new System.EventHandler(this.btn_ShowSidebar_Click);
@@ -154,7 +156,7 @@ namespace Explorer_Tools
             this.tabs_Sidebar.Size = new System.Drawing.Size(453, 833);
             this.tabs_Sidebar.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabs_Sidebar.TabIndex = 8;
-            this.tabs_Sidebar.Tag = "TabHeader:P";
+            this.tabs_Sidebar.Tag = "TabHeader:P Back:B";
             this.tabs_Sidebar.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabs_Sidebar_Selecting);
             // 
             // tp_PLACEHOLDER
@@ -367,6 +369,7 @@ namespace Explorer_Tools
             this.gb_Icon.Size = new System.Drawing.Size(170, 144);
             this.gb_Icon.TabIndex = 3;
             this.gb_Icon.TabStop = false;
+            this.gb_Icon.Tag = "Fore:F";
             this.gb_Icon.Text = "Icon";
             // 
             // tlp_Icon
@@ -398,7 +401,7 @@ namespace Explorer_Tools
             this.tlp_Icon.SetRowSpan(this.btn_BrowseForIcon, 2);
             this.btn_BrowseForIcon.Size = new System.Drawing.Size(79, 53);
             this.btn_BrowseForIcon.TabIndex = 0;
-            this.btn_BrowseForIcon.Tag = "Fore:F Back:B BtnBorder:T";
+            this.btn_BrowseForIcon.Tag = "Fore:F Back:S BtnBorder:T";
             this.btn_BrowseForIcon.Text = "Browse...";
             this.btn_BrowseForIcon.UseVisualStyleBackColor = true;
             // 
@@ -441,6 +444,7 @@ namespace Explorer_Tools
             this.gb_Presets.AutoSize = true;
             this.gb_Presets.Controls.Add(this.tlp_PresetsBox);
             this.gb_Presets.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gb_Presets.ForeColor = System.Drawing.SystemColors.ControlText;
             this.gb_Presets.Location = new System.Drawing.Point(0, 89);
             this.gb_Presets.Margin = new System.Windows.Forms.Padding(0);
             this.gb_Presets.Name = "gb_Presets";
@@ -448,7 +452,7 @@ namespace Explorer_Tools
             this.gb_Presets.Size = new System.Drawing.Size(170, 156);
             this.gb_Presets.TabIndex = 4;
             this.gb_Presets.TabStop = false;
-            this.gb_Presets.Tag = "Back:B Fore:F";
+            this.gb_Presets.Tag = "Fore:F";
             this.gb_Presets.Text = "Presets";
             // 
             // tlp_PresetsBox
@@ -621,6 +625,7 @@ namespace Explorer_Tools
             this.btn_Apply.Tag = "Fore:F Back:S BtnBorder:T";
             this.btn_Apply.Text = "Apply";
             this.btn_Apply.UseVisualStyleBackColor = true;
+            this.btn_Apply.Click += new System.EventHandler(this.btn_Apply_Click);
             // 
             // cb_Presets
             // 
@@ -656,7 +661,7 @@ namespace Explorer_Tools
             this.gb_Colors.Size = new System.Drawing.Size(250, 736);
             this.gb_Colors.TabIndex = 5;
             this.gb_Colors.TabStop = false;
-            this.gb_Colors.Tag = "Back:B";
+            this.gb_Colors.Tag = "Back:B Fore:F";
             this.gb_Colors.Text = "Colors";
             // 
             // tlp_ColorSliders
@@ -728,11 +733,13 @@ namespace Explorer_Tools
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(886, 833);
             this.Controls.Add(this.tlp_Main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.IsMdiContainer = true;
             this.Name = "form_StandardView";
+            this.Tag = "Back:B Fore:F";
             this.Text = "Form1";
             this.ResizeEnd += new System.EventHandler(this.folderContents_SizeChanged);
             this.tlp_Main.ResumeLayout(false);

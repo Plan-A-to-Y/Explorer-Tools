@@ -12,7 +12,7 @@ using static Explorer_Tools.Metadata;
 using static Explorer_Tools.StyleOptions;
 namespace Explorer_Tools
 {
-    public partial class Folder_Contents : Form, IDisplayForm, IFolderIcon, StyleWindow
+    public partial class Folder_Contents : Form, IDisplayForm, IFolderIcon, StyleWindow, IRegisteredColor
     {
         md_Folder md;
         public IFileIcon SelectedFile;
@@ -50,6 +50,7 @@ namespace Explorer_Tools
             SB_Date.Text = "Date Modified";
             SB_Date.Click += SortBy;
             tsb_Edit.DropDownItems.Add(SB_Date);
+            ColorRegistry.RegisterColor(new ColorReg(), this);
         }
 
         public void DisplayContents(string Path)
@@ -137,7 +138,7 @@ namespace Explorer_Tools
 
         public void UpdateVisuals()
         {
-            panel_Header.BackColor = GetColor(md, colorSlot.Primary);
+            tlp_Header.BackColor = GetColor(md, colorSlot.Primary);
             ts_FolderTools.BackColor = GetColor(md, colorSlot.Primary);
             btn_ShowFilters.BackColor = GetColor(md, colorSlot.Primary);
             tlp_Filters.BackColor = GetColor(md, colorSlot.Primary);
@@ -162,6 +163,8 @@ namespace Explorer_Tools
             btn_ShowTools.ForeColor = GetColor(md, colorSlot.TextColor);
             ts_FolderTools.Renderer = new MyRenderer();
             ((MyRenderer)ts_FolderTools.Renderer).SetArrowColor(GetColor(md, colorSlot.TextColor));
+
+            tlp_Content.BackColor = GetColor(md, colorSlot.Tertiary);
         }
 
         public class MyRenderer : ToolStripRenderer
@@ -218,7 +221,7 @@ namespace Explorer_Tools
         {
             Moving = true;
             offset = new Point(e.X, e.Y);
-            panel_Header.BackColor = GetColor(md, colorSlot.Highlight);
+            tlp_Header.BackColor = GetColor(md, colorSlot.Highlight);
         }
 
         private void Folder_Contents_MouseMove(object sender, MouseEventArgs e)
@@ -237,7 +240,7 @@ namespace Explorer_Tools
             if (Moving)
             {
                 Moving = false;
-                panel_Header.BackColor = GetColor(md, colorSlot.Primary);
+                tlp_Header.BackColor = GetColor(md, colorSlot.Primary);
             }
         }
 
