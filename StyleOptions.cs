@@ -10,7 +10,7 @@ namespace Explorer_Tools
 {
     public interface StyleWindow
     {
-        public void RefreshVisuals();
+        public void UpdateVisuals();
         public List<ColorSlot> FormColors { get; set; }
     }
     public static class StyleOptions

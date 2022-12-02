@@ -16,9 +16,9 @@ namespace Explorer_Tools
     {
         md_Folder md;
         public IFileIcon SelectedFile;
-        public List<string> ImageTypes = new List<string> { ".bmp", ".png", ".jpg", ".jpeg", ".gif" };
-        public List<string> TextTypes = new List<string> { ".txt" };
-        public List<string> DocTypes = new List<string> { ".docx" };
+        public List<string> ImageTypes = new List<string> { "IGNORE" }; //{ ".bmp", ".png", ".jpg", ".jpeg", ".gif" };
+        public List<string> TextTypes = new List<string> { "IGNORE" }; //{ ".txt" };
+        public List<string> DocTypes = new List<string> { "IGNORE" }; //{ ".docx" };
         public SortTypes Sort = SortTypes.Name;
         public bool IsSelected { get; set; }
         IDisplayForm IFolderIcon.Owner { get; set; }
@@ -67,7 +67,7 @@ namespace Explorer_Tools
             tlp_Filters.Hide();
             cb_FilterType.DataSource = FilterCriteria;
             cb_FilterType.SelectedIndex = 0;
-            RefreshVisuals();
+            UpdateVisuals();
         }
 
         public void AddEntry(string file)
@@ -132,10 +132,10 @@ namespace Explorer_Tools
                 iEntry.Show();
             }
             panel_Content.Refresh();
-            RefreshVisuals();
+            UpdateVisuals();
         }
 
-        public void RefreshVisuals()
+        public void UpdateVisuals()
         {
             panel_Header.BackColor = GetColor(md, colorSlot.Primary);
             ts_FolderTools.BackColor = GetColor(md, colorSlot.Primary);
@@ -465,7 +465,7 @@ namespace Explorer_Tools
             var rawsource = e.Data.GetData(typeof(File_Entry));
             File_Entry sourceFE = (File_Entry)rawsource;
             string source = sourceFE.FilePath;
-            File.Move(source, FolderPath+ "\\" + source.Split("\\").Last());
+            File.Move(source, FolderPath+ "\\" + source.Split("\\").Last(),true);
             md_File md = FindFileData(source);
             md.FilePath = FolderPath + "\\" + source.Split("\\").Last();
             sourceFE.Owner.RemoveFile(sourceFE);

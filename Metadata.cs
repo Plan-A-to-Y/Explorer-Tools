@@ -62,13 +62,13 @@ namespace Explorer_Tools
             public List<md_File> FileMD { get; set; }
             public List<md_Folder> FolderMD { get; set; }
             public List<Tag> TagData { get; set; }
-            public List<string> IconPaths;
-            public List<ExtSlot> ExtIcoPaths;
-            public string DefaultIcon_File;
-            public string DefaultIcon_Folder;
-            public string DefaultIcon_Image;
-            public string DefaultIcon_Text;
-        }
+            public List<string> IconPaths { get; set; }
+            public List<ExtSlot> ExtIcoPaths { get; set; }
+            public string DefaultIcon_File { get; set; }
+            public string DefaultIcon_Folder { get; set; }
+            public string DefaultIcon_Image { get; set; }
+            public string DefaultIcon_Text { get; set; }
+    }
         public static MDFile main;
         public static List<md_File> FileMetadata;
         public static List<md_Folder> FolderMetadata;
@@ -113,10 +113,11 @@ namespace Explorer_Tools
                 main.FolderMD = FolderMetadata;
                 main.ExtIcoPaths = ExtIcons;
                 main.TagData = Tags;
-                main.DefaultIcon_File = ".\\Icons\\Default.png";
+                main.DefaultIcon_File = ".\\Icons\\DefaultFile.png";
                 main.DefaultIcon_Folder = ".\\Icons\\Default.png";
-                main.DefaultIcon_Image = ".\\Icons\\Default.png";
-                main.DefaultIcon_Text = ".\\Icons\\Default.png";
+                main.DefaultIcon_Image = ".\\Icons\\DefaultFile.png";
+                main.DefaultIcon_Text = ".\\Icons\\DefaultFile.png";
+                main.IconPaths = new List<string> { ".\\Icons\\DefaultFile.png" } ;
                 SaveData();
             }
         }
@@ -132,7 +133,6 @@ namespace Explorer_Tools
             }
             md_Folder md = new md_Folder(Path);
             FolderMetadata.Add(md);
-            SaveData();
             return md;
         }
 
@@ -144,7 +144,6 @@ namespace Explorer_Tools
             }
             md_File md = new md_File(Path);
             FileMetadata.Add(md);
-            SaveData();
             return md;
         }
 

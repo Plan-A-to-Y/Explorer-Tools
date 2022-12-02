@@ -118,6 +118,7 @@ namespace Explorer_Tools
             this.btn_Select.Name = "btn_Select";
             this.btn_Select.Size = new System.Drawing.Size(123, 30);
             this.btn_Select.TabIndex = 4;
+            this.btn_Select.Tag = "";
             this.btn_Select.Text = "ButtonButtonButtonButton";
             this.btn_Select.UseVisualStyleBackColor = true;
             this.btn_Select.Click += new System.EventHandler(this.btn_Select_Click);

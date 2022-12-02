@@ -21,8 +21,8 @@ namespace Explorer_Tools
         bool PreviewEnabled = false;
         public form_StandardView()
         {
-            InitializeComponent();
             Metadata.Initialize();
+            InitializeComponent();
             Register(new ColorReg(), this);
             Folder_Explorer FE = new Folder_Explorer(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             tp_Explorer.Controls.Add(FE);
@@ -30,7 +30,6 @@ namespace Explorer_Tools
             FE.Dock = DockStyle.Fill;
             FE.Show();
             OpenFolderView(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            Metadata.SaveData();
             btn_ShowSidebar.Hide();
             tlp_AppearanceContext.Hide();
             tabs_Sidebar.SelectedIndex = 1;

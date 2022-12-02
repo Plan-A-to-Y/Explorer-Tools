@@ -30,7 +30,7 @@ namespace Explorer_Tools
         private void InitializeComponent()
         {
             this.panel_MainLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lb_FileName = new System.Windows.Forms.Label();
             this.btn_Interact = new System.Windows.Forms.Button();
             this.pb_Icon = new System.Windows.Forms.PictureBox();
             this.btn_Details = new System.Windows.Forms.Button();
@@ -48,7 +48,7 @@ namespace Explorer_Tools
             this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.panel_MainLayout.Controls.Add(this.label1, 1, 0);
+            this.panel_MainLayout.Controls.Add(this.lb_FileName, 1, 0);
             this.panel_MainLayout.Controls.Add(this.btn_Interact, 2, 0);
             this.panel_MainLayout.Controls.Add(this.pb_Icon, 0, 0);
             this.panel_MainLayout.Controls.Add(this.btn_Details, 3, 0);
@@ -62,21 +62,22 @@ namespace Explorer_Tools
             this.panel_MainLayout.TabIndex = 0;
             this.panel_MainLayout.Click += new System.EventHandler(this.SelectionClick);
             // 
-            // label1
+            // lb_FileName
             // 
-            this.label1.AutoEllipsis = true;
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(30, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(0);
-            this.label1.MinimumSize = new System.Drawing.Size(100, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 30);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "FILE_NAME";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.SelectionClick);
-            this.label1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ClickAndDrag);
+            this.lb_FileName.AutoEllipsis = true;
+            this.lb_FileName.AutoSize = true;
+            this.lb_FileName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_FileName.Location = new System.Drawing.Point(30, 0);
+            this.lb_FileName.Margin = new System.Windows.Forms.Padding(0);
+            this.lb_FileName.MinimumSize = new System.Drawing.Size(100, 30);
+            this.lb_FileName.Name = "lb_FileName";
+            this.lb_FileName.Size = new System.Drawing.Size(110, 30);
+            this.lb_FileName.TabIndex = 0;
+            this.lb_FileName.Tag = "";
+            this.lb_FileName.Text = "FILE_NAME";
+            this.lb_FileName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_FileName.Click += new System.EventHandler(this.SelectionClick);
+            this.lb_FileName.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ClickAndDrag);
             // 
             // btn_Interact
             // 
@@ -150,7 +151,7 @@ namespace Explorer_Tools
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel panel_MainLayout;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lb_FileName;
         private System.Windows.Forms.Button btn_Interact;
         private System.Windows.Forms.PictureBox pb_Icon;
         private System.Windows.Forms.Button btn_Details;

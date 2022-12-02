@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Explorer_Tools
 {
     [ToolboxItem(true)]
-    public partial class FolderEntry : UserControl, IFolderIcon, StyleWindow
+    public partial class FolderEntry : UserControl, IFolderIcon, StyleWindow, IRegisteredColor
     {
         public md_Folder Meta { get; }
         public bool IsSelected { get; set; }
@@ -30,7 +30,7 @@ namespace Explorer_Tools
             Meta = Metadata.FindFolderData(folderPath);
             FolderId = Meta.FolderId;
             InitializeComponent();
-            RefreshVisuals();
+            UpdateVisuals();
         }
         public FolderEntry(string folderPath)
         {
@@ -41,7 +41,7 @@ namespace Explorer_Tools
             InitializeComponent();
             btn_FolderIcon.Image = Image.FromFile(Meta.IconPath);
             rtb_FolderInfo.Hide();
-            RefreshVisuals();
+            UpdateVisuals();
         }
 
         public void GetDesc()
@@ -60,7 +60,7 @@ namespace Explorer_Tools
                 Metadata.UpdateFolderData(md);
             }
             Metadata.SaveData();
-            RefreshVisuals();
+            UpdateVisuals();
             isGeneratingDesc = false;
         }
         public async Task<List<md_Folder>> DescTask()
@@ -182,9 +182,9 @@ namespace Explorer_Tools
             throw new NotImplementedException();
         }
 
-        public void RefreshVisuals()
+        public void UpdateVisuals()
         {
-            btn_Select.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Secondary);
+            btn_Select.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Primary);
             BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Background);
             btn_Select.ForeColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.TextColor);
             btn_Select.FlatAppearance.BorderColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Secondary);

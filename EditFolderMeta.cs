@@ -95,12 +95,12 @@ namespace Explorer_Tools
             SCString = SelectedColor();
             label1.Text = SCString;
             UpdateColor();
-            Owner.Preview.RefreshVisuals();
+            Owner.Preview.UpdateVisuals();
         }
 
         private void btn_Preview_Click(object sender, EventArgs e)
         {
-            Owner.Preview.RefreshVisuals();
+            Owner.Preview.UpdateVisuals();
         }
 
         private void btn_Apply_Click(object sender, EventArgs e)
@@ -116,7 +116,7 @@ namespace Explorer_Tools
             Setup(Init, Owner);
             MatchColorToFile();
             SCString = $"{tb_R.Value}|{tb_G.Value}|{tb_B.Value}|255";
-            Owner.Preview.RefreshVisuals();
+            Owner.Preview.UpdateVisuals();
         }
     }
 }

@@ -74,7 +74,7 @@ namespace Explorer_Tools
 
         public void SelectFile(IFileIcon File)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public void SelectFolder(IFolderIcon Folder)
@@ -85,12 +85,12 @@ namespace Explorer_Tools
 
         public void DeselectFile(IFileIcon File)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public void DeselectFolder(IFolderIcon Folder)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         private void Folder_Explorer_Resize(object sender, EventArgs e)
@@ -107,7 +107,7 @@ namespace Explorer_Tools
 
         public void RemoveFile(IFileIcon File)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

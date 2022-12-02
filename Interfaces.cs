@@ -12,7 +12,10 @@ namespace Explorer_Tools
     public interface IRegisteredColor
     {
         public void UpdateVisuals();
-        public void Register(ColorReg reg, IRegisteredColor invoker);
+        public void Register(ColorReg reg, IRegisteredColor invoker)
+        {
+            ColorRegistry.RegisterColor(reg, invoker);
+        }
     }
 
     public enum ColorRegType
