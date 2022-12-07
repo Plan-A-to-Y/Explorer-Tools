@@ -377,12 +377,7 @@ namespace Explorer_Tools
                 Metadata.UpdateDefaultColors(pn_ColorF.BackColor, colorSlot.TextColor);
             }
             Metadata.SaveData();
-            foreach(RCEntry irc in ColorRegistry.RegisteredColors)
-            {
-                if (Owner is null) ColorRegistry.DeadEntries.Add(irc);
-                irc.Owner.UpdateVisuals();
-            }
-            Prune();
+            ColorRegistry.RefreshCategory(ColorRegType.Default);
             ActiveSet = Metadata.DefaultColors;
             UpdateVisuals();
         }

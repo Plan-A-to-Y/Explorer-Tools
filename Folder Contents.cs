@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -51,24 +53,10 @@ namespace Explorer_Tools
             SB_Date.Click += SortBy;
             tsb_Edit.DropDownItems.Add(SB_Date);
             ColorRegistry.RegisterColor(new ColorReg(), this);
-        }
-
-        public void DisplayContents(string Path)
-        {
-            md = Metadata.FindFolderData(Path);
-            FolderId = md.FolderId;
-            FolderPath = Path;
-            foreach (string file in Directory.GetFiles(FolderPath))
-            {
-                AddEntry(file);
-            }
-            lb_FolderName.Text = md.DisplayName;
-            pb_FolderIcon.Image = Image.FromFile(md.IconPath);
-            panel_Content.Refresh();
             tlp_Filters.Hide();
+            panel_Content.Refresh();
             cb_FilterType.DataSource = FilterCriteria;
             cb_FilterType.SelectedIndex = 0;
-            UpdateVisuals();
         }
 
         public void AddEntry(string file)
@@ -107,30 +95,139 @@ namespace Explorer_Tools
 
         public void SortBy(object sender, EventArgs e)
         {
-            ((SortButton)sender).fc.DisplayContents(((SortButton)sender).fc.FolderPath, x => true, ((SortButton)sender).ST);
+            ((SortButton)sender).fc.DisplayContents(((SortButton)sender).fc.FolderPath, ((SortButton)sender).ST);
         }
 
-        public void DisplayContents(string Path, Predicate<md_File> Filter, Metadata.SortTypes order = SortTypes.Name)
+        public int Compare([AllowNull] md_File x, [AllowNull] md_File y, SortTypes t = SortTypes.Name)
         {
-            md = Metadata.FindFolderData(Path);
-            FolderId = md.FolderId;
-            FolderPath = Path;
-            panel_Content.Controls.Clear();
-            string[] files = Directory.GetFiles(FolderPath);
-            if (order == SortTypes.Name) { files = (from f in files orderby f.First() select f).ToArray<string>(); }
-            else if (order == SortTypes.Size) { files = (from f in files orderby new FileInfo(f).Length descending select f).ToArray<string>(); }
-            else if (order == SortTypes.DateModified) { files = (from f in files orderby new FileInfo(f).LastWriteTime select f).ToArray<string>(); }
-            foreach (string file in files)
+            switch (t)
             {
-                if (!Filter(Metadata.FindFileData(file))) continue;
-                Control iEntry;
-                string ext = "." + file.Split('.').Last();
-                if (ImageTypes.Contains(ext)) { iEntry = new Image_Entry(file, this); }
-                else if (TextTypes.Contains(ext)) { iEntry = new Text_Entry(file, this); }
-                else if (DocTypes.Contains(ext)) { iEntry = new Doc_Entry(file, this); }
-                else { iEntry = new File_Entry(file, this); }
-                panel_Content.Controls.Add(iEntry);
-                iEntry.Show();
+                case SortTypes.Name:
+                    return string.CompareOrdinal(x.DisplayName, y.DisplayName);
+                case SortTypes.Size:
+                    FileInfo xi = new FileInfo(x.FilePath);
+                    FileInfo yi = new FileInfo(y.FilePath);
+                    return (xi.Length > yi.Length ? -1 : 1);
+                case SortTypes.DateModified:
+                    FileInfo xdi = new FileInfo(x.FilePath);
+                    FileInfo ydi = new FileInfo(y.FilePath);
+                    return xdi.LastWriteTime.CompareTo(ydi.LastWriteTime);
+                case SortTypes.Tag:
+                    return 0;
+                default:
+                    return 0;
+            }
+        }
+        public void DisplayContents(string Path, Metadata.SortTypes order = SortTypes.Name)
+        {
+            if (Path.Equals(FolderPath))
+            {
+                if (Sort != order)
+                {
+                    Sort = order;
+                    List<File_Entry> sortedar = new List<File_Entry>();
+                    switch (order)
+                    {
+                        case SortTypes.Name:
+                            sortedar = (from File_Entry x in panel_Content.Controls orderby ((File_Entry)x).Name select x).ToList();
+                            break;
+                        case SortTypes.Size:
+                            sortedar = (from File_Entry x in panel_Content.Controls orderby new FileInfo(x.FilePath).Length descending select x).ToList();
+                            break;
+                        case SortTypes.DateModified:
+                            sortedar = (from File_Entry x in panel_Content.Controls orderby new FileInfo(x.FilePath).LastWriteTime descending select x).ToList();
+                            break;
+                        case SortTypes.Tag:
+                            sortedar = (from File_Entry x in panel_Content.Controls orderby ((File_Entry)x).Name select x).ToList();
+                            break;
+                    }
+                    foreach (File_Entry fe in sortedar)
+                    {
+                        panel_Content.Controls.SetChildIndex(fe, sortedar.IndexOf(fe));
+                    }
+                }
+                if (Blacklist.Count > 0 || Whitelist.Count > 0)
+                {
+                    foreach (File_Entry file in panel_Content.Controls)
+                    {
+                        md_File filemd = Metadata.FindFileData(file.FilePath);
+                        bool WhitelistMatch = false;
+                        if (Whitelist.Count > 0)
+                        {
+                            foreach (Predicate<md_File> p in Whitelist)
+                            {
+                                if (p(filemd))
+                                {
+                                    WhitelistMatch = true;
+                                }
+                            }
+                            if (WhitelistMatch) file.Show();
+                            else file.Hide();
+                        }
+                        if (Blacklist.Count > 0 && WhitelistMatch)
+                        {
+                            bool BlacklistMatch = false;
+                            foreach (Predicate<md_File> p in Blacklist)
+                            {
+                                if (p(filemd))
+                                {
+                                    BlacklistMatch = true;
+                                }
+                            }
+                            if (BlacklistMatch == true) file.Hide();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                md = Metadata.FindFolderData(Path);
+                FolderId = md.FolderId;
+                FolderPath = Path;
+                lb_FolderName.Text = md.DisplayName;
+                pb_FolderIcon.Image = Image.FromFile(md.IconPath);
+                FolderId = md.FolderId;
+                FolderPath = Path;
+                panel_Content.Controls.Clear();
+                string[] files = Directory.GetFiles(FolderPath);
+                if (order == SortTypes.Name) { files = (from f in files orderby f.First() select f).ToArray<string>(); }
+                else if (order == SortTypes.Size) { files = (from f in files orderby new FileInfo(f).Length descending select f).ToArray<string>(); }
+                else if (order == SortTypes.DateModified) { files = (from f in files orderby new FileInfo(f).LastWriteTime select f).ToArray<string>(); }
+                foreach (string file in files)
+                {
+                    if (Whitelist.Count > 0)
+                    {
+                        bool WhitelistMatch = false;
+                        foreach (Predicate<md_File> p in Whitelist)
+                        {
+                            if (p(Metadata.FindFileData(file)))
+                            {
+                                WhitelistMatch = true;
+                            }
+                        }
+                        if (WhitelistMatch == false) continue;
+                    }
+                    if (Blacklist.Count > 0)
+                    {
+                        bool BlacklistMatch = false;
+                        foreach (Predicate<md_File> p in Blacklist)
+                        {
+                            if (p(Metadata.FindFileData(file)))
+                            {
+                                BlacklistMatch = true;
+                            }
+                        }
+                        if (BlacklistMatch == true) continue;
+                    }
+                    Control iEntry;
+                    string ext = "." + file.Split('.').Last();
+                    if (ImageTypes.Contains(ext)) { iEntry = new Image_Entry(file, this); }
+                    else if (TextTypes.Contains(ext)) { iEntry = new Text_Entry(file, this); }
+                    else if (DocTypes.Contains(ext)) { iEntry = new Doc_Entry(file, this); }
+                    else { iEntry = new File_Entry(file, this); }
+                    panel_Content.Controls.Add(iEntry);
+                    iEntry.Show();
+                }
             }
             panel_Content.Refresh();
             UpdateVisuals();
@@ -221,7 +318,16 @@ namespace Explorer_Tools
         {
             Moving = true;
             offset = new Point(e.X, e.Y);
-            tlp_Header.BackColor = GetColor(md, colorSlot.Highlight);
+            Color basecolor = GetColor(md, colorSlot.Primary);
+            if (GetColor(md, colorSlot.Primary).GetBrightness() < 0.7)
+            {
+                tlp_Header.BackColor = Color.FromArgb(255, basecolor.R + 30, basecolor.G + 30, basecolor.B + 30);
+            }
+            else
+            {
+                tlp_Header.BackColor = Color.FromArgb(255, basecolor.R - 30, basecolor.G - 30, basecolor.B - 30);
+            }
+            
         }
 
         private void Folder_Contents_MouseMove(object sender, MouseEventArgs e)
@@ -381,13 +487,13 @@ namespace Explorer_Tools
 
         private void btn_ShowFilters_Click(object sender, EventArgs e)
         {
-            tlp_Toolbar.Hide();
+            btn_ShowFilters.Hide();
             tlp_Filters.Show();
         }
 
         private void btn_ShowTools_Click(object sender, EventArgs e)
         {
-            tlp_Toolbar.Show();
+            btn_ShowFilters.Show();
             tlp_Filters.Hide();
         }
 
@@ -437,25 +543,98 @@ namespace Explorer_Tools
             fx.FilterCriteria = (x => true);
             flp_Filters.Controls.Add(fx);
         }
+        public HashSet<Predicate<md_File>> Whitelist = new HashSet<Predicate<md_File>>();
+        public HashSet<Predicate<md_File>> Blacklist = new HashSet<Predicate<md_File>>();
+        public enum EnabledState
+        {
+            Disabled,
+            Whitelist,
+            Blacklist
+        }
         public class FilterButton : Button
         {
             public Predicate<md_File> FilterCriteria { get; set; }
             public Folder_Contents fc { get; set; }
             public Types t { get; set; }
+            public EnabledState Status { get; set; }
             public FilterButton(Folder_Contents _fc)
             {
                 fc = _fc;
-                Click += _fc.FilterBtnClick;
-                this.BackColor = GetColor(fc.md, colorSlot.Background);
-                this.ForeColor = GetColor(fc.md, colorSlot.TextColor);
-                this.FlatAppearance.BorderColor = GetColor(fc.md, colorSlot.Secondary);
+                MouseUp += _fc.FilterBtnClick;
+                BackColor = GetColor(fc.md, colorSlot.Background);
+                ForeColor = GetColor(fc.md, colorSlot.TextColor);
+                FlatAppearance.BorderColor = GetColor(fc.md, colorSlot.Secondary);
                 FlatStyle = FlatStyle.Flat;
             }
         }
 
         private void FilterBtnClick(object sender, EventArgs e)
         {
-            ((FilterButton)sender).fc.DisplayContents(((FilterButton)sender).fc.FolderPath, ((FilterButton)sender).FilterCriteria);
+            Folder_Contents fc = (sender as FilterButton).fc;
+            FilterButton invoker = sender as FilterButton;
+            if(((MouseEventArgs)e).Button == MouseButtons.Left)
+            {
+                switch (invoker.Status)
+                {
+                    case EnabledState.Disabled:
+                        {
+                            Whitelist.Add(invoker.FilterCriteria);
+                            invoker.Status = EnabledState.Whitelist;
+                            invoker.BackColor = Color.White;
+                            invoker.ForeColor = Color.Black;
+                            break;
+                        }
+                    case EnabledState.Whitelist:
+                        {
+                            Whitelist.Remove(invoker.FilterCriteria);
+                            invoker.Status = EnabledState.Disabled;
+                            invoker.BackColor = GetColor(fc.md, colorSlot.Background);
+                            invoker.ForeColor = GetColor(fc.md, colorSlot.TextColor);
+                            break;
+                        }
+                    case EnabledState.Blacklist:
+                        {
+                            Blacklist.Remove(invoker.FilterCriteria);
+                            invoker.Status = EnabledState.Disabled;
+                            invoker.BackColor = GetColor(fc.md, colorSlot.Background);
+                            invoker.ForeColor = GetColor(fc.md, colorSlot.TextColor);
+                            break;
+                        }
+                }
+            }
+            else if (((MouseEventArgs)e).Button == MouseButtons.Right)
+            {
+                switch (invoker.Status)
+                {
+                    case EnabledState.Disabled:
+                        {
+                            Blacklist.Add(invoker.FilterCriteria);
+                            invoker.Status = EnabledState.Blacklist;
+                            invoker.BackColor = Color.Black;
+                            invoker.ForeColor = Color.White;
+                            break;
+                        }
+                    case EnabledState.Whitelist:
+                        {
+                            Whitelist.Remove(invoker.FilterCriteria);
+                            invoker.Status = EnabledState.Disabled;
+                            invoker.BackColor = GetColor(fc.md, colorSlot.Background);
+                            invoker.ForeColor = GetColor(fc.md, colorSlot.TextColor);
+                            break;
+                        }
+                    case EnabledState.Blacklist:
+                        {
+                            Blacklist.Remove(invoker.FilterCriteria);
+                            invoker.Status = EnabledState.Disabled;
+                            invoker.BackColor = GetColor(fc.md, colorSlot.Background);
+                            invoker.ForeColor = GetColor(fc.md, colorSlot.TextColor);
+                            break;
+                        }
+                }
+            }
+
+
+            ((FilterButton)sender).fc.DisplayContents(((FilterButton)sender).fc.FolderPath);
         }
 
         private void panel_Content_DragEnter(object sender, DragEventArgs e)
@@ -475,6 +654,23 @@ namespace Explorer_Tools
             UpdateFileData(md);
             sourceFE.Owner = this;
             AddEntry(md.FilePath);
+        }
+
+        private void pb_FolderIcon_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"Blacklist Count: {Blacklist.Count}\nWhitelist Count: {Whitelist.Count}");
+            string result = "Whitelist:";
+            foreach(Predicate<md_File> p in Whitelist)
+            {
+                result += "\n" + p.ToString();
+            }
+            MessageBox.Show(result);
+            result = "Blacklist:";
+            foreach (Predicate<md_File> p in Blacklist)
+            {
+                result += "\n" + p.ToString();
+            }
+            MessageBox.Show(result);
         }
     }
 }

@@ -30,6 +30,7 @@ namespace Explorer_Tools
             InitializeComponent();
             Populate();
             ColorRegistry.RegisterColor(new ColorReg(), this);
+            UpdateVisuals();
         }
 
         private void Populate()
@@ -115,6 +116,13 @@ namespace Explorer_Tools
         public void UpdateVisuals()
         {
             tlp_Content.BackColor = StyleOptions.GetColor(StyleOptions.colorSlot.Background);
+            lb_FolderName.ForeColor = StyleOptions.GetColor(StyleOptions.colorSlot.TextColor);
+            tlp_Main.BackColor = StyleOptions.GetColor(StyleOptions.colorSlot.Background);
+            ico_Folder.Image = Image.FromFile(Metadata.FindFolderData(InitialDirectory).IconPath);
+            btn_Close.BackColor = StyleOptions.GetColor(StyleOptions.colorSlot.Primary);
+            btn_Close.ForeColor = StyleOptions.GetColor(StyleOptions.colorSlot.TextColor);
+            btn_GoUp.BackColor = StyleOptions.GetColor(StyleOptions.colorSlot.Primary);
+            btn_GoUp.ForeColor = StyleOptions.GetColor(StyleOptions.colorSlot.TextColor);
         }
     }
 }

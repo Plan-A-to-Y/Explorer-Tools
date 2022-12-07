@@ -202,7 +202,7 @@ namespace Explorer_Tools
             this.btn_ShowFilters.Name = "btn_ShowFilters";
             this.btn_ShowFilters.Size = new System.Drawing.Size(107, 20);
             this.btn_ShowFilters.TabIndex = 13;
-            this.btn_ShowFilters.Text = "Switch to Filters";
+            this.btn_ShowFilters.Text = "Show Filters";
             this.btn_ShowFilters.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btn_ShowFilters.UseVisualStyleBackColor = true;
             this.btn_ShowFilters.Click += new System.EventHandler(this.btn_ShowFilters_Click);
@@ -240,7 +240,7 @@ namespace Explorer_Tools
             this.btn_ShowTools.Name = "btn_ShowTools";
             this.btn_ShowTools.Size = new System.Drawing.Size(107, 30);
             this.btn_ShowTools.TabIndex = 14;
-            this.btn_ShowTools.Text = "Switch to Tools";
+            this.btn_ShowTools.Text = "Hide Filters";
             this.btn_ShowTools.UseVisualStyleBackColor = true;
             this.btn_ShowTools.Click += new System.EventHandler(this.btn_ShowTools_Click);
             // 
@@ -467,6 +467,7 @@ namespace Explorer_Tools
             this.pb_FolderIcon.Size = new System.Drawing.Size(30, 30);
             this.pb_FolderIcon.TabIndex = 0;
             this.pb_FolderIcon.TabStop = false;
+            this.pb_FolderIcon.Click += new System.EventHandler(this.pb_FolderIcon_Click);
             // 
             // pn_RightBorder
             // 

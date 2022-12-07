@@ -29,6 +29,7 @@ namespace Explorer_Tools
     public class ColorReg
     {
         public ColorRegType RegType = ColorRegType.Default;
+        public IRegisteredColor owner;
     }
 
     public class TagReg : ColorReg

@@ -68,6 +68,7 @@ namespace Explorer_Tools
             // btn_GoUp
             // 
             this.btn_GoUp.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_GoUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_GoUp.Location = new System.Drawing.Point(241, 0);
             this.btn_GoUp.Margin = new System.Windows.Forms.Padding(0);
             this.btn_GoUp.Name = "btn_GoUp";
@@ -109,6 +110,7 @@ namespace Explorer_Tools
             // btn_Close
             // 
             this.btn_Close.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Close.Location = new System.Drawing.Point(270, 0);
             this.btn_Close.Margin = new System.Windows.Forms.Padding(0);
             this.btn_Close.Name = "btn_Close";
