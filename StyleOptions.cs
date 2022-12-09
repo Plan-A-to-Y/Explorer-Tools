@@ -69,7 +69,18 @@ namespace Explorer_Tools
                 return base.GetHashCode();
             }
         }
-
+        public const int HCO = 50;
+        public static Color Highlight(Color basecolor)
+        {
+            if (basecolor.GetBrightness() < 0.7)
+            {
+                return Color.FromArgb(255, basecolor.R + HCO, basecolor.G + HCO, basecolor.B + HCO);
+            }
+            else
+            {
+                return Color.FromArgb(255, basecolor.R - HCO, basecolor.G - HCO, basecolor.B - HCO);
+            }
+        }
         public static Image GetIcon(string icon)
         {
             //Path Format

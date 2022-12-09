@@ -13,13 +13,18 @@ namespace Explorer_Tools
     {
         public string InitialDirectory { get; set; }
         public form_StandardView StandardView { get; set; }
+        public List<IIcon> SelectedItems { get; set; }
+        public IView OwningView { get; set; }
+
         public Folder_Explorer()
         {
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             Init();
         }
-        public Folder_Explorer(string Start)
+        public Folder_Explorer(string Start, IView Owner)
         {
+            OwningView = Owner;
+            
             InitialDirectory = Start;
             Init();
         }
@@ -86,16 +91,6 @@ namespace Explorer_Tools
             Populate();
         }
 
-        public void DeselectFile(IFileIcon File)
-        {
-            return;
-        }
-
-        public void DeselectFolder(IFolderIcon Folder)
-        {
-            return;
-        }
-
         private void Folder_Explorer_Resize(object sender, EventArgs e)
         {
             
@@ -123,6 +118,26 @@ namespace Explorer_Tools
             btn_Close.ForeColor = StyleOptions.GetColor(StyleOptions.colorSlot.TextColor);
             btn_GoUp.BackColor = StyleOptions.GetColor(StyleOptions.colorSlot.Primary);
             btn_GoUp.ForeColor = StyleOptions.GetColor(StyleOptions.colorSlot.TextColor);
+        }
+
+        public void SelectItem(IIcon ToSelect)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeselectItem(IIcon ToRemove)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveItem(IIcon ToRemove)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddItem(IIcon ToRemove)
+        {
+            throw new NotImplementedException();
         }
     }
 }

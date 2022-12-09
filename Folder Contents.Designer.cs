@@ -535,6 +535,8 @@ namespace Explorer_Tools
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Folder_Contents";
+            this.Enter += new System.EventHandler(this.Folder_Contents_Enter);
+            this.Leave += new System.EventHandler(this.Folder_Contents_Leave);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Folder_Contents_MouseMove);
             this.tlp_Main.ResumeLayout(false);
             this.tlp_Content.ResumeLayout(false);

@@ -20,6 +20,8 @@ namespace Explorer_Tools
         public string FolderPath { get; set; }
         public bool ShowDesc { get; set; }
         public List<StyleOptions.ColorSlot> FormColors { get; set; }
+        public bool isSelected { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        string IIcon.IcoName { get; set; }
 
         ToolTip tt = new ToolTip();
 
@@ -210,7 +212,7 @@ namespace Explorer_Tools
 
         private void btn_Select_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) { Owner.SelectFolder(this); }
+            if (e.Button == MouseButtons.Left) { Owner.SelectItem(this); }
             else if (e.Button == MouseButtons.Right) { ((Folder_Explorer)Owner).StandardView.OpenFolderView(FolderPath); }
         }
 
@@ -234,6 +236,11 @@ namespace Explorer_Tools
         {
             Meta.FolderDetails = rtb_FolderInfo.Text;
             Metadata.UpdateFolderData(Meta);
+        }
+
+        public void IconDeselect()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -32,6 +32,7 @@ namespace Explorer_Tools
             this.tlp_Main = new System.Windows.Forms.TableLayoutPanel();
             this.btn_ShowSidebar = new System.Windows.Forms.Button();
             this.pn_Main = new System.Windows.Forms.Panel();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabs_Sidebar = new System.Windows.Forms.TabControl();
             this.tp_PLACEHOLDER = new System.Windows.Forms.TabPage();
             this.tp_Explorer = new System.Windows.Forms.TabPage();
@@ -78,6 +79,7 @@ namespace Explorer_Tools
             this.cs_S = new Explorer_Tools.ColorSlider();
             this.cs_P = new Explorer_Tools.ColorSlider();
             this.tlp_Main.SuspendLayout();
+            this.pn_Main.SuspendLayout();
             this.tabs_Sidebar.SuspendLayout();
             this.tp_Appearance.SuspendLayout();
             this.tlp_Appearance.SuspendLayout();
@@ -108,7 +110,7 @@ namespace Explorer_Tools
             this.tlp_Main.Name = "tlp_Main";
             this.tlp_Main.RowCount = 1;
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp_Main.Size = new System.Drawing.Size(886, 833);
+            this.tlp_Main.Size = new System.Drawing.Size(1301, 833);
             this.tlp_Main.TabIndex = 9;
             this.tlp_Main.Tag = "Back:B";
             // 
@@ -127,13 +129,23 @@ namespace Explorer_Tools
             // pn_Main
             // 
             this.pn_Main.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pn_Main.Controls.Add(this.listBox1);
             this.pn_Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pn_Main.Location = new System.Drawing.Point(489, 0);
             this.pn_Main.Margin = new System.Windows.Forms.Padding(0);
             this.pn_Main.Name = "pn_Main";
-            this.pn_Main.Size = new System.Drawing.Size(397, 833);
+            this.pn_Main.Size = new System.Drawing.Size(812, 833);
             this.pn_Main.TabIndex = 7;
             this.pn_Main.Tag = "Back:B";
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 15;
+            this.listBox1.Location = new System.Drawing.Point(565, 619);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(120, 94);
+            this.listBox1.TabIndex = 0;
             // 
             // tabs_Sidebar
             // 
@@ -734,15 +746,18 @@ namespace Explorer_Tools
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(886, 833);
+            this.ClientSize = new System.Drawing.Size(1301, 833);
             this.Controls.Add(this.tlp_Main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.IsMdiContainer = true;
+            this.KeyPreview = true;
             this.Name = "form_StandardView";
             this.Tag = "Back:B Fore:F";
-            this.Text = "Form1";
+            this.Text = "Explorer Tools";
             this.ResizeEnd += new System.EventHandler(this.folderContents_SizeChanged);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.form_StandardView_KeyDown);
             this.tlp_Main.ResumeLayout(false);
+            this.pn_Main.ResumeLayout(false);
             this.tabs_Sidebar.ResumeLayout(false);
             this.tp_Appearance.ResumeLayout(false);
             this.tlp_Appearance.ResumeLayout(false);
@@ -817,6 +832,7 @@ namespace Explorer_Tools
         private ColorSlider cs_T;
         private ColorSlider cs_S;
         private System.Windows.Forms.CheckBox cb_Preview;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

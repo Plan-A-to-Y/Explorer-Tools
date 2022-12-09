@@ -20,6 +20,9 @@ namespace Explorer_Tools
         public int FileId { get; set; }
         public bool ShowDetails { get; set; }
         public Types FileType { get; set; }
+        public bool isSelected { get;  set; }
+        string IIcon.IcoName { get { return Meta.DisplayName; } set { return; } }
+
         public md_File Meta;
         public File_Entry()
         {
@@ -32,6 +35,7 @@ namespace Explorer_Tools
             InitializeComponent();
             Meta = FindFileData(filePath);
             ColorRegistry.RegisterColor(new ColorReg(), this);
+            ((IIcon)this).IcoName = Meta.DisplayName;
             UpdateVisuals();
         }
 
@@ -62,18 +66,6 @@ namespace Explorer_Tools
                 DoDragDrop(this, DragDropEffects.Move);
             }
         }
-        public void Selected()
-        {
-            ((IFileIcon)this).IsSelected = true;
-            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.Highlight);
-            Owner.SelectFile(this);
-        }
-        public void Deselected()
-        {
-            ((IFileIcon)this).IsSelected = false;
-            panel_MainLayout.BackColor = StyleOptions.GetColor(FilePath, StyleOptions.colorSlot.Background);
-            Owner.DeselectFile(this);
-        }
 
         public float DoubleClickTimer = 0;
         public DateTime ClickTime = DateTime.MinValue;
@@ -89,9 +81,9 @@ namespace Explorer_Tools
                 ClickTime = DateTime.MinValue;
                 return;
             }
-
-            if (((IFileIcon)this).IsSelected) ((IFileIcon)this).Deselected();
-            else ((IFileIcon)this).Selected();
+            //MessageBox.Show("File Entry has recieved selection event");
+            if (((IFileIcon)this).isSelected) { ((IFileIcon)this).IconDeselect(); IsSelected = false; }
+            else {((IFileIcon)this).IconSelect(); isSelected = true; }
             ClickTime = DateTime.Now;
         }
 

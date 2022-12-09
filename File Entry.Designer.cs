@@ -43,6 +43,7 @@ namespace Explorer_Tools
             // 
             this.panel_MainLayout.AutoSize = true;
             this.panel_MainLayout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel_MainLayout.BackColor = System.Drawing.Color.Transparent;
             this.panel_MainLayout.ColumnCount = 4;
             this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.panel_MainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -66,6 +67,7 @@ namespace Explorer_Tools
             // 
             this.lb_FileName.AutoEllipsis = true;
             this.lb_FileName.AutoSize = true;
+            this.lb_FileName.BackColor = System.Drawing.Color.Transparent;
             this.lb_FileName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_FileName.Location = new System.Drawing.Point(30, 0);
             this.lb_FileName.Margin = new System.Windows.Forms.Padding(0);
@@ -151,10 +153,10 @@ namespace Explorer_Tools
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel panel_MainLayout;
-        private System.Windows.Forms.Label lb_FileName;
         private System.Windows.Forms.Button btn_Interact;
         private System.Windows.Forms.PictureBox pb_Icon;
         private System.Windows.Forms.Button btn_Details;
         private System.Windows.Forms.RichTextBox rtb_Details;
+        public System.Windows.Forms.Label lb_FileName;
     }
 }

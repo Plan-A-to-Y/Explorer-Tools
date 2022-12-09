@@ -16,17 +16,18 @@ using static Explorer_Tools.ColorRegistry;
 
 namespace Explorer_Tools
 {
-    public partial class form_StandardView : Form, IColorPicker, IRegisteredColor
+    public partial class form_StandardView : Form, IColorPicker, IRegisteredColor, IView
     {
         public TableLayoutPanel BufferPanel;
         public md_Folder Meta;
         bool PreviewEnabled = false;
+        public IDisplayForm ActiveDisplayForm { get; set; }
         public form_StandardView()
         {
             Metadata.Initialize();
             InitializeComponent();
             Register(new ColorReg(), this);
-            Folder_Explorer FE = new Folder_Explorer(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            Folder_Explorer FE = new Folder_Explorer(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), this);
             tp_Explorer.Controls.Add(FE);
             FE.StandardView = this;
             FE.Dock = DockStyle.Fill;
@@ -62,6 +63,8 @@ namespace Explorer_Tools
             cs_T.ValueUpdateEvent += ColorUpdated;
             cs_B.ValueUpdateEvent += ColorUpdated;
             cs_F.ValueUpdateEvent += ColorUpdated;
+            listBox1.DataSource = GlobalData.CopyBuffer;
+            listBox1.DisplayMember = "IcoName";
         }
 
         private void ColorUpdated(object sender, EventArgs e)
@@ -222,6 +225,7 @@ namespace Explorer_Tools
         public void OpenFolderView(string path)
         {
             Folder_Contents FC = new Folder_Contents();
+            FC.OwningView = this;
             pn_Main.Controls.Add(FC);
             FC.Show();
             FC.DisplayContents(path);
@@ -380,6 +384,26 @@ namespace Explorer_Tools
             ColorRegistry.RefreshCategory(ColorRegType.Default);
             ActiveSet = Metadata.DefaultColors;
             UpdateVisuals();
+        }
+
+        private void form_StandardView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (ActiveDisplayForm == null) return;
+            
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                ActiveDisplayForm.Copy();
+                MessageBox.Show($"Copied {GlobalData.CopyBuffer.Count} items to the clipboard.");
+                listBox1.Update();
+            }
+            else if (e.Control && e.KeyCode == Keys.V)
+            {
+                ActiveDisplayForm.Paste();
+            }
+            else if (e.Control)
+            {
+                
+            }
         }
     }
 }

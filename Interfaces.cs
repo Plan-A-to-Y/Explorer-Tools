@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Explorer_Tools
 {
@@ -61,29 +62,69 @@ namespace Explorer_Tools
 
     public interface IDisplayForm
     {
-        public void SelectFile(IFileIcon File);
-        public void SelectFolder(IFolderIcon Folder);
-        public void DeselectFile(IFileIcon File);
-        public void DeselectFolder(IFolderIcon Folder);
-        public void RemoveFile(IFileIcon File);
+        public IView OwningView { get; set; }
+        public List<IIcon> SelectedItems { get; set; }
+        public virtual void SelectFile(IFileIcon File)
+        {
+            SelectedItems.Add(File);
+        }
+        public abstract void SelectItem(IIcon ToSelect);
+        public abstract void DeselectItem(IIcon ToRemove);
+        public abstract void RemoveItem(IIcon ToRemove);
+        public abstract void AddItem(IIcon ToRemove);
+        public virtual void Copy()
+        {
+            if(SelectedItems.Count == 0) { MessageBox.Show("Nothing to copy"); return; }
+
+            foreach(IIcon I in SelectedItems)
+            {
+                GlobalData.CopyBuffer.Add(I);
+            }
+            List<IIcon> ToDeselect = SelectedItems;
+            while(SelectedItems.Count > 0)
+            {
+                SelectedItems[0].IconDeselect();
+            }
+        }
+        public virtual void Paste()
+        {
+            foreach(IIcon I in GlobalData.CopyBuffer)
+            {
+                AddItem(I);
+                SelectItem(I);
+            }
+            GlobalData.CopyBuffer.Clear();
+        }
     }
-    public interface IFileIcon
+    public interface IIcon
     {
-        public bool IsSelected { get; set; }
+        public string IcoName { get; set; }
+        public bool isSelected { get; set; }
+        public virtual void IconSelect()
+        {
+            Owner.SelectItem(this);
+        }
+        public virtual void IconDeselect()
+        {
+            Owner.DeselectItem(this);
+        }
         public IDisplayForm Owner { get; set; }
+    }
+
+    public interface IView
+    {
+        public IDisplayForm ActiveDisplayForm { get; set; }
+    }
+
+    public interface IFileIcon : IIcon
+    {
         public string FilePath { get; set; }
         public int FileId { get; set; }
         public Metadata.Types FileType { get; set; }
-        public abstract void Selected();
-        public abstract void Deselected();
     }
-    public interface IFolderIcon
+    public interface IFolderIcon : IIcon
     {
-        public bool IsSelected { get; set; }
-        public IDisplayForm Owner { get; set; }
         public string FolderPath { get; set; }
         public int FolderId { get; set; }
-        public abstract void Selected(); 
-        public abstract void Deselected();
     }
 }
