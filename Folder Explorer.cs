@@ -11,6 +11,7 @@ namespace Explorer_Tools
 {
     public partial class Folder_Explorer : Form, IDisplayForm, IRegisteredColor
     {
+        string IDisplayForm.DisplayName { get; set; }
         public string InitialDirectory { get; set; }
         public form_StandardView StandardView { get; set; }
         public List<IIcon> SelectedItems { get; set; }
@@ -122,22 +123,22 @@ namespace Explorer_Tools
 
         public void SelectItem(IIcon ToSelect)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public void DeselectItem(IIcon ToRemove)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void RemoveItem(IIcon ToRemove)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void AddItem(IIcon ToRemove)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

@@ -16,6 +16,7 @@ namespace Explorer_Tools
 {
     public partial class Folder_Contents : Form, IDisplayForm, StyleWindow, IRegisteredColor
     {
+        string IDisplayForm.DisplayName { get; set; }
         md_Folder md;
         public IFileIcon SelectedFile;
         public List<string> ImageTypes = new List<string> { "IGNORE" }; //{ ".bmp", ".png", ".jpg", ".jpeg", ".gif" };
@@ -122,6 +123,8 @@ namespace Explorer_Tools
         }
         public void DisplayContents(string Path, Metadata.SortTypes order = SortTypes.Name)
         {
+            ((IDisplayForm)this).DisplayName = Path.Split("\\").Last();
+            OwningView.ActiveDisplayForm = this;
             if (Path.Equals(FolderPath))
             {
                 if (Sort != order)
@@ -432,7 +435,7 @@ namespace Explorer_Tools
 
         public void Selected()
         {
-            throw new NotImplementedException();
+            OwningView.ActiveDisplayForm = this;
         }
 
         public void Deselected()
@@ -668,9 +671,21 @@ namespace Explorer_Tools
             panel_Content.Controls.Remove((from File_Entry x in panel_Content.Controls where x.FileId.Equals(((IFileIcon)ToRemove).FileId) select x).First());
         }
 
-        public void AddItem(IIcon ToRemove)
+        public void AddItem(IIcon ToAdd)
         {
-            throw new NotImplementedException();
+            if(ToAdd is IFileIcon)
+            {
+                IFileIcon ToAddFi = ToAdd as IFileIcon;
+                if(File.Exists(FolderPath + $"\\{ToAddFi.FilePath.Split("\\").Last()}"))
+                {
+                    MessageBox.Show("File already exists in Directory: " + FolderPath + $"\\{ToAddFi.FilePath.Split("\\").Last()}");
+                }
+                else
+                {
+                    File.Copy(ToAddFi.FilePath, FolderPath + $"\\{ToAddFi.FilePath.Split("\\").Last()}");
+                    MessageBox.Show("Copied to " + FolderPath + $"\\{ToAddFi.FilePath.Split("\\").Last()}");
+                }
+            }
         }
 
         public void IconDeselect()
@@ -680,13 +695,17 @@ namespace Explorer_Tools
 
         private void Folder_Contents_Enter(object sender, EventArgs e)
         {
-            IsSelected = true;
-            OwningView.ActiveDisplayForm = this;
+            Selected();
         }
 
         private void Folder_Contents_Leave(object sender, EventArgs e)
         {
             IsSelected = false;
+        }
+
+        private void tlp_Filters_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

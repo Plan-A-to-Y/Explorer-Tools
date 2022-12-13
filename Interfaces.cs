@@ -62,6 +62,7 @@ namespace Explorer_Tools
 
     public interface IDisplayForm
     {
+        public string DisplayName { get; set; }
         public IView OwningView { get; set; }
         public List<IIcon> SelectedItems { get; set; }
         public virtual void SelectFile(IFileIcon File)

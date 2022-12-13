@@ -168,7 +168,7 @@ namespace Explorer_Tools
             this.ts_FolderTools.Name = "ts_FolderTools";
             this.ts_FolderTools.Padding = new System.Windows.Forms.Padding(0);
             this.ts_FolderTools.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.ts_FolderTools.Size = new System.Drawing.Size(677, 20);
+            this.ts_FolderTools.Size = new System.Drawing.Size(684, 20);
             this.ts_FolderTools.Stretch = true;
             this.ts_FolderTools.TabIndex = 12;
             // 
@@ -196,11 +196,12 @@ namespace Explorer_Tools
             this.btn_ShowFilters.FlatAppearance.BorderSize = 0;
             this.btn_ShowFilters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ShowFilters.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_ShowFilters.Location = new System.Drawing.Point(677, 0);
+            this.btn_ShowFilters.Location = new System.Drawing.Point(684, 0);
             this.btn_ShowFilters.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
-            this.btn_ShowFilters.MinimumSize = new System.Drawing.Size(0, 20);
+            this.btn_ShowFilters.MaximumSize = new System.Drawing.Size(100, 0);
+            this.btn_ShowFilters.MinimumSize = new System.Drawing.Size(100, 20);
             this.btn_ShowFilters.Name = "btn_ShowFilters";
-            this.btn_ShowFilters.Size = new System.Drawing.Size(107, 20);
+            this.btn_ShowFilters.Size = new System.Drawing.Size(100, 20);
             this.btn_ShowFilters.TabIndex = 13;
             this.btn_ShowFilters.Text = "Show Filters";
             this.btn_ShowFilters.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -227,18 +228,21 @@ namespace Explorer_Tools
             this.tlp_Filters.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Filters.Size = new System.Drawing.Size(784, 32);
             this.tlp_Filters.TabIndex = 12;
+            this.tlp_Filters.Paint += new System.Windows.Forms.PaintEventHandler(this.tlp_Filters_Paint);
             // 
             // btn_ShowTools
             // 
             this.btn_ShowTools.AutoSize = true;
+            this.btn_ShowTools.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btn_ShowTools.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_ShowTools.FlatAppearance.BorderSize = 0;
             this.btn_ShowTools.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ShowTools.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_ShowTools.Location = new System.Drawing.Point(677, 0);
+            this.btn_ShowTools.Location = new System.Drawing.Point(684, 0);
             this.btn_ShowTools.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.btn_ShowTools.MinimumSize = new System.Drawing.Size(100, 30);
             this.btn_ShowTools.Name = "btn_ShowTools";
-            this.btn_ShowTools.Size = new System.Drawing.Size(107, 30);
+            this.btn_ShowTools.Size = new System.Drawing.Size(100, 30);
             this.btn_ShowTools.TabIndex = 14;
             this.btn_ShowTools.Text = "Hide Filters";
             this.btn_ShowTools.UseVisualStyleBackColor = true;
@@ -258,11 +262,13 @@ namespace Explorer_Tools
             // 
             this.flp_Filters.AutoScroll = true;
             this.flp_Filters.AutoSize = true;
+            this.flp_Filters.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flp_Filters.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flp_Filters.Location = new System.Drawing.Point(100, 0);
             this.flp_Filters.Margin = new System.Windows.Forms.Padding(0);
+            this.flp_Filters.MinimumSize = new System.Drawing.Size(0, 30);
             this.flp_Filters.Name = "flp_Filters";
-            this.flp_Filters.Size = new System.Drawing.Size(577, 32);
+            this.flp_Filters.Size = new System.Drawing.Size(584, 32);
             this.flp_Filters.TabIndex = 15;
             this.flp_Filters.WrapContents = false;
             // 
@@ -535,6 +541,7 @@ namespace Explorer_Tools
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Folder_Contents";
+            this.Activated += new System.EventHandler(this.Folder_Contents_Enter);
             this.Enter += new System.EventHandler(this.Folder_Contents_Enter);
             this.Leave += new System.EventHandler(this.Folder_Contents_Leave);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Folder_Contents_MouseMove);

@@ -22,10 +22,13 @@ namespace Explorer_Tools
         public md_Folder Meta;
         bool PreviewEnabled = false;
         public IDisplayForm ActiveDisplayForm { get; set; }
+        public List<IDisplayForm> idfs { get { return new List<IDisplayForm>() { ActiveDisplayForm }; } }
         public form_StandardView()
         {
             Metadata.Initialize();
             InitializeComponent();
+            ActiveDisplayForm = new Folder_Contents();
+            ActiveDisplayForm.DisplayName = "NONE";
             Register(new ColorReg(), this);
             Folder_Explorer FE = new Folder_Explorer(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), this);
             tp_Explorer.Controls.Add(FE);
@@ -65,6 +68,8 @@ namespace Explorer_Tools
             cs_F.ValueUpdateEvent += ColorUpdated;
             listBox1.DataSource = GlobalData.CopyBuffer;
             listBox1.DisplayMember = "IcoName";
+            listBox2.DataSource = idfs;
+            listBox2.DisplayMember = "DisplayName";
         }
 
         private void ColorUpdated(object sender, EventArgs e)
@@ -395,9 +400,11 @@ namespace Explorer_Tools
                 ActiveDisplayForm.Copy();
                 MessageBox.Show($"Copied {GlobalData.CopyBuffer.Count} items to the clipboard.");
                 listBox1.Update();
+                listBox2.Update();
             }
             else if (e.Control && e.KeyCode == Keys.V)
             {
+                listBox2.Update();
                 ActiveDisplayForm.Paste();
             }
             else if (e.Control)
