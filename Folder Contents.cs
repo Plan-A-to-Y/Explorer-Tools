@@ -40,6 +40,8 @@ namespace Explorer_Tools
         public Folder_Contents()
         {
             InitializeComponent();
+            FolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            md = FindFolderData(FolderPath);
             this.TopLevel = false;
             ((IDisplayForm)this).SelectedItems = new List<IIcon>();
             SortButton SB_Name = new SortButton(SortTypes.Name, this);

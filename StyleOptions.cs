@@ -85,7 +85,7 @@ namespace Explorer_Tools
         {
             //Path Format
             //Type 1: "Path:XX/XX/XXXXX/XXXX.png" -- Used for single-override icons
-            //Type 2: "Preset:[x]|[#]" -- [x] = File Extension or identifyer (ex. ".png" ".jpg") [#] = Slot ID (Kept in Metadata.IconSlots)
+            //Type 2: "Preset:[x]|[#]" -- [x] = File Extension or identifier (ex. ".png" ".jpg") [#] = Slot ID (Kept in Metadata.IconSlots)
             //Type 3: "D:[IcoType]" -- Uses the default icon for the given IcoType
             try
             {
@@ -139,7 +139,8 @@ namespace Explorer_Tools
             Primary,
             Secondary,
             Tertiary,
-            TextColor
+            TextColor,
+            SecondaryTextColor
         }
 
 
@@ -183,6 +184,72 @@ namespace Explorer_Tools
         public static string StringFromColor(Color input)
         {
             return $"{input.R}|{input.G}|{input.B}|{input.A}";
+        }
+
+        public static void ApplyColorTags(Control Target)
+        {
+            List<Control> AllCon = new List<Control>();
+            Queue<Control> ToSearch = new Queue<Control>();
+            foreach (Control c in Target.Controls)
+            {
+                AllCon.Add(c);
+                ToSearch.Enqueue(c);
+            }
+            while (ToSearch.Count > 0)
+            {
+                Control Searching = ToSearch.Dequeue();
+                foreach (Control d in Searching.Controls)
+                {
+                    if (!AllCon.Contains(d)) AllCon.Add(d);
+                    ToSearch.Enqueue(d);
+                }
+            }
+
+            foreach (Control c in AllCon)
+            {
+                List<string> slots = new List<string> { "Fore", "Back", "BtnBorder", "TabHeader" };
+                foreach (string slot in slots)
+                {
+                    if (c.Tag is null) continue;
+                    bool Valid = false;
+                    Color col = Color.White;
+                    if (c.Tag.ToString().Contains(slot))
+                    {
+                        switch (c.Tag.ToString())
+                        {
+                            case string a when a.Contains(slot + ":ST"):
+                                col = StyleOptions.GetColor(StyleOptions.colorSlot.SecondaryTextColor);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":P"):
+                                col = StyleOptions.GetColor(StyleOptions.colorSlot.Primary);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":S"):
+                                col = StyleOptions.GetColor(StyleOptions.colorSlot.Secondary);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":T"):
+                                col = StyleOptions.GetColor(StyleOptions.colorSlot.Tertiary);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":B"):
+                                col = StyleOptions.GetColor(StyleOptions.colorSlot.Background);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":F"):
+                                col = StyleOptions.GetColor(StyleOptions.colorSlot.TextColor);
+                                Valid = true;
+                                break;
+
+                        }
+                    }
+                    if (Valid && slot.Equals("Fore")) c.ForeColor = col;
+                    if (Valid && slot.Equals("Back")) c.BackColor = col;
+                    if (Valid && slot.Equals("BtnBorder")) ((Button)c).FlatAppearance.BorderColor = col;
+                }
+
+            }
         }
     }
 }

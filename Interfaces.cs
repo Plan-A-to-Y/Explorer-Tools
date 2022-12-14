@@ -71,6 +71,18 @@ namespace Explorer_Tools
         }
         public abstract void SelectItem(IIcon ToSelect);
         public abstract void DeselectItem(IIcon ToRemove);
+        public void DeselectAll(List<IIcon> ToRemove)
+        {
+            Queue<IIcon> RemovalQueue = new Queue<IIcon>();
+            foreach(IIcon i in ToRemove)
+            {
+                RemovalQueue.Enqueue(i);
+            }
+            while(RemovalQueue.Count > 0)
+            {
+                DeselectItem(RemovalQueue.Dequeue());
+            }
+        }
         public abstract void RemoveItem(IIcon ToRemove);
         public abstract void AddItem(IIcon ToRemove);
         public virtual void Copy()

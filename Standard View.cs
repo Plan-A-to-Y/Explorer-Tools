@@ -35,7 +35,6 @@ namespace Explorer_Tools
             FE.StandardView = this;
             FE.Dock = DockStyle.Fill;
             FE.Show();
-            OpenFolderView(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             btn_ShowSidebar.Hide();
             tlp_AppearanceContext.Hide();
             tabs_Sidebar.SelectedIndex = 1;
@@ -98,69 +97,7 @@ namespace Explorer_Tools
 
         public void UpdateVisuals()
         {
-            List<Control> AllCon = new List<Control>();
-            Queue<Control> ToSearch = new Queue<Control>();
-            foreach(Control c in this.Controls)
-            {
-                AllCon.Add(c);
-                ToSearch.Enqueue(c);
-            }
-            while(ToSearch.Count > 0)
-            {
-                Control Searching = ToSearch.Dequeue();
-                foreach(Control d in Searching.Controls)
-                {
-                    if (!AllCon.Contains(d)) AllCon.Add(d);
-                    ToSearch.Enqueue(d);
-                }
-            }
-
-            foreach(Control c in AllCon)
-            {
-                List<string> slots = new List<string> { "Fore", "Back", "BtnBorder", "TabHeader" };
-                foreach (string slot in slots)
-                {
-                    if (c.Tag is null) continue;
-                    bool Valid = false;
-                    Color col = Color.White;
-                    if (c.Tag.ToString().Contains(slot))
-                    {
-                        switch (c.Tag.ToString())
-                        {
-                            case string a when a.Contains(slot + ":P"):
-                                if (PreviewEnabled) col = pn_ColorP.BackColor;
-                                else col = StyleOptions.GetColor(StyleOptions.colorSlot.Primary);
-                                Valid = true;
-                                break;
-                            case string a when a.Contains(slot + ":S"):
-                                if (PreviewEnabled) col = pn_ColorS.BackColor;
-                                else col = StyleOptions.GetColor(StyleOptions.colorSlot.Secondary);
-                                Valid = true;
-                                break;
-                            case string a when a.Contains(slot + ":T"):
-                                if (PreviewEnabled) col = pn_ColorT.BackColor;
-                                else col = StyleOptions.GetColor(StyleOptions.colorSlot.Tertiary);
-                                Valid = true;
-                                break;
-                            case string a when a.Contains(slot + ":B"):
-                                if (PreviewEnabled) col = pn_ColorB.BackColor;
-                                else col = StyleOptions.GetColor(StyleOptions.colorSlot.Background);
-                                Valid = true;
-                                break;
-                            case string a when a.Contains(slot + ":F"):
-                                if (PreviewEnabled) col = pn_ColorF.BackColor;
-                                else col = StyleOptions.GetColor(StyleOptions.colorSlot.TextColor);
-                                Valid = true;
-                                break;
-
-                        }
-                    }
-                    if (Valid && slot.Equals("Fore")) c.ForeColor = col;
-                    if (Valid && slot.Equals("Back")) c.BackColor = col;
-                    if (Valid && slot.Equals("BtnBorder")) ((Button)c).FlatAppearance.BorderColor = col;
-                }
-                
-            }
+            ApplyColorTags(this);
             Refresh();
             PreviewEnabled = false;
         }

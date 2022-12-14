@@ -36,6 +36,7 @@ namespace Explorer_Tools
             this.btn_Close = new System.Windows.Forms.Button();
             this.pn_Label = new System.Windows.Forms.Panel();
             this.lb_FolderName = new System.Windows.Forms.Label();
+            this.lb_Selected = new System.Windows.Forms.Label();
             this.tlp_Main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ico_Folder)).BeginInit();
             this.pn_Label.SuspendLayout();
@@ -55,13 +56,15 @@ namespace Explorer_Tools
             this.tlp_Main.Controls.Add(this.ico_Folder, 0, 0);
             this.tlp_Main.Controls.Add(this.btn_Close, 3, 0);
             this.tlp_Main.Controls.Add(this.pn_Label, 1, 0);
+            this.tlp_Main.Controls.Add(this.lb_Selected, 0, 2);
             this.tlp_Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlp_Main.Location = new System.Drawing.Point(0, 0);
             this.tlp_Main.Margin = new System.Windows.Forms.Padding(0);
             this.tlp_Main.Name = "tlp_Main";
-            this.tlp_Main.RowCount = 2;
+            this.tlp_Main.RowCount = 3;
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlp_Main.Size = new System.Drawing.Size(300, 450);
             this.tlp_Main.TabIndex = 0;
             // 
@@ -93,7 +96,7 @@ namespace Explorer_Tools
             this.tlp_Content.Padding = new System.Windows.Forms.Padding(1);
             this.tlp_Content.RowCount = 1;
             this.tlp_Content.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp_Content.Size = new System.Drawing.Size(300, 420);
+            this.tlp_Content.Size = new System.Drawing.Size(300, 400);
             this.tlp_Content.TabIndex = 6;
             this.tlp_Content.SizeChanged += new System.EventHandler(this.tlp_Content_SizeChanged);
             // 
@@ -140,6 +143,17 @@ namespace Explorer_Tools
             this.lb_FolderName.Text = "FOLDER NAME HERE";
             this.lb_FolderName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lb_Selected
+            // 
+            this.lb_Selected.AutoSize = true;
+            this.tlp_Main.SetColumnSpan(this.lb_Selected, 4);
+            this.lb_Selected.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_Selected.Location = new System.Drawing.Point(3, 430);
+            this.lb_Selected.Name = "lb_Selected";
+            this.lb_Selected.Size = new System.Drawing.Size(294, 20);
+            this.lb_Selected.TabIndex = 8;
+            this.lb_Selected.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Folder_Explorer
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -173,5 +187,6 @@ namespace Explorer_Tools
         private System.Windows.Forms.Label lb_FolderName;
         private System.Windows.Forms.TableLayoutPanel tlp_Content;
         private System.Windows.Forms.Button btn_GoUp;
+        private System.Windows.Forms.Label lb_Selected;
     }
 }

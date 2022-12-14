@@ -122,11 +122,12 @@ namespace Explorer_Tools
                 main.IconPaths = new List<string> { ".\\Icons\\DefaultFile.png" } ;
                 main.DefaultCol = new List<ColorSlot>{
                     new ColorSlot(colorSlot.Highlight, "100|50|100|255"),
-                    new ColorSlot(colorSlot.Background, "80|80|80|255"),
-                    new ColorSlot(colorSlot.Primary, "100|0|100|255"),
-                    new ColorSlot(colorSlot.Secondary, "20|20|20|255"),
-                    new ColorSlot(colorSlot.Tertiary, "255|255|255|255"),
-                    new ColorSlot(colorSlot.TextColor, "255|255|255|255")
+                    new ColorSlot(colorSlot.Background, "80|60|80|255"),
+                    new ColorSlot(colorSlot.Primary, "45|0|100|255"),
+                    new ColorSlot(colorSlot.Secondary, "50|45|110|255"),
+                    new ColorSlot(colorSlot.Tertiary, "115|45|60|255"),
+                    new ColorSlot(colorSlot.TextColor, "200|183|255|255"),
+                    new ColorSlot(colorSlot.SecondaryTextColor, "200|200|200|255")
                     };
                 DefaultColors = main.DefaultCol;
                 SaveData();
@@ -246,7 +247,8 @@ namespace Explorer_Tools
                 new ColorSlot(colorSlot.Primary),
                 new ColorSlot(colorSlot.Secondary),
                 new ColorSlot(colorSlot.Tertiary),
-                new ColorSlot(colorSlot.TextColor)
+                new ColorSlot(colorSlot.TextColor),
+                new ColorSlot(colorSlot.SecondaryTextColor)
             };
             if (folderPath == null)
             {
@@ -300,7 +302,8 @@ namespace Explorer_Tools
                 new ColorSlot(colorSlot.Primary),
                 new ColorSlot(colorSlot.Secondary),
                 new ColorSlot(colorSlot.Tertiary),
-                new ColorSlot(colorSlot.TextColor)
+                new ColorSlot(colorSlot.TextColor),
+                new ColorSlot(colorSlot.SecondaryTextColor)
             };
             IconPath = Metadata.GetFileType(FilePath).ToString();
         }
