@@ -32,7 +32,6 @@ namespace Explorer_Tools
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Folder_Contents));
             this.tlp_Main = new System.Windows.Forms.TableLayoutPanel();
             this.tlp_Content = new System.Windows.Forms.TableLayoutPanel();
-            this.panel_Content = new System.Windows.Forms.FlowLayoutPanel();
             this.tlp_Toolbar = new System.Windows.Forms.TableLayoutPanel();
             this.ts_FolderTools = new System.Windows.Forms.ToolStrip();
             this.tsb_File = new System.Windows.Forms.ToolStripButton();
@@ -42,6 +41,9 @@ namespace Explorer_Tools
             this.btn_ShowTools = new System.Windows.Forms.Button();
             this.cb_FilterType = new System.Windows.Forms.ComboBox();
             this.flp_Filters = new System.Windows.Forms.FlowLayoutPanel();
+            this.tlp_ContentDivider = new System.Windows.Forms.TableLayoutPanel();
+            this.panel_Folders = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel_Content = new System.Windows.Forms.FlowLayoutPanel();
             this.pn_TopLeft = new System.Windows.Forms.Panel();
             this.pn_TopRight = new System.Windows.Forms.Panel();
             this.pn_LeftBorder = new System.Windows.Forms.Panel();
@@ -58,12 +60,14 @@ namespace Explorer_Tools
             this.pn_RightBorder = new System.Windows.Forms.Panel();
             this.pn_BottomLeft = new System.Windows.Forms.Panel();
             this.pn_BottomBorder = new System.Windows.Forms.Panel();
+            this.lb_Selected = new System.Windows.Forms.Label();
             this.color_Dialog = new System.Windows.Forms.ColorDialog();
             this.tlp_Main.SuspendLayout();
             this.tlp_Content.SuspendLayout();
             this.tlp_Toolbar.SuspendLayout();
             this.ts_FolderTools.SuspendLayout();
             this.tlp_Filters.SuspendLayout();
+            this.tlp_ContentDivider.SuspendLayout();
             this.tlp_Header.SuspendLayout();
             this.tlp_FolderInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_FolderIcon)).BeginInit();
@@ -80,21 +84,22 @@ namespace Explorer_Tools
             this.tlp_Main.Controls.Add(this.pn_TopRight, 2, 0);
             this.tlp_Main.Controls.Add(this.pn_LeftBorder, 0, 1);
             this.tlp_Main.Controls.Add(this.pn_TopBorder, 1, 0);
-            this.tlp_Main.Controls.Add(this.pn_BottomRight, 2, 3);
+            this.tlp_Main.Controls.Add(this.pn_BottomRight, 2, 4);
             this.tlp_Main.Controls.Add(this.tlp_Header, 1, 1);
             this.tlp_Main.Controls.Add(this.pn_RightBorder, 2, 1);
-            this.tlp_Main.Controls.Add(this.pn_BottomLeft, 0, 3);
-            this.tlp_Main.Controls.Add(this.pn_BottomBorder, 1, 3);
+            this.tlp_Main.Controls.Add(this.pn_BottomLeft, 0, 4);
+            this.tlp_Main.Controls.Add(this.pn_BottomBorder, 1, 4);
+            this.tlp_Main.Controls.Add(this.lb_Selected, 1, 3);
             this.tlp_Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlp_Main.Location = new System.Drawing.Point(0, 0);
             this.tlp_Main.Margin = new System.Windows.Forms.Padding(0);
             this.tlp_Main.Name = "tlp_Main";
-            this.tlp_Main.RowCount = 4;
+            this.tlp_Main.RowCount = 5;
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlp_Main.Size = new System.Drawing.Size(800, 450);
             this.tlp_Main.TabIndex = 1;
             // 
@@ -102,9 +107,9 @@ namespace Explorer_Tools
             // 
             this.tlp_Content.ColumnCount = 1;
             this.tlp_Content.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp_Content.Controls.Add(this.panel_Content, 0, 2);
             this.tlp_Content.Controls.Add(this.tlp_Toolbar, 0, 0);
             this.tlp_Content.Controls.Add(this.tlp_Filters, 0, 1);
+            this.tlp_Content.Controls.Add(this.tlp_ContentDivider, 0, 2);
             this.tlp_Content.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlp_Content.Location = new System.Drawing.Point(8, 38);
             this.tlp_Content.Margin = new System.Windows.Forms.Padding(0);
@@ -114,27 +119,8 @@ namespace Explorer_Tools
             this.tlp_Content.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Content.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Content.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp_Content.Size = new System.Drawing.Size(784, 404);
+            this.tlp_Content.Size = new System.Drawing.Size(784, 389);
             this.tlp_Content.TabIndex = 9;
-            // 
-            // panel_Content
-            // 
-            this.panel_Content.AllowDrop = true;
-            this.panel_Content.AutoScroll = true;
-            this.panel_Content.AutoScrollMargin = new System.Drawing.Size(5, 5);
-            this.panel_Content.AutoSize = true;
-            this.panel_Content.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel_Content.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel_Content.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_Content.Location = new System.Drawing.Point(0, 56);
-            this.panel_Content.Margin = new System.Windows.Forms.Padding(0);
-            this.panel_Content.MinimumSize = new System.Drawing.Size(30, 30);
-            this.panel_Content.Name = "panel_Content";
-            this.panel_Content.Size = new System.Drawing.Size(784, 348);
-            this.panel_Content.TabIndex = 10;
-            this.panel_Content.DragDrop += new System.Windows.Forms.DragEventHandler(this.panel_Content_DragDrop);
-            this.panel_Content.DragEnter += new System.Windows.Forms.DragEventHandler(this.panel_Content_DragEnter);
-            this.panel_Content.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Content_Paint);
             // 
             // tlp_Toolbar
             // 
@@ -272,6 +258,55 @@ namespace Explorer_Tools
             this.flp_Filters.TabIndex = 15;
             this.flp_Filters.WrapContents = false;
             // 
+            // tlp_ContentDivider
+            // 
+            this.tlp_ContentDivider.ColumnCount = 2;
+            this.tlp_ContentDivider.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlp_ContentDivider.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_ContentDivider.Controls.Add(this.panel_Folders, 0, 0);
+            this.tlp_ContentDivider.Controls.Add(this.panel_Content, 1, 0);
+            this.tlp_ContentDivider.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp_ContentDivider.Location = new System.Drawing.Point(0, 56);
+            this.tlp_ContentDivider.Margin = new System.Windows.Forms.Padding(0);
+            this.tlp_ContentDivider.Name = "tlp_ContentDivider";
+            this.tlp_ContentDivider.RowCount = 1;
+            this.tlp_ContentDivider.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_ContentDivider.Size = new System.Drawing.Size(784, 333);
+            this.tlp_ContentDivider.TabIndex = 13;
+            // 
+            // panel_Folders
+            // 
+            this.panel_Folders.AllowDrop = true;
+            this.panel_Folders.AutoScroll = true;
+            this.panel_Folders.AutoScrollMargin = new System.Drawing.Size(5, 5);
+            this.panel_Folders.AutoSize = true;
+            this.panel_Folders.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel_Folders.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel_Folders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_Folders.Location = new System.Drawing.Point(0, 0);
+            this.panel_Folders.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_Folders.Name = "panel_Folders";
+            this.panel_Folders.Size = new System.Drawing.Size(1, 333);
+            this.panel_Folders.TabIndex = 12;
+            this.panel_Folders.Tag = "Back:B";
+            // 
+            // panel_Content
+            // 
+            this.panel_Content.AllowDrop = true;
+            this.panel_Content.AutoScroll = true;
+            this.panel_Content.AutoScrollMargin = new System.Drawing.Size(5, 5);
+            this.panel_Content.AutoSize = true;
+            this.panel_Content.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel_Content.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel_Content.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_Content.Location = new System.Drawing.Point(0, 0);
+            this.panel_Content.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_Content.MinimumSize = new System.Drawing.Size(30, 30);
+            this.panel_Content.Name = "panel_Content";
+            this.panel_Content.Size = new System.Drawing.Size(784, 333);
+            this.panel_Content.TabIndex = 11;
+            this.panel_Content.Tag = "Back:B";
+            // 
             // pn_TopLeft
             // 
             this.pn_TopLeft.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -296,6 +331,7 @@ namespace Explorer_Tools
             this.pn_TopRight.Name = "pn_TopRight";
             this.pn_TopRight.Size = new System.Drawing.Size(8, 8);
             this.pn_TopRight.TabIndex = 7;
+            this.pn_TopRight.Tag = "Back:S";
             this.pn_TopRight.Paint += new System.Windows.Forms.PaintEventHandler(this.pn_TopRight_Paint);
             this.pn_TopRight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.resize_MouseDown);
             this.pn_TopRight.MouseLeave += new System.EventHandler(this.Resize_MouseLeave);
@@ -309,9 +345,10 @@ namespace Explorer_Tools
             this.pn_LeftBorder.Location = new System.Drawing.Point(0, 8);
             this.pn_LeftBorder.Margin = new System.Windows.Forms.Padding(0);
             this.pn_LeftBorder.Name = "pn_LeftBorder";
-            this.tlp_Main.SetRowSpan(this.pn_LeftBorder, 2);
+            this.tlp_Main.SetRowSpan(this.pn_LeftBorder, 3);
             this.pn_LeftBorder.Size = new System.Drawing.Size(8, 434);
             this.pn_LeftBorder.TabIndex = 6;
+            this.pn_LeftBorder.Tag = "Back:S";
             this.pn_LeftBorder.Paint += new System.Windows.Forms.PaintEventHandler(this.pn_Left_Paint);
             this.pn_LeftBorder.MouseDown += new System.Windows.Forms.MouseEventHandler(this.resize_MouseDown);
             this.pn_LeftBorder.MouseLeave += new System.EventHandler(this.Resize_MouseLeave);
@@ -327,6 +364,7 @@ namespace Explorer_Tools
             this.pn_TopBorder.Name = "pn_TopBorder";
             this.pn_TopBorder.Size = new System.Drawing.Size(784, 8);
             this.pn_TopBorder.TabIndex = 3;
+            this.pn_TopBorder.Tag = "Back:S";
             this.pn_TopBorder.Paint += new System.Windows.Forms.PaintEventHandler(this.pn_TopBorder_Paint);
             this.pn_TopBorder.MouseDown += new System.Windows.Forms.MouseEventHandler(this.resize_MouseDown);
             this.pn_TopBorder.MouseLeave += new System.EventHandler(this.Resize_MouseLeave);
@@ -342,6 +380,7 @@ namespace Explorer_Tools
             this.pn_BottomRight.Name = "pn_BottomRight";
             this.pn_BottomRight.Size = new System.Drawing.Size(8, 8);
             this.pn_BottomRight.TabIndex = 5;
+            this.pn_BottomRight.Tag = "Back:S";
             this.pn_BottomRight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.resize_MouseDown);
             this.pn_BottomRight.MouseLeave += new System.EventHandler(this.Resize_MouseLeave);
             this.pn_BottomRight.MouseMove += new System.Windows.Forms.MouseEventHandler(this.resize_MouseMove);
@@ -482,9 +521,10 @@ namespace Explorer_Tools
             this.pn_RightBorder.Location = new System.Drawing.Point(792, 8);
             this.pn_RightBorder.Margin = new System.Windows.Forms.Padding(0);
             this.pn_RightBorder.Name = "pn_RightBorder";
-            this.tlp_Main.SetRowSpan(this.pn_RightBorder, 2);
+            this.tlp_Main.SetRowSpan(this.pn_RightBorder, 3);
             this.pn_RightBorder.Size = new System.Drawing.Size(8, 434);
             this.pn_RightBorder.TabIndex = 4;
+            this.pn_RightBorder.Tag = "Back:S";
             this.pn_RightBorder.Paint += new System.Windows.Forms.PaintEventHandler(this.pn_Right_Paint);
             this.pn_RightBorder.MouseDown += new System.Windows.Forms.MouseEventHandler(this.resize_MouseDown);
             this.pn_RightBorder.MouseLeave += new System.EventHandler(this.Resize_MouseLeave);
@@ -514,11 +554,22 @@ namespace Explorer_Tools
             this.pn_BottomBorder.Name = "pn_BottomBorder";
             this.pn_BottomBorder.Size = new System.Drawing.Size(784, 8);
             this.pn_BottomBorder.TabIndex = 2;
+            this.pn_BottomBorder.Tag = "Back:S";
             this.pn_BottomBorder.Paint += new System.Windows.Forms.PaintEventHandler(this.pn_BottomBorder_Paint);
             this.pn_BottomBorder.MouseDown += new System.Windows.Forms.MouseEventHandler(this.resize_MouseDown);
             this.pn_BottomBorder.MouseLeave += new System.EventHandler(this.Resize_MouseLeave);
             this.pn_BottomBorder.MouseMove += new System.Windows.Forms.MouseEventHandler(this.resize_MouseMove);
             this.pn_BottomBorder.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Resize_MouseUp);
+            // 
+            // lb_Selected
+            // 
+            this.lb_Selected.AutoSize = true;
+            this.lb_Selected.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_Selected.Location = new System.Drawing.Point(11, 427);
+            this.lb_Selected.Name = "lb_Selected";
+            this.lb_Selected.Size = new System.Drawing.Size(778, 15);
+            this.lb_Selected.TabIndex = 10;
+            this.lb_Selected.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // color_Dialog
             // 
@@ -546,6 +597,7 @@ namespace Explorer_Tools
             this.Leave += new System.EventHandler(this.Folder_Contents_Leave);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Folder_Contents_MouseMove);
             this.tlp_Main.ResumeLayout(false);
+            this.tlp_Main.PerformLayout();
             this.tlp_Content.ResumeLayout(false);
             this.tlp_Content.PerformLayout();
             this.tlp_Toolbar.ResumeLayout(false);
@@ -553,6 +605,8 @@ namespace Explorer_Tools
             this.ts_FolderTools.PerformLayout();
             this.tlp_Filters.ResumeLayout(false);
             this.tlp_Filters.PerformLayout();
+            this.tlp_ContentDivider.ResumeLayout(false);
+            this.tlp_ContentDivider.PerformLayout();
             this.tlp_Header.ResumeLayout(false);
             this.tlp_FolderInfo.ResumeLayout(false);
             this.tlp_FolderInfo.PerformLayout();
@@ -581,7 +635,6 @@ namespace Explorer_Tools
         private System.Windows.Forms.PictureBox pb_FolderIcon;
         private System.Windows.Forms.Label lb_FolderName;
         private System.Windows.Forms.TableLayoutPanel tlp_Content;
-        private System.Windows.Forms.FlowLayoutPanel panel_Content;
         private System.Windows.Forms.TableLayoutPanel tlp_Toolbar;
         private System.Windows.Forms.ToolStrip ts_FolderTools;
         private System.Windows.Forms.ToolStripButton tsb_File;
@@ -591,5 +644,9 @@ namespace Explorer_Tools
         private System.Windows.Forms.Button btn_ShowTools;
         private System.Windows.Forms.ComboBox cb_FilterType;
         private System.Windows.Forms.FlowLayoutPanel flp_Filters;
+        private System.Windows.Forms.Label lb_Selected;
+        private System.Windows.Forms.TableLayoutPanel tlp_ContentDivider;
+        private System.Windows.Forms.FlowLayoutPanel panel_Folders;
+        private System.Windows.Forms.FlowLayoutPanel panel_Content;
     }
 }

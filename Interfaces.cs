@@ -13,9 +13,13 @@ namespace Explorer_Tools
     public interface IRegisteredColor
     {
         public void UpdateVisuals();
-        public void Register(ColorReg reg, IRegisteredColor invoker)
+        public void Register(ColorReg reg, IRegisteredColor invoker, md_File md)
         {
-            ColorRegistry.RegisterColor(reg, invoker);
+            ColorRegistry.RegisterColor(reg, invoker, md);
+        }
+        public void Register(ColorReg reg, IRegisteredColor invoker, md_Folder md)
+        {
+            ColorRegistry.RegisterColor(reg, invoker, md);
         }
     }
 
@@ -62,6 +66,7 @@ namespace Explorer_Tools
 
     public interface IDisplayForm
     {
+        public List<StyleOptions.ColorSlot> Palette { get; set; }
         public string DisplayName { get; set; }
         public IView OwningView { get; set; }
         public List<IIcon> SelectedItems { get; set; }

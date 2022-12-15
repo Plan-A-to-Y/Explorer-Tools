@@ -127,6 +127,7 @@ namespace Explorer_Tools
             // 
             // tb_ThumbText
             // 
+            this.tb_ThumbText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tb_ThumbText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tb_ThumbText.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.tb_ThumbText.Location = new System.Drawing.Point(183, 0);
@@ -136,6 +137,7 @@ namespace Explorer_Tools
             this.tb_ThumbText.ReadOnly = true;
             this.tb_ThumbText.Size = new System.Drawing.Size(130, 30);
             this.tb_ThumbText.TabIndex = 6;
+            this.tb_ThumbText.Tag = "Fore:ST Back:S";
             this.tb_ThumbText.Text = "NO DATA";
             this.tb_ThumbText.TextChanged += new System.EventHandler(this.tb_ThumbText_TextChanged);
             // 
@@ -149,6 +151,7 @@ namespace Explorer_Tools
             this.btn_Expand.Name = "btn_Expand";
             this.btn_Expand.Size = new System.Drawing.Size(30, 30);
             this.btn_Expand.TabIndex = 7;
+            this.btn_Expand.Tag = "Fore:ST Back:S";
             this.btn_Expand.Text = "↓";
             this.btn_Expand.UseVisualStyleBackColor = false;
             this.btn_Expand.Click += new System.EventHandler(this.btn_Expand_Click);

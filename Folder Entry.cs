@@ -33,7 +33,7 @@ namespace Explorer_Tools
             FolderId = Meta.FolderId;
             InitializeComponent();
             UpdateVisuals();
-            ColorRegistry.RegisterColor(new ColorReg(), this);
+            ColorRegistry.RegisterColor(new ColorReg(), this, Meta);
         }
         public FolderEntry(string folderPath)
         {
@@ -45,7 +45,7 @@ namespace Explorer_Tools
             btn_FolderIcon.Image = Image.FromFile(Meta.IconPath);
             rtb_FolderInfo.Hide();
             UpdateVisuals();
-            ColorRegistry.RegisterColor(new ColorReg(), this);
+            ColorRegistry.RegisterColor(new ColorReg(), this, Meta);
         }
 
         public void GetDesc()
@@ -190,16 +190,16 @@ namespace Explorer_Tools
 
         public void UpdateVisuals()
         {
-            btn_Select.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Primary);
-            BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Background);
-            btn_Select.ForeColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.TextColor);
+            StyleOptions.ApplyColorTags(this, Meta.FormColors, Owner);
+            btn_Select.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Primary, Owner);
+            BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Background, Owner);
+            btn_Select.ForeColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.TextColor, Owner);
             btn_Select.FlatAppearance.BorderColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Secondary);
             if (!Meta.ScanDate.Equals(DateTime.MinValue)) {
                 if (Directory.GetLastWriteTime(FolderPath).CompareTo(Meta.ScanDate) > 0) {
                     tt.SetToolTip(tb_ThumbText, "Scan outdated as of at least " + (DateTime.Now - Directory.GetLastWriteTime(FolderPath)).ToString(@"d\dh\hm\m") + " ago");
                     tb_ThumbText.BackColor = Color.Pink;
                 }
-                else { tb_ThumbText.BackColor = Color.White; }
             }
             GetDesc();
             
@@ -213,7 +213,11 @@ namespace Explorer_Tools
         private void btn_Select_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) { Owner.SelectItem(this); }
-            else if (e.Button == MouseButtons.Right) { ((Folder_Explorer)Owner).StandardView.OpenFolderView(FolderPath); }
+            else if (e.Button == MouseButtons.Right)
+            {
+                if (Owner is Folder_Explorer) { ((Folder_Explorer)Owner).StandardView.OpenFolderView(FolderPath); }
+                else if (Owner is Folder_Contents) { ((Folder_Contents)Owner).DisplayContents(FolderPath); }
+            }
         }
 
         private void btn_Options_Click(object sender, EventArgs e)

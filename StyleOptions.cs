@@ -144,29 +144,56 @@ namespace Explorer_Tools
         }
 
 
-        public static Color GetColor(string Path, colorSlot @override)
+        public static Color GetColor(string Path, colorSlot @override, IDisplayForm owner = null)
         {
             string colorvalue = "§";
             if (Directory.Exists(Path)) colorvalue = Metadata.FindFolderData(Path).FormColors.Find(x => x.Slot == @override).ColorString;
             else if (File.Exists(Path)) colorvalue = Metadata.FindFileData(Path).FormColors.Find(x => x.Slot == @override).ColorString;
 
-            if (colorvalue.Equals("§")) return Metadata.DefaultColors.Find(x => x.Slot == @override).Color;
+            if (colorvalue.Equals("§"))
+            {
+                if(!(owner is null)) { return owner.Palette.Find(x => x.Slot.Equals(@override)).Color; }
+                return Metadata.DefaultColors.Find(x => x.Slot == @override).Color;
+            }
             //if ()
             else return ColorFromString(colorvalue);
         }
 
-        public static Color GetColor(md_Folder md, colorSlot @override)
+
+
+        public static Color GetColor(md_Folder md, colorSlot @override, IDisplayForm owner = null)
         {
             string colorvalue = "§";
             colorvalue = md.FormColors.Find(x => x.Slot == @override).ColorString;
-            if (colorvalue.Equals("§")) return Metadata.DefaultColors.Find(x => x.Slot == @override).Color;
+            if (colorvalue.Equals("§"))
+            {
+                if (!(owner is null)) { return owner.Palette.Find(x => x.Slot.Equals(@override)).Color; }
+
+                return Metadata.DefaultColors.Find(x => x.Slot == @override).Color;
+            }
             else return ColorFromString(colorvalue);
         }
-        public static Color GetColor(md_File md, colorSlot @override)
+        public static Color GetColor(List<ColorSlot> Palette, colorSlot @override, IDisplayForm owner = null)
+        {
+            string colorvalue = "§";
+            colorvalue = Palette.Find(x => x.Slot == @override).ColorString;
+            if (colorvalue.Equals("§"))
+            {
+                if (!(owner is null)) { return owner.Palette.Find(x => x.Slot.Equals(@override)).Color; }
+
+                return Metadata.DefaultColors.Find(x => x.Slot == @override).Color;
+            }
+            else return ColorFromString(colorvalue);
+        }
+        public static Color GetColor(md_File md, colorSlot @override, IDisplayForm owner = null)
         {
             string colorvalue = "§";
             colorvalue = md.FormColors.Find(x => x.Slot == @override).ColorString;
-            if (colorvalue.Equals("§")) return Metadata.DefaultColors.Find(x => x.Slot == @override).Color;
+            if (colorvalue.Equals("§"))
+            {
+                if (!(owner is null)) { return owner.Palette.Find(x => x.Slot.Equals(@override)).Color; }
+                return Metadata.DefaultColors.Find(x => x.Slot == @override).Color;
+            }
             else return ColorFromString(colorvalue);
         }
         public static Color GetColor(colorSlot @override)
@@ -176,6 +203,7 @@ namespace Explorer_Tools
 
         public static Color ColorFromString(string input)
         {
+
             if(input == null) { return Color.Red; }
             string[] SplitIn = input.Split('|');
             return Color.FromArgb(int.Parse(SplitIn[3]), int.Parse(SplitIn[0]), int.Parse(SplitIn[1]), int.Parse(SplitIn[2]));
@@ -186,7 +214,7 @@ namespace Explorer_Tools
             return $"{input.R}|{input.G}|{input.B}|{input.A}";
         }
 
-        public static void ApplyColorTags(Control Target)
+        public static void ApplyColorTags(Control Target, List<ColorSlot> Palette, IDisplayForm owner = null)
         {
             List<Control> AllCon = new List<Control>();
             Queue<Control> ToSearch = new Queue<Control>();
@@ -218,27 +246,93 @@ namespace Explorer_Tools
                         switch (c.Tag.ToString())
                         {
                             case string a when a.Contains(slot + ":ST"):
-                                col = StyleOptions.GetColor(StyleOptions.colorSlot.SecondaryTextColor);
+                                col = StyleOptions.GetColor(Palette, StyleOptions.colorSlot.SecondaryTextColor, owner);
                                 Valid = true;
                                 break;
                             case string a when a.Contains(slot + ":P"):
-                                col = StyleOptions.GetColor(StyleOptions.colorSlot.Primary);
+                                col = StyleOptions.GetColor(Palette, StyleOptions.colorSlot.Primary, owner);
                                 Valid = true;
                                 break;
                             case string a when a.Contains(slot + ":S"):
-                                col = StyleOptions.GetColor(StyleOptions.colorSlot.Secondary);
+                                col = StyleOptions.GetColor(Palette, StyleOptions.colorSlot.Secondary, owner);
                                 Valid = true;
                                 break;
                             case string a when a.Contains(slot + ":T"):
-                                col = StyleOptions.GetColor(StyleOptions.colorSlot.Tertiary);
+                                col = StyleOptions.GetColor(Palette, StyleOptions.colorSlot.Tertiary, owner);
                                 Valid = true;
                                 break;
                             case string a when a.Contains(slot + ":B"):
-                                col = StyleOptions.GetColor(StyleOptions.colorSlot.Background);
+                                col = StyleOptions.GetColor(Palette, StyleOptions.colorSlot.Background, owner);
                                 Valid = true;
                                 break;
                             case string a when a.Contains(slot + ":F"):
-                                col = StyleOptions.GetColor(StyleOptions.colorSlot.TextColor);
+                                col = StyleOptions.GetColor(Palette, StyleOptions.colorSlot.TextColor, owner);
+                                Valid = true;
+                                break;
+
+                        }
+                    }
+                    if (Valid && slot.Equals("Fore")) c.ForeColor = col;
+                    if (Valid && slot.Equals("Back")) c.BackColor = col;
+                    if (Valid && slot.Equals("BtnBorder")) ((Button)c).FlatAppearance.BorderColor = col;
+                }
+
+            }
+        }
+
+        public static void ApplyColorTags(Control Target, md_Folder meta)
+        {
+            List<Control> AllCon = new List<Control>();
+            Queue<Control> ToSearch = new Queue<Control>();
+            foreach (Control c in Target.Controls)
+            {
+                AllCon.Add(c);
+                ToSearch.Enqueue(c);
+            }
+            while (ToSearch.Count > 0)
+            {
+                Control Searching = ToSearch.Dequeue();
+                foreach (Control d in Searching.Controls)
+                {
+                    if (!AllCon.Contains(d)) AllCon.Add(d);
+                    ToSearch.Enqueue(d);
+                }
+            }
+
+            foreach (Control c in AllCon)
+            {
+                List<string> slots = new List<string> { "Fore", "Back", "BtnBorder", "TabHeader" };
+                foreach (string slot in slots)
+                {
+                    if (c.Tag is null) continue;
+                    bool Valid = false;
+                    Color col = Color.White;
+                    if (c.Tag.ToString().Contains(slot))
+                    {
+                        switch (c.Tag.ToString())
+                        {
+                            case string a when a.Contains(slot + ":ST"):
+                                col = StyleOptions.GetColor(meta, StyleOptions.colorSlot.SecondaryTextColor);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":P"):
+                                col = StyleOptions.GetColor(meta, StyleOptions.colorSlot.Primary);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":S"):
+                                col = StyleOptions.GetColor(meta, StyleOptions.colorSlot.Secondary);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":T"):
+                                col = StyleOptions.GetColor(meta, StyleOptions.colorSlot.Tertiary);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":B"):
+                                col = StyleOptions.GetColor(meta, StyleOptions.colorSlot.Background);
+                                Valid = true;
+                                break;
+                            case string a when a.Contains(slot + ":F"):
+                                col = StyleOptions.GetColor(meta, StyleOptions.colorSlot.TextColor);
                                 Valid = true;
                                 break;
 

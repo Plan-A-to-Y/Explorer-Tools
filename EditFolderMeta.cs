@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static Explorer_Tools.ColorRegistry;
 using static Explorer_Tools.StyleOptions;
 
 namespace Explorer_Tools
@@ -37,13 +39,17 @@ namespace Explorer_Tools
             flp_ColorSlots.Controls.Clear();
             foreach(StyleOptions.ColorSlot cs in md.FormColors)
             {
+                if(cs.DisplayName is null) { continue; }
                 RadioButton rb = new RadioButton();
                 rb.Text = cs.DisplayName;
                 rb.Tag = cs.Slot;
                 rb.CheckedChanged += SelectedParamChanged;
                 flp_ColorSlots.Controls.Add(rb);
             }
-
+            foreach (KnownColor kc in Enum.GetValues(typeof(KnownColor)))
+            {
+                cb_ColorPreset.Items.Add(kc.ToString());
+            }
             SCString = "0|0|0|255";
         }
         private void button1_Click(object sender, EventArgs e)
@@ -68,21 +74,21 @@ namespace Explorer_Tools
 
         private void MatchColorToFile()
         {
-            SCString = Active.ColorString;
-            label1.Text = SCString;
+            SCString = StringFromColor(GetColor(md, Active.Slot));
             UpdateColor();
         }
 
         private void UpdateColor()
         {
-            tb_R.Value = int.Parse(SCString.Split("|")[0]);
-            tb_G.Value = int.Parse(SCString.Split("|")[1]);
-            tb_B.Value = int.Parse(SCString.Split("|")[2]);
+            tb_R.Value = StyleOptions.ColorFromString(SCString).R;
+            tb_G.Value = StyleOptions.ColorFromString(SCString).G;
+            tb_B.Value = StyleOptions.ColorFromString(SCString).B;
             pn_PreviewColor.BackColor = StyleOptions.ColorFromString(SCString);
             Active.UpdateColor(SCString);
             md.FormColors.Remove(Active);
             md.FormColors.Add(Active);
             Metadata.UpdateFolderData(md);
+            Owner.Preview.UpdateVisuals();
         }
 
         private string SelectedColor()
@@ -93,9 +99,7 @@ namespace Explorer_Tools
         private void TB_ValueChanged(object sender, EventArgs e)
         {
             SCString = SelectedColor();
-            label1.Text = SCString;
             UpdateColor();
-            Owner.Preview.UpdateVisuals();
         }
 
         private void btn_Preview_Click(object sender, EventArgs e)
@@ -105,9 +109,14 @@ namespace Explorer_Tools
 
         private void btn_Apply_Click(object sender, EventArgs e)
         {
+            foreach( RCEntry r in (from c in ColorRegistry.RegisteredColors where c is RCEntry_Folder && (c as RCEntry_Folder).FolderPath.Equals(md.FolderPath) select c))
+            {
+                r.CR.RegType = ColorRegType.Custom;
+            }
             Metadata.UpdateFolderData(md);
             Metadata.SaveData();
             Init = md;
+            ColorRegistry.RefreshCategory(ColorRegType.Custom);
         }
 
         private void btn_Revert_Click(object sender, EventArgs e)
@@ -117,6 +126,13 @@ namespace Explorer_Tools
             MatchColorToFile();
             SCString = $"{tb_R.Value}|{tb_G.Value}|{tb_B.Value}|255";
             Owner.Preview.UpdateVisuals();
+        }
+
+        private void cb_ColorPreset_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Color newcol = Color.FromKnownColor(Enum.Parse<KnownColor>(cb_ColorPreset.SelectedItem.ToString()));
+            SCString = $"{newcol.R}|{newcol.G}|{newcol.B}|255";
+            UpdateColor();
         }
     }
 }

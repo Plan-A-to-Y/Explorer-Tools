@@ -53,8 +53,8 @@ namespace Explorer_Tools
             this.tlp_Main.BackColor = System.Drawing.Color.Transparent;
             this.tlp_Main.ColumnCount = 5;
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlp_Main.Controls.Add(this.lb_FileName, 1, 0);
@@ -70,20 +70,21 @@ namespace Explorer_Tools
             this.tlp_Main.RowCount = 2;
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp_Main.Size = new System.Drawing.Size(200, 132);
+            this.tlp_Main.Size = new System.Drawing.Size(350, 132);
             this.tlp_Main.TabIndex = 0;
             this.tlp_Main.Click += new System.EventHandler(this.SelectionClick);
             // 
             // lb_FileName
             // 
-            this.lb_FileName.AutoEllipsis = true;
             this.lb_FileName.AutoSize = true;
             this.lb_FileName.BackColor = System.Drawing.Color.Transparent;
             this.lb_FileName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_FileName.Location = new System.Drawing.Point(30, 0);
             this.lb_FileName.Margin = new System.Windows.Forms.Padding(0);
+            this.lb_FileName.MaximumSize = new System.Drawing.Size(200, 0);
+            this.lb_FileName.MinimumSize = new System.Drawing.Size(200, 0);
             this.lb_FileName.Name = "lb_FileName";
-            this.lb_FileName.Size = new System.Drawing.Size(65, 32);
+            this.lb_FileName.Size = new System.Drawing.Size(200, 32);
             this.lb_FileName.TabIndex = 0;
             this.lb_FileName.Tag = "";
             this.lb_FileName.Text = "FILE_NAME";
@@ -96,7 +97,7 @@ namespace Explorer_Tools
             // 
             this.btn_Interact.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Interact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Interact.Location = new System.Drawing.Point(140, 0);
+            this.btn_Interact.Location = new System.Drawing.Point(290, 0);
             this.btn_Interact.Margin = new System.Windows.Forms.Padding(0);
             this.btn_Interact.MinimumSize = new System.Drawing.Size(30, 30);
             this.btn_Interact.Name = "btn_Interact";
@@ -124,7 +125,7 @@ namespace Explorer_Tools
             // 
             this.btn_Details.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Details.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Details.Location = new System.Drawing.Point(170, 0);
+            this.btn_Details.Location = new System.Drawing.Point(320, 0);
             this.btn_Details.Margin = new System.Windows.Forms.Padding(0);
             this.btn_Details.Name = "btn_Details";
             this.btn_Details.Size = new System.Drawing.Size(30, 32);
@@ -142,10 +143,10 @@ namespace Explorer_Tools
             this.btn_DetailList.FlatAppearance.BorderSize = 0;
             this.btn_DetailList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_DetailList.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_DetailList.Location = new System.Drawing.Point(95, 0);
+            this.btn_DetailList.Location = new System.Drawing.Point(230, 0);
             this.btn_DetailList.Margin = new System.Windows.Forms.Padding(0);
             this.btn_DetailList.Name = "btn_DetailList";
-            this.btn_DetailList.Size = new System.Drawing.Size(45, 32);
+            this.btn_DetailList.Size = new System.Drawing.Size(60, 32);
             this.btn_DetailList.TabIndex = 4;
             this.btn_DetailList.Tag = "Fore:ST Back:S BtnBorder:T";
             this.btn_DetailList.Text = "Details 1\r\nDetails 2\r\n";
@@ -167,7 +168,7 @@ namespace Explorer_Tools
             this.tlp_Details.RowCount = 2;
             this.tlp_Details.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Details.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlp_Details.Size = new System.Drawing.Size(200, 100);
+            this.tlp_Details.Size = new System.Drawing.Size(350, 100);
             this.tlp_Details.TabIndex = 5;
             // 
             // rtb_Details
@@ -177,7 +178,7 @@ namespace Explorer_Tools
             this.rtb_Details.Location = new System.Drawing.Point(0, 25);
             this.rtb_Details.Margin = new System.Windows.Forms.Padding(0);
             this.rtb_Details.Name = "rtb_Details";
-            this.rtb_Details.Size = new System.Drawing.Size(200, 75);
+            this.rtb_Details.Size = new System.Drawing.Size(350, 75);
             this.rtb_Details.TabIndex = 5;
             this.rtb_Details.Text = "Notes for this file can be entered here for later use";
             this.rtb_Details.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.rtb_Details_ContentsResized);
@@ -192,7 +193,7 @@ namespace Explorer_Tools
             this.flp_Details.Location = new System.Drawing.Point(0, 0);
             this.flp_Details.Margin = new System.Windows.Forms.Padding(0);
             this.flp_Details.Name = "flp_Details";
-            this.flp_Details.Size = new System.Drawing.Size(200, 25);
+            this.flp_Details.Size = new System.Drawing.Size(350, 25);
             this.flp_Details.TabIndex = 6;
             // 
             // lb_DetailsPlaceholder
@@ -222,9 +223,9 @@ namespace Explorer_Tools
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.tlp_Main);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.MinimumSize = new System.Drawing.Size(200, 30);
+            this.MinimumSize = new System.Drawing.Size(350, 30);
             this.Name = "File_Entry";
-            this.Size = new System.Drawing.Size(200, 132);
+            this.Size = new System.Drawing.Size(350, 132);
             this.Load += new System.EventHandler(this.FileEntry_Load);
             this.tlp_Main.ResumeLayout(false);
             this.tlp_Main.PerformLayout();

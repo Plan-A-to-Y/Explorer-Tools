@@ -97,7 +97,7 @@ namespace Explorer_Tools
 
         public void UpdateVisuals()
         {
-            ApplyColorTags(this);
+            ApplyColorTags(this, Metadata.DefaultColors);
             Refresh();
             PreviewEnabled = false;
         }

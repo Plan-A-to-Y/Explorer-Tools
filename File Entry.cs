@@ -36,7 +36,7 @@ namespace Explorer_Tools
             FilePath = filePath;
             InitializeComponent();
             Meta = FindFileData(filePath);
-            ColorRegistry.RegisterColor(new ColorReg(), this);
+            ColorRegistry.RegisterColor(new ColorReg(), this, Meta);
             ((IIcon)this).IcoName = Meta.DisplayName;
             UpdateVisuals();
         }
@@ -119,16 +119,16 @@ namespace Explorer_Tools
 
         public void UpdateVisuals()
         {
-            lb_FileName.ForeColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.TextColor);
-            lb_FileName.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Primary);
+            lb_FileName.ForeColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.TextColor, Owner);
+            lb_FileName.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Primary, Owner);
 
-            btn_Details.ForeColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.TextColor);
-            btn_Details.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Secondary);
+            btn_Details.ForeColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.TextColor, Owner);
+            btn_Details.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Secondary, Owner);
 
-            btn_Interact.ForeColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.TextColor);
-            btn_Interact.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Secondary);
+            btn_Interact.ForeColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.TextColor, Owner);
+            btn_Interact.BackColor = StyleOptions.GetColor(Meta, StyleOptions.colorSlot.Secondary, Owner);
 
-            StyleOptions.ApplyColorTags(this);
+            StyleOptions.ApplyColorTags(this, Meta.FormColors, Owner);
         }
 
         private void rtb_Details_ContentsResized(object sender, ContentsResizedEventArgs e)

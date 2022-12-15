@@ -22,12 +22,13 @@ namespace Explorer_Tools
         public List<string> ImageTypes = new List<string> { "IGNORE" }; //{ ".bmp", ".png", ".jpg", ".jpeg", ".gif" };
         public List<string> TextTypes = new List<string> { "IGNORE" }; //{ ".txt" };
         public List<string> DocTypes = new List<string> { "IGNORE" }; //{ ".docx" };
+        public List<ColorSlot> Palette { get; set; }
         public SortTypes Sort = SortTypes.Name;
         public bool IsSelected { get; set; }
         public string FolderPath { get; set; }
         public int FolderId { get; set; }
         List<ColorSlot> StyleWindow.FormColors { get { return Metadata.FindFolderData(FolderPath).FormColors; } set { Metadata.FindFolderData(FolderPath).FormColors = value; } }
-        List<IIcon> IDisplayForm.SelectedItems { get; set; }
+        public List<IIcon> SelectedItems { get; set; }
         public bool isSelected { get; set; }
         public IView OwningView { get; set; }
 
@@ -42,6 +43,7 @@ namespace Explorer_Tools
             InitializeComponent();
             FolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             md = FindFolderData(FolderPath);
+            Palette = md.FormColors;
             this.TopLevel = false;
             ((IDisplayForm)this).SelectedItems = new List<IIcon>();
             SortButton SB_Name = new SortButton(SortTypes.Name, this);
@@ -58,7 +60,8 @@ namespace Explorer_Tools
             SB_Date.Text = "Date Modified";
             SB_Date.Click += SortBy;
             tsb_Edit.DropDownItems.Add(SB_Date);
-            ColorRegistry.RegisterColor(new ColorReg(), this);
+            md = FindFolderData(FolderPath);
+            ColorRegistry.RegisterColor(new ColorReg(), this, md);
             tlp_Filters.Hide();
             panel_Content.Refresh();
             cb_FilterType.DataSource = FilterCriteria;
@@ -74,6 +77,7 @@ namespace Explorer_Tools
             ((IIcon)iEntry).Owner = this;
             panel_Content.Controls.Add(iEntry);
             iEntry.MouseMove += ClickAndDrag;
+            ((IRegisteredColor)iEntry).UpdateVisuals();
             iEntry.Show();
         }
 
@@ -196,6 +200,7 @@ namespace Explorer_Tools
                 FolderId = md.FolderId;
                 FolderPath = Path;
                 panel_Content.Controls.Clear();
+                Palette = md.FormColors;
                 string[] files = Directory.GetFiles(FolderPath);
                 if (order == SortTypes.Name) { files = (from f in files orderby f.First() select f).ToArray<string>(); }
                 else if (order == SortTypes.Size) { files = (from f in files orderby new FileInfo(f).Length descending select f).ToArray<string>(); }
@@ -231,30 +236,32 @@ namespace Explorer_Tools
                     iEntry = new File_Entry(file, this);
                     ((IIcon)iEntry).Owner = this;
                     panel_Content.Controls.Add(iEntry);
+                    ((IRegisteredColor)iEntry).UpdateVisuals();
                     iEntry.Show();
                 }
             }
+            Palette = md.FormColors;
             panel_Content.Refresh();
+            panel_Folders.Controls.Clear();
+            foreach(string Folder in Directory.GetDirectories(FolderPath))
+            {
+                FolderEntry fEntry = new FolderEntry(Folder);
+                ((IIcon)fEntry).Owner = this;
+                panel_Folders.Controls.Add(fEntry);
+                ((IRegisteredColor)fEntry).UpdateVisuals();
+                fEntry.Show();
+            }
             UpdateVisuals();
         }
 
         public void UpdateVisuals()
         {
+            ApplyColorTags(this, md);
             tlp_Header.BackColor = GetColor(md, colorSlot.Primary);
             ts_FolderTools.BackColor = GetColor(md, colorSlot.Primary);
             btn_ShowFilters.BackColor = GetColor(md, colorSlot.Primary);
             tlp_Filters.BackColor = GetColor(md, colorSlot.Primary);
             btn_ShowTools.BackColor = GetColor(md, colorSlot.Primary);
-
-            pn_BottomBorder.BackColor = GetColor(md, colorSlot.Secondary);
-            pn_TopBorder.BackColor = GetColor(md, colorSlot.Secondary);
-            pn_LeftBorder.BackColor = GetColor(md, colorSlot.Secondary);
-            pn_RightBorder.BackColor = GetColor(md, colorSlot.Secondary);
-
-            pn_TopLeft.BackColor = GetColor(md, colorSlot.Tertiary);
-            pn_TopRight.BackColor = GetColor(md, colorSlot.Tertiary);
-            pn_BottomLeft.BackColor = GetColor(md, colorSlot.Tertiary);
-            pn_BottomRight.BackColor = GetColor(md, colorSlot.Tertiary);
 
             panel_Content.BackColor = GetColor(md, colorSlot.Background);
 
@@ -267,6 +274,15 @@ namespace Explorer_Tools
             ((MyRenderer)ts_FolderTools.Renderer).SetArrowColor(GetColor(md, colorSlot.TextColor));
 
             tlp_Content.BackColor = GetColor(md, colorSlot.Tertiary);
+
+            foreach (Control c in panel_Content.Controls)
+            {
+                if(c is IRegisteredColor) { ((IRegisteredColor)c).UpdateVisuals(); }
+            }
+            foreach (Control c in panel_Folders.Controls)
+            {
+                if (c is IRegisteredColor) { ((IRegisteredColor)c).UpdateVisuals(); }
+            }
         }
 
         public class MyRenderer : ToolStripRenderer
@@ -651,21 +667,65 @@ namespace Explorer_Tools
             MessageBox.Show(result);
         }
 
+        public void SelectFile(IFileIcon File)
+        {
+            SelectItem(File as IIcon);
+        }
         public void SelectItem(IIcon ToSelect)
         {
-            File_Entry toSelect = ToSelect as File_Entry;
-            OwningView.ActiveDisplayForm = this;
-            //MessageBox.Show("Folder Contents has recieved selection event");
-            toSelect.lb_FileName.BackColor = Highlight(toSelect.lb_FileName.BackColor);
-            ((IDisplayForm)this).SelectedItems.Add(ToSelect);
+            if (SelectedItems.Contains(ToSelect))
+            {
+                if (SelectedItems.Count == 1 || ModifierKeys.HasFlag(Keys.Control)) { DeselectItem(ToSelect); return; }
+            }
+            if (ToSelect is File_Entry)
+            {
+                if (ModifierKeys.HasFlag(Keys.Control))
+                {
+                    File_Entry toSelect = ToSelect as File_Entry;
+                    OwningView.ActiveDisplayForm = this;
+                    //MessageBox.Show("Folder Contents has recieved selection event");
+                    toSelect.lb_FileName.BackColor = Highlight(toSelect.lb_FileName.BackColor);
+                    ((IDisplayForm)this).SelectedItems.Add(ToSelect);
+                }
+                else
+                {
+                    (this as IDisplayForm).DeselectAll(SelectedItems);
+                    File_Entry toSelect = ToSelect as File_Entry;
+                    OwningView.ActiveDisplayForm = this;
+                    //MessageBox.Show("Folder Contents has recieved selection event");
+                    toSelect.lb_FileName.BackColor = Highlight(toSelect.lb_FileName.BackColor);
+                    ((IDisplayForm)this).SelectedItems.Add(ToSelect);
+                }
+            }
+            if (ToSelect is IFolderIcon)
+            {
+                IFolderIcon IFI = ToSelect as IFolderIcon;
+                FolderPath = IFI.FolderPath;
+                DisplayContents(FolderPath);
+            }
+            if (SelectedItems.Count > 0) lb_Selected.Text = $"{SelectedItems.Count} Items Selected";
+            else lb_Selected.Text = "";
+            return;
         }
 
         public void DeselectItem(IIcon ToRemove)
         {
-            File_Entry toDeselect = ToRemove as File_Entry;
-            //MessageBox.Show("Folder Contents has recieved Deselection event");
-            toDeselect.UpdateVisuals();
-            ((IDisplayForm)this).SelectedItems.Remove(ToRemove);
+            if (ToRemove is File_Entry)
+            {
+                File_Entry toDeselect = ToRemove as File_Entry;
+                //MessageBox.Show("Folder Contents has recieved Deselection event");
+                toDeselect.UpdateVisuals();
+                ((IDisplayForm)this).SelectedItems.Remove(ToRemove);
+            }
+            else MessageBox.Show("Non-fileEntry has been selected");
+            if (SelectedItems.Count > 0) lb_Selected.Text = $"{SelectedItems.Count} Items Selected";
+            else lb_Selected.Text = "";
+        }
+
+        public void SelectFolder(IFolderIcon Folder)
+        {
+            FolderPath = Folder.FolderPath;
+            DisplayContents(FolderPath);
         }
 
         public void RemoveItem(IIcon ToRemove)

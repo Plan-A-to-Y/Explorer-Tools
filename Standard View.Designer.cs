@@ -148,6 +148,7 @@ namespace Explorer_Tools
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(120, 94);
             this.listBox2.TabIndex = 2;
+            this.listBox2.Visible = false;
             // 
             // listBox1
             // 
@@ -157,6 +158,7 @@ namespace Explorer_Tools
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(120, 94);
             this.listBox1.TabIndex = 0;
+            this.listBox1.Visible = false;
             // 
             // tabs_Sidebar
             // 

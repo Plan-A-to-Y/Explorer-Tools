@@ -20,6 +20,7 @@ namespace Explorer_Tools
         public List<IIcon> SelectedItems { get; set; }
         public IView OwningView { get; set; }
 
+        public List<ColorSlot> Palette { get { return Metadata.FindFolderData(CurrentDirectory).FormColors; } set { } }
         public Folder_Explorer()
         {
             CurrentDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -40,7 +41,7 @@ namespace Explorer_Tools
             InitializeComponent();
             SelectedItems = new List<IIcon>();
             Populate();
-            ColorRegistry.RegisterColor(new ColorReg(), this);
+            ColorRegistry.RegisterColor(new ColorReg(), this, Metadata.FindFolderData(CurrentDirectory));
             UpdateVisuals();
         }
 
